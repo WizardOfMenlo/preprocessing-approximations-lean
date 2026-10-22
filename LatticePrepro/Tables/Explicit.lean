@@ -1,3 +1,4 @@
+import LatticePrepro.Basic.Nat
 import LatticePrepro.Moments.Representation
 import LatticePrepro.Verifier.Quadratic
 import LatticePrepro.Tables.Digits
@@ -19,7 +20,10 @@ over `K` with
 * `D = q` blocks of size `b = q^m`, where `q` is a power of `p` with
   `B ≤ q < 8 · p^3 · m · S · B`.
 
-The represented coefficient functions live on an algebraic closure `Ω` of `K`.
+As in Construction A.4, `K = 𝕊(γ)` has degree `δ` over the sample field `𝕊` of size `q`, where
+`δ` is the least power of `p` with `δ ≥ S` and `q` is the least power of `p` with
+`q ≥ 8 p m B δ`. The represented coefficient functions live on an algebraic closure `Ω` of `K`.
+The output is bundled as an `ExplicitMomentRepresentation`.
 
 The ingredients are the construction (`Tables/Construction.lean`), completeness through the
 element tables (`Tables/ElementTable.lean`), the rank analysis of the polynomial matrix
@@ -34,12 +38,13 @@ namespace ExplicitTables
 
 variable {p : ℕ} [Fact p.Prime] {d : ℕ}
 
-/-- The encoding tuple `(0, 1, γ, …, γ^{S-1})` of a field setup of degree `S`. -/
-noncomputable def encodingTuple {S : ℕ} (FS : FieldSetup p d S) : EncodingTuple p FS.K S where
+/-- The encoding tuple `(0, 1, γ, …, γ^{S-1})` of a field setup of degree `δ ≥ S`. -/
+noncomputable def encodingTuple {S δ : ℕ} (FS : FieldSetup p d δ) (hS : S ≤ δ) :
+    EncodingTuple p FS.K S where
   E := fun i => if i = 0 then 0 else FS.γ ^ (i.val - 1)
   E_zero := by simp
   linearIndependent := by
-    have := FS.linearIndependent_pow_zmod
+    have := FS.linearIndependent_pow_zmod.comp (Fin.castLE hS) (Fin.castLE_injective hS)
     convert this using 1
     funext i
     simp [Fin.succ_ne_zero]
@@ -124,82 +129,83 @@ noncomputable def rep (hB : 2 ≤ B) (hm : 1 ≤ m)
   card_fiber := card_fiber_snd FS m
   W := ConstrW FS m B
   constraint := constraintₗ FS m B
-  momentMap := momₗ FS m B
+  momentMap := fun k => momₗ FS m B k
   complete := fun α => by
     have hΔ' : degBound p m B δ < Fintype.card FS.𝕊 := by omega
     obtain ⟨h1, h2, h3, h4⟩ := elemTab_complete (FS := FS) hB hm hΔ' α
-    exact ⟨elemTab FS m B α, h1, h2, h3, h4⟩
-  sound := fun y hy hw => rep_sound hB hm hΔ y hy hw
-
-/-- A power of `p` in a prescribed range. -/
-lemma exists_pow_between {p N : ℕ} (hp : 2 ≤ p) (hN : 2 ≤ N) :
-    ∃ d, 1 ≤ d ∧ N ≤ p ^ d ∧ p ^ d < p * N := by
-  classical
-  have hex : ∃ d, N ≤ p ^ d := ⟨N, (Nat.lt_pow_self (by omega : 1 < p)).le⟩
-  let d := Nat.find hex
-  have hd : N ≤ p ^ d := Nat.find_spec hex
-  have hd1 : 1 ≤ d := by
-    by_contra h0
-    have h0' : d = 0 := by omega
-    rw [h0', pow_zero] at hd
-    omega
-  have hmin : ¬ N ≤ p ^ (d - 1) := Nat.find_min hex (by omega)
-  refine ⟨d, hd1, hd, ?_⟩
-  have hsplit : p ^ d = p * p ^ (d - 1) := by
-    rw [← pow_succ']
-    congr 1
-    omega
-  rw [hsplit]
-  exact (Nat.mul_lt_mul_left (by omega)).mpr (by omega)
+    exact ⟨elemTab FS m B α, h1, h2, h3, fun k => h4 k (by have := k.isLt; omega)⟩
+  sound := fun y hy hw => by
+    obtain ⟨f, hf, hcard⟩ := rep_sound hB hm hΔ y hy hw
+    exact ⟨f, fun k => hf k (by have := k.isLt; omega), hcard⟩
 
 end ExplicitTables
 
+/-- The output of Theorem A.7: a field `K` of characteristic `p`, an encoding tuple of length `S`
+over `K`, and a moment representation over `K` with `r = B^m` and `q` blocks of size `q^m`, where
+`q` is a power of `p` with `B ≤ q < 8 p^3 m S B`. -/
+structure ExplicitMomentRepresentation (p : ℕ) [Fact p.Prime] (S m B : ℕ) where
+  /-- The moment field. -/
+  K : Type
+  [fieldK : Field K]
+  [algK : Algebra (ZMod p) K]
+  /-- The encoding tuple `(0, 1, γ, …, γ^{S-1})`. -/
+  ε : EncodingTuple p K S
+  /-- The moment representation; coefficient functions live on an algebraic closure of `K`. -/
+  R : MomentRepresentation p K (AlgebraicClosure K)
+  /-- The sample field size `q`, which is the number of blocks. -/
+  q : ℕ
+  r_eq : R.r = B ^ m
+  numBlocks_eq : R.numBlocks = q
+  blockSize_eq : R.blockSize = q ^ m
+  q_eq_pow : ∃ d : ℕ, 1 ≤ d ∧ q = p ^ d
+  le_q : B ≤ q
+  q_lt : q < 8 * p ^ 3 * m * S * B
+
+attribute [instance] ExplicitMomentRepresentation.fieldK ExplicitMomentRepresentation.algK
+
 open ExplicitTables in
-set_option linter.unusedVariables false in
 /-- **Theorem A.7** (explicit moment representations), existence form. -/
 theorem exists_explicit_momentRepresentation (p : ℕ) [Fact p.Prime] (S m B : ℕ)
-    (hS : 2 ≤ S) (hm : 1 ≤ m) (hB : 2 ≤ B) :
-    ∃ (K : Type) (_ : Field K) (_ : Algebra (ZMod p) K) (ε : EncodingTuple p K S)
-      (R : MomentRepresentation p K (AlgebraicClosure K)) (q : ℕ),
-      R.r = B ^ m ∧ R.numBlocks = q ∧ R.blockSize = q ^ m ∧
-      (∃ d : ℕ, 1 ≤ d ∧ q = p ^ d) ∧ B ≤ q ∧ q < 8 * p ^ 3 * m * S * B := by
+    (hS : 2 ≤ S) (hm : 1 ≤ m) (hB : 2 ≤ B) : Nonempty (ExplicitMomentRepresentation p S m B) := by
   have hp : 2 ≤ p := (Fact.out : p.Prime).two_le
-  have hpos : 0 < p * m * B * S :=
+  -- the degree `δ`: the least power of `p` with `δ ≥ S`
+  obtain ⟨e, -, hSδ, hδlt⟩ := exists_pow_between hp hS
+  set δ := p ^ e with hδ
+  have hδ1 : 1 ≤ δ := by omega
+  -- the sample field size `q = p^d`: the least power of `p` with `q ≥ 8 p m B δ`
+  have hpos : 0 < p * m * B * δ :=
     Nat.mul_pos (Nat.mul_pos (Nat.mul_pos (by omega) (by omega)) (by omega)) (by omega)
-  have hN : 2 ≤ 8 * p * m * B * S := by
+  have hN : 2 ≤ 8 * p * m * B * δ := by
     calc 2 ≤ 8 := by norm_num
-      _ ≤ 8 * (p * m * B * S) := Nat.le_mul_of_pos_right 8 hpos
-      _ = 8 * p * m * B * S := by ring
+      _ ≤ 8 * (p * m * B * δ) := Nat.le_mul_of_pos_right 8 hpos
+      _ = 8 * p * m * B * δ := by ring
   obtain ⟨d, hd1, hdN, hdlt⟩ := exists_pow_between hp hN
-  obtain ⟨FS⟩ := FieldSetup.exists_fieldSetup p d S hd1 (by omega)
+  obtain ⟨FS⟩ := FieldSetup.exists_fieldSetup p d δ hd1 hδ1
   have hq : Fintype.card FS.𝕊 = p ^ d := FS.card_𝕊
-  have hΔ : 4 * degBound p m B S < Fintype.card FS.𝕊 := by
+  have hΔ : 4 * degBound p m B δ < Fintype.card FS.𝕊 := by
     rw [hq]
     refine lt_of_lt_of_le ?_ hdN
     unfold degBound
     have hpm : 0 < 8 * p * m := Nat.mul_pos (Nat.mul_pos (by omega) (by omega)) (by omega)
-    have hBS : (B - 1) * (S - 1) < B * S :=
-      calc (B - 1) * (S - 1) ≤ (B - 1) * S := Nat.mul_le_mul_left _ (Nat.sub_le _ _)
-        _ < B * S := Nat.mul_lt_mul_of_pos_right (by omega) (by omega)
-    calc 4 * (2 * p * m * (B - 1) * (S - 1)) = (8 * p * m) * ((B - 1) * (S - 1)) := by ring
-      _ < (8 * p * m) * (B * S) := (Nat.mul_lt_mul_left hpm).mpr hBS
-      _ = 8 * p * m * B * S := by ring
-  refine ⟨FS.K, FS.fieldK, FS.algK, encodingTuple FS, rep FS m B hB hm hΔ, Fintype.card FS.𝕊,
-    rfl, rfl, ?_, ⟨d, hd1, hq⟩, ?_, ?_⟩
+    have hBδ : (B - 1) * (δ - 1) < B * δ :=
+      calc (B - 1) * (δ - 1) ≤ (B - 1) * δ := Nat.mul_le_mul_left _ (Nat.sub_le _ _)
+        _ < B * δ := Nat.mul_lt_mul_of_pos_right (by omega) (by omega)
+    calc 4 * (2 * p * m * (B - 1) * (δ - 1)) = (8 * p * m) * ((B - 1) * (δ - 1)) := by ring
+      _ < (8 * p * m) * (B * δ) := (Nat.mul_lt_mul_left hpm).mpr hBδ
+      _ = 8 * p * m * B * δ := by ring
+  refine ⟨⟨FS.K, encodingTuple FS hSδ, rep FS m B hB hm hΔ, Fintype.card FS.𝕊, rfl, rfl, ?_,
+    ⟨d, hd1, hq⟩, ?_, ?_⟩⟩
   · show Fintype.card (Fin m → FS.𝕊) = Fintype.card FS.𝕊 ^ m
     rw [Fintype.card_fun, Fintype.card_fin]
-  · calc B ≤ B * (8 * p * m * S) := Nat.le_mul_of_pos_right B
+  · calc B ≤ B * (8 * p * m * δ) := Nat.le_mul_of_pos_right B
           (Nat.mul_pos (Nat.mul_pos (Nat.mul_pos (by omega) (by omega)) (by omega)) (by omega))
-      _ = 8 * p * m * B * S := by ring
+      _ = 8 * p * m * B * δ := by ring
       _ ≤ p ^ d := hdN
       _ = Fintype.card FS.𝕊 := hq.symm
   · calc Fintype.card FS.𝕊 = p ^ d := hq
-      _ < p * (8 * p * m * B * S) := hdlt
-      _ = 8 * p ^ 2 * m * S * B := by ring
-      _ ≤ 8 * p ^ 3 * m * S * B := by
-          have : p ^ 2 ≤ p ^ 3 := Nat.pow_le_pow_right (by omega) (by norm_num)
-          calc 8 * p ^ 2 * m * S * B = (8 * m * S * B) * p ^ 2 := by ring
-            _ ≤ (8 * m * S * B) * p ^ 3 := Nat.mul_le_mul_left _ this
-            _ = 8 * p ^ 3 * m * S * B := by ring
+      _ < p * (8 * p * m * B * δ) := hdlt
+      _ = 8 * p ^ 2 * m * B * δ := by ring
+      _ ≤ 8 * p ^ 2 * m * B * (p * S) := Nat.mul_le_mul_left _ hδlt.le
+      _ = 8 * p ^ 3 * m * S * B := by ring
 
 end LatticePrepro

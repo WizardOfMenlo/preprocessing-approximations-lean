@@ -11,9 +11,10 @@ import LatticePrepro.Conversions.Padding
 * Construction A: `Λ_𝒞 = {v ∈ ℤ^M : v mod p ∈ 𝒞}` (Lemma B.2).
 * The block Hadamard map (Lemma B.3): for `2 ≤ p ≤ ∞`, multiply lattice and target by a
   block-diagonal matrix of Sylvester–Hadamard matrices.
-* The lattice reduction (Lemma 3.8): a fixed lattice `Λ`, an integer radius `R`, and targets
-  `t_x` such that YES instances have a lattice vector within distance `R` and NO instances have
-  every lattice vector at distance more than `(g / 16)^{1/s} · R`, where `s = min {p, 2}`.
+* The lattice reduction (Lemma 3.8, `LatticeReduction`, `exists_latticeReduction`): a fixed
+  lattice `Λ`, an integer radius `R`, targets `t_x` and a residual weight such that YES instances
+  have a lattice vector within distance `R` and NO instances have every lattice vector at distance
+  more than `(g / 16)^{1/s} · R`, where `s = min {p, 2}`.
 -/
 
 namespace LatticePrepro
@@ -35,10 +36,24 @@ noncomputable def s : PNorm → ℝ
   | fin p _ => min p 2
   | inf => 2
 
-/-- Whether the Hadamard map is applied (`p > 2`, including `p = ∞`). -/
-noncomputable def useHadamard : PNorm → Prop
-  | fin p _ => 2 < p
-  | inf => True
+lemma one_le_s (pn : PNorm) : 1 ≤ pn.s := by
+  cases pn with
+  | fin p hp => exact le_min hp (by norm_num)
+  | inf => norm_num [PNorm.s]
+
+lemma s_le_two (pn : PNorm) : pn.s ≤ 2 := by
+  cases pn with
+  | fin p hp => exact min_le_right _ _
+  | inf => norm_num [PNorm.s]
+
+lemma norm_nonneg {M : Type} [Fintype M] (pn : PNorm) (v : M → ℝ) : 0 ≤ pn.norm v := by
+  cases pn with
+  | fin p hp =>
+      show 0 ≤ (∑ i, |v i| ^ p) ^ (1 / p)
+      exact Real.rpow_nonneg (Finset.sum_nonneg fun i _ => Real.rpow_nonneg (abs_nonneg _) _) _
+  | inf =>
+      show 0 ≤ ⨆ i, |v i|
+      exact Real.iSup_nonneg fun i => abs_nonneg _
 
 end PNorm
 
@@ -375,6 +390,38 @@ lemma radius_bound_inf {t D A m w : ℝ} (ht : 0 < t) (hD : 0 ≤ D) (hw : w ≤
 
 end RealBounds
 
+/-! ### The lattice reduction: statement -/
+
+/-- The output of Lemma 3.8 for a linear system family `L`, a gap `g` and a norm exponent `pn`:
+a fixed lattice `Λ ⊆ ℤ^M` with `2 n ≤ M < 4 n` (`n = |ι|`), containing `N · ℤ^M` for some
+`N > 0` (full rank), an integer radius `1 ≤ R ≤ M`, and a *residual weight* `w = weight x v`
+computable from a lattice vector `v`, such that
+
+* YES instances have a lattice vector within `ℓ_p`-distance `R` of the target;
+* `w ≤ 16 · D · (dist / R)^s` for every lattice vector, and `w > g · D` on NO instances.
+
+The residual weight is the quantity tested in Lemma 5.2 (`Conversions/SearchTest.lean`). -/
+structure LatticeReduction {p : ℕ} [Fact p.Prime] {X : Type} (L : LinearSystemFamily (ZMod p) X)
+    (g : ℕ) (pn : PNorm) where
+  /-- The fixed lattice and the targets. -/
+  Λ : LatticeFamily X
+  /-- The radius. -/
+  R : ℕ
+  one_le_R : 1 ≤ R
+  R_le_card : R ≤ Fintype.card Λ.M
+  two_mul_card_le : 2 * Fintype.card L.ι ≤ Fintype.card Λ.M
+  card_lt_four_mul : Fintype.card Λ.M < 4 * Fintype.card L.ι
+  /-- The lattice contains `N · ℤ^M`. -/
+  N : ℕ
+  N_pos : 0 < N
+  smul_mem : ∀ v : Λ.M → ℤ, (N : ℤ) • v ∈ Λ.lattice
+  /-- The residual weight of a lattice vector. -/
+  weight : X → (Λ.M → ℤ) → ℕ
+  yes : ∀ x, L.IsYes x → ∃ v ∈ Λ.lattice, Λ.dist pn x v ≤ R
+  weight_le : ∀ x, ∀ v ∈ Λ.lattice,
+    (weight x v : ℝ) ≤ 16 * L.numBlocks * (Λ.dist pn x v / R) ^ pn.s
+  lt_weight : ∀ x, L.IsNo g x → ∀ v ∈ Λ.lattice, g * L.numBlocks < weight x v
+
 /-! ### The three cases of the lattice reduction -/
 
 section Cases
@@ -382,17 +429,6 @@ section Cases
 open Finset
 
 variable {p : ℕ} [Fact p.Prime] {X : Type} (L : LinearSystemFamily (ZMod p) X)
-
-/-- The conclusion of Lemma 3.8 for a given norm exponent. -/
-def LatticeConclusion (g : ℕ) (pn : PNorm) : Prop :=
-  ∃ (Λ : LatticeFamily X) (R : ℕ),
-    1 ≤ R ∧ R ≤ Fintype.card Λ.M ∧
-    2 * Fintype.card L.ι ≤ Fintype.card Λ.M ∧ Fintype.card Λ.M < 4 * Fintype.card L.ι ∧
-    (∃ N : ℕ, 0 < N ∧ ∀ v : Λ.M → ℤ, (N : ℤ) • v ∈ Λ.lattice) ∧
-    (∀ x, L.IsYes x → ∃ v ∈ Λ.lattice, Λ.dist pn x v ≤ R) ∧
-    (∀ x, ∀ v ∈ Λ.lattice, ∃ w : ℕ,
-      (w : ℝ) ≤ 16 * L.numBlocks * (Λ.dist pn x v / R) ^ pn.s ∧
-      (L.IsNo g x → g * L.numBlocks < w))
 
 namespace LinearSystemFamily
 
@@ -402,11 +438,20 @@ noncomputable abbrev latticeA : LatticeFamily X where
   lattice := constructionA L.padCode
   target := fun x => liftZMod (L.padTarget x)
 
+/-- The residual weight for Construction A: `wt((t_x - v) mod p)`. -/
+noncomputable def weightA (x : X) (v : L.PadM → ℤ) : ℕ :=
+  hammingNorm (redMod p L.PadM (liftZMod (L.padTarget x) - v))
+
 /-- The Hadamard-transformed lattice family (for `p > 2`). -/
 noncomputable abbrev latticeH : LatticeFamily X where
   M := L.PadM
   lattice := Submodule.map (Hadamard.blockHadₗ L.padK) (constructionA L.padCode)
   target := fun x => Hadamard.blockHad L.padK (liftZMod (L.padTarget x))
+
+/-- The residual weight for the Hadamard lattice: `wt((t_x - H⁻¹ v) mod p)`, where
+`H⁻¹ v = 2^{-k} H v`. -/
+noncomputable def weightH (x : X) (v : L.PadM → ℤ) : ℕ :=
+  hammingNorm (redMod p L.PadM (liftZMod (L.padTarget x) - Hadamard.blockInv L.padK v))
 
 lemma two_mul_card_le_card_padM : 2 * Fintype.card L.ι ≤ Fintype.card L.PadM := by
   rw [L.card_padM, L.card_ι, mul_assoc]
@@ -420,15 +465,25 @@ lemma card_padM_lt {g : ℕ} (hg : g < L.blockSize) (hD : 0 < L.numBlocks) :
         Nat.mul_lt_mul_of_pos_left hk (by omega)
     _ = 4 * (L.numBlocks * L.blockSize) := by ring
 
+/-- NO instances for Construction A: the residual weight exceeds `g · D`. -/
+lemma lt_weightA {g : ℕ} (hg : g < L.blockSize) (hD : 0 < L.numBlocks) {x : X}
+    (hno : L.IsNo g x) {v : L.PadM → ℤ} (hv : v ∈ L.latticeA.lattice) :
+    g * L.numBlocks < L.weightA x v := by
+  obtain ⟨hvC, hwt⟩ := redMod_lift_sub L.padCode (L.padTarget x) hv
+  unfold weightA
+  rw [hwt]
+  exact L.pad_no hg hD hno _ hvC
+
 /-- Case `1 ≤ q ≤ 2`. -/
-theorem latticeConclusion_le_two {g : ℕ} (hg : g < L.blockSize) (hD : 0 < L.numBlocks)
-    {q : ℝ} (hq : 1 ≤ q) (hq2 : q ≤ 2) : LatticeConclusion L g (PNorm.fin q hq) := by
+noncomputable def reduction_le_two {g : ℕ} (hg : g < L.blockSize) (hD : 0 < L.numBlocks)
+    {q : ℝ} (hq : 1 ≤ q) (hq2 : q ≤ 2) : LatticeReduction L g (PNorm.fin q hq) := by
   have hq0 : 0 < q := by linarith
   have hD1 : (1 : ℝ) ≤ L.numBlocks := by exact_mod_cast hD
   set R₀ : ℝ := (L.numBlocks : ℝ) ^ (1 / q) with hR₀
   have hR₀1 : 1 ≤ R₀ := Real.one_le_rpow hD1 (by positivity)
   refine ⟨L.latticeA, ⌈R₀⌉₊, ?_, ?_, L.two_mul_card_le_card_padM, L.card_padM_lt hg hD,
-    ⟨p, (Fact.out : p.Prime).pos, fun v => natCast_smul_mem_constructionA _ v⟩, ?_, ?_⟩
+    p, (Fact.out : p.Prime).pos, fun v => natCast_smul_mem_constructionA _ v, L.weightA, ?_, ?_,
+    fun x hno v hv => L.lt_weightA hg hD hno hv⟩
   · exact Nat.one_le_iff_ne_zero.mpr (Nat.ceil_pos.mpr (by linarith)).ne'
   · rw [Nat.ceil_le]
     calc R₀ ≤ (L.numBlocks : ℝ) ^ (1 : ℝ) :=
@@ -459,23 +514,19 @@ theorem latticeConclusion_le_two {g : ℕ} (hg : g < L.blockSize) (hD : 0 < L.nu
           ext i
           simp [LatticeFamily.toReal, liftZMod_eq_zero_iff]
       _ ≤ (L.numBlocks : ℝ) := by exact_mod_cast hw
-  · -- NO
-    intro x v hv
-    obtain ⟨hvC, hwt⟩ := redMod_lift_sub L.padCode (L.padTarget x) hv
-    refine ⟨hammingNorm (redMod p L.PadM (liftZMod (L.padTarget x) - v)), ?_, fun hno => ?_⟩
-    · have hs : (PNorm.fin q hq).s = q := min_eq_left hq2
-      rw [hs]
-      set d := liftZMod (L.padTarget x) - v with hd
-      change (hammingNorm (redMod p L.PadM d) : ℝ) ≤
-        16 * L.numBlocks * (lpNorm q (LatticeFamily.toReal d) / (⌈R₀⌉₊ : ℝ)) ^ q
-      have hwd : (hammingNorm (redMod p L.PadM d) : ℝ) ≤ lpNorm q (LatticeFamily.toReal d) ^ q := by
-        rw [lpNorm_rpow hq0]
-        calc (hammingNorm (redMod p L.PadM d) : ℝ)
-            ≤ ((univ.filter fun i => d i ≠ 0).card : ℝ) := by exact_mod_cast hammingNorm_redMod_le d
-          _ ≤ ∑ i, |LatticeFamily.toReal d i| ^ q := card_ne_zero_le_sum_abs_rpow hq0.le d
-      exact hwd.trans (radius_bound_le_two hq hq2 hD1 (lpNorm_nonneg _ _))
-    · rw [hwt]
-      exact L.pad_no hg hD hno _ hvC
+  · -- the weight bound
+    intro x v _
+    have hs : (PNorm.fin q hq).s = q := min_eq_left hq2
+    rw [hs]
+    set d := liftZMod (L.padTarget x) - v with hd
+    change (hammingNorm (redMod p L.PadM d) : ℝ) ≤
+      16 * L.numBlocks * (lpNorm q (LatticeFamily.toReal d) / (⌈R₀⌉₊ : ℝ)) ^ q
+    have hwd : (hammingNorm (redMod p L.PadM d) : ℝ) ≤ lpNorm q (LatticeFamily.toReal d) ^ q := by
+      rw [lpNorm_rpow hq0]
+      calc (hammingNorm (redMod p L.PadM d) : ℝ)
+          ≤ ((univ.filter fun i => d i ≠ 0).card : ℝ) := by exact_mod_cast hammingNorm_redMod_le d
+        _ ≤ ∑ i, |LatticeFamily.toReal d i| ^ q := card_ne_zero_le_sum_abs_rpow hq0.le d
+    exact hwd.trans (radius_bound_le_two hq hq2 hD1 (lpNorm_nonneg _ _))
 
 /-- The common data of the Hadamard cases: full rank, the YES bound and the NO bound. -/
 lemma latticeH_smul_mem (v : L.PadM → ℤ) :
@@ -503,35 +554,44 @@ lemma latticeH_yes {x : X} (hx : L.IsYes x) :
   obtain ⟨habs, hcard⟩ := blockHad_lift_bound hb h1
   exact ⟨habs, hcard.trans (Nat.mul_le_mul_right _ hw)⟩
 
-/-- NO instances in the Hadamard cases: for `v = H u`, `w = wt((t - u) mod p)` exceeds `g · D`
-on NO instances and satisfies `w ≤ ‖t_H - v‖₂² / 2^k`. -/
-lemma latticeH_no {g : ℕ} (hg : g < L.blockSize) (hD : 0 < L.numBlocks) {x : X}
-    {v : L.PadM → ℤ} (hv : v ∈ L.latticeH.lattice) :
-    ∃ w : ℕ, (w : ℝ) ≤ (∑ su, ((L.latticeH.target x - v) su : ℝ) ^ 2) / (2 ^ L.padK : ℝ) ∧
-      (L.IsNo g x → g * L.numBlocks < w) := by
-  obtain ⟨u, hu, rfl⟩ := Submodule.mem_map.mp hv
-  rw [Hadamard.blockHadₗ_apply]
-  obtain ⟨huC, hwt⟩ := redMod_lift_sub L.padCode (L.padTarget x) hu
+/-- The residual weight of `v = H u` in the Hadamard lattice is `wt((t - u) mod p)`. -/
+lemma weightH_blockHad (x : X) (u : L.PadM → ℤ) :
+    L.weightH x (Hadamard.blockHad L.padK u) =
+      hammingNorm (redMod p L.PadM (liftZMod (L.padTarget x) - u)) := by
+  rw [weightH, Hadamard.blockInv_blockHad]
+
+/-- The residual weight in the Hadamard cases satisfies `w ≤ ‖t_H - v‖₂² / 2^k`. -/
+lemma weightH_le (x : X) {v : L.PadM → ℤ} (hv : v ∈ L.latticeH.lattice) :
+    (L.weightH x v : ℝ) ≤ (∑ su, ((L.latticeH.target x - v) su : ℝ) ^ 2) / (2 ^ L.padK : ℝ) := by
+  obtain ⟨u, -, rfl⟩ := Submodule.mem_map.mp hv
+  rw [Hadamard.blockHadₗ_apply, weightH_blockHad]
   set d := liftZMod (L.padTarget x) - u with hd
   have hres : L.latticeH.target x - Hadamard.blockHad L.padK u = Hadamard.blockHad L.padK d := by
     show Hadamard.blockHad L.padK (liftZMod (L.padTarget x)) - _ = _
     rw [← Hadamard.blockHad_sub]
-  refine ⟨hammingNorm (redMod p L.PadM d), ?_, fun hno => ?_⟩
-  · rw [hres]
-    have hpars : ∑ su, ((Hadamard.blockHad L.padK d su : ℤ) : ℝ) ^ 2 =
-        (2 ^ L.padK : ℝ) * ∑ su, ((d su : ℤ) : ℝ) ^ 2 := by
-      have := Hadamard.sum_sq_blockHad L.padK d
-      exact_mod_cast this
-    rw [hpars, mul_div_cancel_left₀ _ (by positivity)]
-    calc (hammingNorm (redMod p L.PadM d) : ℝ)
-        ≤ ((univ.filter fun i => d i ≠ 0).card : ℝ) := by exact_mod_cast hammingNorm_redMod_le d
-      _ ≤ ∑ su, ((d su : ℤ) : ℝ) ^ 2 := card_ne_zero_le_sum_sq d
-  · rw [hwt]
-    exact L.pad_no hg hD hno _ huC
+  rw [hres]
+  have hpars : ∑ su, ((Hadamard.blockHad L.padK d su : ℤ) : ℝ) ^ 2 =
+      (2 ^ L.padK : ℝ) * ∑ su, ((d su : ℤ) : ℝ) ^ 2 := by
+    have := Hadamard.sum_sq_blockHad L.padK d
+    exact_mod_cast this
+  rw [hpars, mul_div_cancel_left₀ _ (by positivity)]
+  calc (hammingNorm (redMod p L.PadM d) : ℝ)
+      ≤ ((univ.filter fun i => d i ≠ 0).card : ℝ) := by exact_mod_cast hammingNorm_redMod_le d
+    _ ≤ ∑ su, ((d su : ℤ) : ℝ) ^ 2 := card_ne_zero_le_sum_sq d
+
+/-- NO instances in the Hadamard cases: the residual weight exceeds `g · D`. -/
+lemma lt_weightH {g : ℕ} (hg : g < L.blockSize) (hD : 0 < L.numBlocks) {x : X}
+    (hno : L.IsNo g x) {v : L.PadM → ℤ} (hv : v ∈ L.latticeH.lattice) :
+    g * L.numBlocks < L.weightH x v := by
+  obtain ⟨u, hu, rfl⟩ := Submodule.mem_map.mp hv
+  rw [Hadamard.blockHadₗ_apply, weightH_blockHad]
+  obtain ⟨huC, hwt⟩ := redMod_lift_sub L.padCode (L.padTarget x) hu
+  rw [hwt]
+  exact L.pad_no hg hD hno _ huC
 
 /-- Case `q > 2`. -/
-theorem latticeConclusion_gt_two {g : ℕ} (hg : g < L.blockSize) (hD : 0 < L.numBlocks)
-    {q : ℝ} (hq : 1 ≤ q) (hq2 : 2 < q) : LatticeConclusion L g (PNorm.fin q hq) := by
+noncomputable def reduction_gt_two {g : ℕ} (hg : g < L.blockSize) (hD : 0 < L.numBlocks)
+    {q : ℝ} (hq : 1 ≤ q) (hq2 : 2 < q) : LatticeReduction L g (PNorm.fin q hq) := by
   have hq0 : 0 < q := by linarith
   have hD1 : (1 : ℝ) ≤ L.numBlocks := by exact_mod_cast hD
   have ht1 : (1 : ℝ) ≤ (2 ^ L.padK : ℝ) := by exact_mod_cast Nat.one_le_two_pow
@@ -543,7 +603,8 @@ theorem latticeConclusion_gt_two {g : ℕ} (hg : g < L.blockSize) (hD : 0 < L.nu
     rw [L.card_padM, ha]; push_cast; ring
   have hp : 0 < p := (Fact.out : p.Prime).pos
   refine ⟨L.latticeH, ⌈R₀⌉₊, ?_, ?_, L.two_mul_card_le_card_padM, L.card_padM_lt hg hD,
-    ⟨p * 2 ^ L.padK, by positivity, L.latticeH_smul_mem⟩, ?_, ?_⟩
+    p * 2 ^ L.padK, by positivity, L.latticeH_smul_mem, L.weightH, ?_, ?_,
+    fun x hno v hv => L.lt_weightH hg hD hno hv⟩
   · exact Nat.one_le_iff_ne_zero.mpr (Nat.ceil_pos.mpr (by linarith)).ne'
   · change ⌈R₀⌉₊ ≤ Fintype.card L.PadM
     rw [Nat.ceil_le, hcardR]
@@ -570,13 +631,12 @@ theorem latticeConclusion_gt_two {g : ℕ} (hg : g < L.blockSize) (hD : 0 < L.nu
           simp only [mem_filter, mem_univ, true_and, LatticeFamily.toReal, ne_eq, Int.cast_eq_zero]
       _ ≤ ((L.numBlocks * 2 ^ L.padK : ℕ) : ℝ) := by exact_mod_cast hcard
       _ = a := by rw [ha]; push_cast; ring
-  · -- NO
+  · -- the weight bound
     intro x v hv
-    obtain ⟨w, hw, hno⟩ := L.latticeH_no hg hD hv
-    refine ⟨w, ?_, hno⟩
+    have hw := L.weightH_le x hv
     have hs : (PNorm.fin q hq).s = 2 := min_eq_right hq2.le
     rw [hs]
-    change (w : ℝ) ≤ 16 * L.numBlocks *
+    change (L.weightH x v : ℝ) ≤ 16 * L.numBlocks *
       (lpNorm q (LatticeFamily.toReal (L.latticeH.target x - v)) / (⌈R₀⌉₊ : ℝ)) ^ (2 : ℝ)
     have hpm := sum_sq_le_card_rpow_mul hq2.le (LatticeFamily.toReal (L.latticeH.target x - v))
     rw [hcardR] at hpm
@@ -584,18 +644,19 @@ theorem latticeConclusion_gt_two {g : ℕ} (hg : g < L.blockSize) (hD : 0 < L.nu
     exact radius_bound_gt_two hq2 ht1 hD1 (sum_abs_rpow_nonneg _ _) hw hpm
 
 /-- Case `p = ∞`. -/
-theorem latticeConclusion_inf {g : ℕ} (hg : g < L.blockSize) (hD : 0 < L.numBlocks) :
-    LatticeConclusion L g PNorm.inf := by
+noncomputable def reduction_inf {g : ℕ} (hg : g < L.blockSize) (hD : 0 < L.numBlocks) :
+    LatticeReduction L g PNorm.inf := by
   have hD1 : (1 : ℝ) ≤ L.numBlocks := by exact_mod_cast hD
   have ht1 : (1 : ℝ) ≤ (2 ^ L.padK : ℝ) := by exact_mod_cast Nat.one_le_two_pow
   have hcardR : (Fintype.card L.PadM : ℝ) = 2 * ((2 ^ L.padK : ℝ) * L.numBlocks) := by
     rw [L.card_padM]; push_cast; ring
-  have hp : 0 < p := (Fact.out : p.Prime).pos
   have hne : Nonempty L.PadM := by
     obtain ⟨b⟩ := Fintype.card_pos_iff.mp hD
     exact ⟨(Sum.inl b, 0)⟩
+  have hp : 0 < p := (Fact.out : p.Prime).pos
   refine ⟨L.latticeH, 1, le_rfl, Fintype.card_pos, L.two_mul_card_le_card_padM,
-    L.card_padM_lt hg hD, ⟨p * 2 ^ L.padK, by positivity, L.latticeH_smul_mem⟩, ?_, ?_⟩
+    L.card_padM_lt hg hD, p * 2 ^ L.padK, by positivity, L.latticeH_smul_mem, L.weightH, ?_, ?_,
+    fun x hno v hv => L.lt_weightH hg hD hno hv⟩
   · -- YES
     intro x hx
     obtain ⟨v, hv, habs, -⟩ := L.latticeH_yes hx
@@ -606,11 +667,10 @@ theorem latticeConclusion_inf {g : ℕ} (hg : g < L.blockSize) (hD : 0 < L.numBl
     simp only [LatticeFamily.toReal]
     rw [← Int.cast_abs]
     exact_mod_cast habs i
-  · -- NO
+  · -- the weight bound
     intro x v hv
-    obtain ⟨w, hw, hno⟩ := L.latticeH_no hg hD hv
-    refine ⟨w, ?_, hno⟩
-    change (w : ℝ) ≤ 16 * L.numBlocks *
+    have hw := L.weightH_le x hv
+    change (L.weightH x v : ℝ) ≤ 16 * L.numBlocks *
       (supNorm (LatticeFamily.toReal (L.latticeH.target x - v)) / ((1 : ℕ) : ℝ)) ^ (2 : ℝ)
     have hsup := sum_sq_le_card_mul_supNorm_sq (LatticeFamily.toReal (L.latticeH.target x - v))
     rw [hcardR] at hsup
@@ -621,29 +681,21 @@ end LinearSystemFamily
 
 end Cases
 
-/-- **Lemma 3.8** (the lattice reduction), existence form. Given a linear system family over
-`𝔽_p` with gap `g < b` and at least one block, there is a fixed lattice `Λ ⊆ ℤ^M` with
-`2 n ≤ M < 4 n` (`n = |ι|`), an integer radius `1 ≤ R ≤ M`, and targets such that
+/-- **Lemma 3.8** (the lattice reduction). Given a linear system family over `𝔽_p` with gap
+`g < b` and at least one block, there is a `LatticeReduction`: a fixed full-rank lattice
+`Λ ⊆ ℤ^M` with `2 n ≤ M < 4 n` (`n = |ι|`), an integer radius `1 ≤ R ≤ M`, targets, and a
+residual weight such that
 
 * YES instances have a lattice vector within `ℓ_p`-distance `R` of the target;
-* for every lattice vector `v`, there is an integer `w` with `w ≤ 16 · D · (dist / R)^s`, and
-  `w > g · D` on NO instances.
-
-Moreover `Λ` has full rank: it contains `N · ℤ^M` for some `N > 0`. -/
-theorem exists_latticeFamily {p : ℕ} [Fact p.Prime] {X : Type} (L : LinearSystemFamily (ZMod p) X)
-    {g : ℕ} (hg : g < L.blockSize) (hD : 0 < L.numBlocks) (pn : PNorm) :
-    ∃ (Λ : LatticeFamily X) (R : ℕ),
-      1 ≤ R ∧ R ≤ Fintype.card Λ.M ∧
-      2 * Fintype.card L.ι ≤ Fintype.card Λ.M ∧ Fintype.card Λ.M < 4 * Fintype.card L.ι ∧
-      (∃ N : ℕ, 0 < N ∧ ∀ v : Λ.M → ℤ, (N : ℤ) • v ∈ Λ.lattice) ∧
-      (∀ x, L.IsYes x → ∃ v ∈ Λ.lattice, Λ.dist pn x v ≤ R) ∧
-      (∀ x, ∀ v ∈ Λ.lattice, ∃ w : ℕ,
-        (w : ℝ) ≤ 16 * L.numBlocks * (Λ.dist pn x v / R) ^ pn.s ∧
-        (L.IsNo g x → g * L.numBlocks < w)) := by
+* every lattice vector `v` has residual weight `w ≤ 16 · D · (dist / R)^s`, and `w > g · D` on NO
+  instances. -/
+theorem exists_latticeReduction {p : ℕ} [Fact p.Prime] {X : Type}
+    (L : LinearSystemFamily (ZMod p) X) {g : ℕ} (hg : g < L.blockSize) (hD : 0 < L.numBlocks)
+    (pn : PNorm) : Nonempty (LatticeReduction L g pn) := by
   rcases pn with ⟨q, hq⟩ | _
   · rcases le_or_gt q 2 with hq2 | hq2
-    · exact L.latticeConclusion_le_two hg hD hq hq2
-    · exact L.latticeConclusion_gt_two hg hD hq hq2
-  · exact L.latticeConclusion_inf hg hD
+    · exact ⟨L.reduction_le_two hg hD hq hq2⟩
+    · exact ⟨L.reduction_gt_two hg hD hq hq2⟩
+  · exact ⟨L.reduction_inf hg hD⟩
 
 end LatticePrepro

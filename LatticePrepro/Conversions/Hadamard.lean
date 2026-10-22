@@ -158,6 +158,15 @@ lemma blockHad_blockHad (v : β × Idx k → ℤ) : blockHad k (blockHad k v) = 
   rw [Matrix.mulVec_mulVec, whMat_mul_whMat, Matrix.smul_mulVec, Matrix.one_mulVec]
   rfl
 
+/-- The inverse `2^{-k} H` of the block Hadamard map, on its image: `blockInv k (blockHad k u) = u`
+(integer division is exact there). -/
+def blockInv (v : β × Idx k → ℤ) : β × Idx k → ℤ := fun su => blockHad k v su / 2 ^ k
+
+lemma blockInv_blockHad (u : β × Idx k → ℤ) : blockInv k (blockHad k u) = u := by
+  funext su
+  simp only [blockInv, blockHad_blockHad, Pi.smul_apply, smul_eq_mul]
+  exact Int.mul_ediv_cancel_left (u su) (by positivity)
+
 /-- Parseval's identity for the block Hadamard map. -/
 lemma sum_sq_blockHad [Fintype β] (v : β × Idx k → ℤ) :
     ∑ su, (blockHad k v su) ^ 2 = 2 ^ k * ∑ su, (v su) ^ 2 := by

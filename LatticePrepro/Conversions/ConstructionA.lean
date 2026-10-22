@@ -1,4 +1,5 @@
 import LatticePrepro.Basic.Blocks
+import LatticePrepro.Basic.Hamming
 
 /-!
 # Construction A (Lemma B.2)
@@ -58,11 +59,6 @@ lemma liftZMod_binary {e : M → ZMod p} (he : IsBinary e) (i : M) :
 
 lemma abs_liftZMod_le_one {e : M → ZMod p} (he : IsBinary e) (i : M) : |liftZMod e i| ≤ 1 := by
   rcases liftZMod_binary he i with h | h <;> simp [h]
-
-lemma hammingNorm_sub_eq_hammingDist [Fintype M] {R : Type*} [AddGroup R] [DecidableEq R]
-    (a b : M → R) :
-    hammingNorm (a - b) = hammingDist a b := by
-  simp [hammingNorm, hammingDist, sub_eq_zero]
 
 /-- The weight of a reduction is at most the number of nonzero coordinates. -/
 lemma hammingNorm_redMod_le [Fintype M] (w : M → ℤ) :

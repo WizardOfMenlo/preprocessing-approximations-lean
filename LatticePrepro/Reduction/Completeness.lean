@@ -1,3 +1,4 @@
+import LatticePrepro.Basic.Finset
 import LatticePrepro.Reduction.FixedSystem
 
 /-!
@@ -104,26 +105,18 @@ lemma rep_mul {z : Fin (V.S + 1) → ZMod p} (hz : V.IsBooleanAssignment z) (i j
     rcases hb i with h | h <;> simp [h]
 
 lemma momentMap_ptbl_honest {z : Fin (V.S + 1) → ZMod p} (hz : V.IsBooleanAssignment z)
-    (i j : Fin (V.S + 1)) {k : ℕ} (hk : k ≤ 2 * R.r - 2) :
-    R.momentMap k (ptbl V R (honest V R ε z) i j) = (z i * z j) • partialEnc V ε z V.S ^ k := by
-  simp only [ptbl, tbl_honest, honestTbl, Sum.elim_inl, map_smul, R.momentMap_elemTable _ hk,
+    (i j : Fin (V.S + 1)) (k : R.Order) :
+    R.momentMap k (ptbl V R (honest V R ε z) i j) =
+      (z i * z j) • partialEnc V ε z V.S ^ (k : ℕ) := by
+  simp only [ptbl, tbl_honest, honestTbl, Sum.elim_inl, map_smul, R.momentMap_elemTable,
     rep_mul V hz]
 
-lemma momentMap_atbl_honest (z : Fin (V.S + 1) → ZMod p) (i : V.AuxIdx) {k : ℕ}
-    (hk : k ≤ 2 * R.r - 2) :
-    R.momentMap k (atbl V R (honest V R ε z) i) = z i.1 • partialEnc V ε z (i.1.val - 1) ^ k := by
-  simp only [atbl, tbl_honest, honestTbl, Sum.elim_inr, map_smul, R.momentMap_elemTable _ hk]
+lemma momentMap_atbl_honest (z : Fin (V.S + 1) → ZMod p) (i : V.AuxIdx) (k : R.Order) :
+    R.momentMap k (atbl V R (honest V R ε z) i) =
+      z i.1 • partialEnc V ε z (i.1.val - 1) ^ (k : ℕ) := by
+  simp only [atbl, tbl_honest, honestTbl, Sum.elim_inr, map_smul, R.momentMap_elemTable]
 
 /-! ### Telescoping -/
-
-omit [Fact (Nat.Prime p)] [Algebra (ZMod p) K] in
-lemma sum_Ico_telescope (f : ℕ → K) {a b : ℕ} (_ha : 1 ≤ a) (hab : a ≤ b) :
-    ∑ m ∈ Finset.Ico a b, (f m - f (m - 1)) = f (b - 1) - f (a - 1) := by
-  induction b, hab using Nat.le_induction with
-  | base => simp
-  | succ b hab ih =>
-    rw [Finset.sum_Ico_succ_top hab, ih, Nat.add_sub_cancel]
-    abel
 
 omit [Fact (Nat.Prime p)] [Algebra (ZMod p) K] in
 /-- Summing a telescoping difference over the auxiliary indices. -/
@@ -140,7 +133,7 @@ lemma sum_aux_telescope (f : ℕ → K) :
     ext m
     simp only [Finset.mem_filter, Finset.mem_range, Finset.mem_Ico]
     omega
-  rw [h1, sum_Ico_telescope f (by omega) (by have := V.n_succ_le; omega)]
+  rw [h1, sum_Ico_telescope f (by have := V.n_succ_le; omega)]
   rfl
 
 /-! ### The honest solution satisfies the equations -/
@@ -151,68 +144,64 @@ lemma honest_constraint (z : Fin (V.S + 1) → ZMod p) (T : V.TblIdx) :
   rcases T with T | i <;> simp [honestTbl, map_smul, R.constraint_elemTable]
 
 lemma honest_encoding {z : Fin (V.S + 1) → ZMod p} (hz : V.IsBooleanAssignment z)
-    (j : Fin (V.S + 1)) {k : ℕ} (hk : k < R.r) :
-    R.momentMap (k + 1) (ptbl V R (honest V R ε z) 0 j) =
-      ∑ i, ε.E i * R.momentMap k (ptbl V R (honest V R ε z) i j) := by
-  have hr := R.two_le_r
-  have hk1 : k + 1 ≤ 2 * R.r - 2 := by omega
-  have hk2 : k ≤ 2 * R.r - 2 := by omega
-  rw [momentMap_ptbl_honest V R ε hz 0 j hk1]
-  simp_rw [momentMap_ptbl_honest V R ε hz _ j hk2]
-  rw [hz.1, one_mul]
+    (j : Fin (V.S + 1)) (k : Fin R.r) :
+    R.momentMap (R.lowSucc k) (ptbl V R (honest V R ε z) 0 j) =
+      ∑ i, ε.E i * R.momentMap (R.low k) (ptbl V R (honest V R ε z) i j) := by
+  rw [momentMap_ptbl_honest V R ε hz 0 j]
+  simp_rw [momentMap_ptbl_honest V R ε hz _ j]
+  rw [hz.1, one_mul, MomentRepresentation.lowSucc_val, MomentRepresentation.low_val]
   set α := partialEnc V ε z V.S with hα
   have hαs : α = ∑ i, algebraMap (ZMod p) K (z i) * ε.E i := by
     rw [hα, partialEnc_top, EncodingTuple.enc]
     simp [Algebra.smul_def]
-  calc z j • α ^ (k + 1) = (∑ i, algebraMap (ZMod p) K (z i) * ε.E i) * (z j • α ^ k) := by
+  calc z j • α ^ ((k : ℕ) + 1)
+      = (∑ i, algebraMap (ZMod p) K (z i) * ε.E i) * (z j • α ^ (k : ℕ)) := by
         rw [← hαs, Algebra.smul_def, Algebra.smul_def]; ring
-    _ = ∑ i, ε.E i * ((z i * z j) • α ^ k) := by
+    _ = ∑ i, ε.E i * ((z i * z j) • α ^ (k : ℕ)) := by
         rw [Finset.sum_mul]
         refine Finset.sum_congr rfl fun i _ => ?_
         simp only [Algebra.smul_def, map_mul]
         ring
 
 lemma honest_gate {z : Fin (V.S + 1) → ZMod p} (hz : V.IsBooleanAssignment z)
-    (hval : V.IsValid z) (b : Fin V.G) {k : ℕ} (hk : k < R.r) :
-    ∑ i, ∑ j, V.coeff b i j • R.momentMap k (ptbl V R (honest V R ε z) i j) = 0 := by
-  have hr := R.two_le_r
-  have hk2 : k ≤ 2 * R.r - 2 := by omega
-  simp_rw [momentMap_ptbl_honest V R ε hz _ _ hk2, smul_smul, ← Finset.sum_smul]
+    (hval : V.IsValid z) (b : Fin V.G) (k : Fin R.r) :
+    ∑ i, ∑ j, V.coeff b i j • R.momentMap (R.low k) (ptbl V R (honest V R ε z) i j) = 0 := by
+  simp_rw [momentMap_ptbl_honest V R ε hz _ _, smul_smul, ← Finset.sum_smul]
   have := hval b
   unfold QuadraticVerifier.gateEq at this
   rw [this, zero_smul]
 
 lemma honest_translation {x : Fin V.n → Bool} {z : Fin (V.S + 1) → ZMod p}
-    (hz : V.IsBooleanAssignment z) (hpre : V.HasPrefix x z) {k : ℕ} (hk : k ≤ 2 * R.r - 2) :
-    R.momentMap k (ptbl V R (honest V R ε z) 0 0) - ∑ i : V.AuxIdx, ∑ j ∈ Finset.range k,
-      (k.choose j : K) * ε.E i.1 ^ (k - j) * R.momentMap j (atbl V R (honest V R ε z) i) =
-    V.instanceEnc ε x ^ k := by
-  have hterm : ∀ i : V.AuxIdx, ∑ j ∈ Finset.range k,
-      (k.choose j : K) * ε.E i.1 ^ (k - j) * R.momentMap j (atbl V R (honest V R ε z) i) =
-      partialEnc V ε z i.1.val ^ k - partialEnc V ε z (i.1.val - 1) ^ k := by
+    (hz : V.IsBooleanAssignment z) (hpre : V.HasPrefix x z) (k : R.Order) :
+    transLhs V R ε (honest V R ε z) k = V.instanceEnc ε x ^ (k : ℕ) := by
+  have hterm : ∀ i : V.AuxIdx, ∑ j : Fin k, ((k : ℕ).choose j : K) * ε.E i.1 ^ ((k : ℕ) - j) *
+      R.momentMap (R.below k j) (atbl V R (honest V R ε z) i) =
+      partialEnc V ε z i.1.val ^ (k : ℕ) - partialEnc V ε z (i.1.val - 1) ^ (k : ℕ) := by
     intro i
     have hi1 : 1 ≤ i.1.val := by have := i.2; omega
     have hiS : i.1.val ≤ V.S := Nat.le_of_lt_succ i.1.isLt
     have hstep := partialEnc_succ V ε z hi1 hiS
     have hfin : (⟨i.1.val, by omega⟩ : Fin (V.S + 1)) = i.1 := Fin.ext rfl
     rw [hfin] at hstep
-    rw [Finset.sum_congr rfl fun j hj => by
-      rw [momentMap_atbl_honest V R ε z i (by have := Finset.mem_range.mp hj; omega)]]
+    simp_rw [momentMap_atbl_honest V R ε z i, MomentRepresentation.below_val]
+    rw [Fin.sum_univ_eq_sum_range (fun j => ((k : ℕ).choose j : K) * ε.E i.1 ^ ((k : ℕ) - j) *
+      (z i.1 • partialEnc V ε z (i.1.val - 1) ^ j)) (k : ℕ)]
     set β := partialEnc V ε z (i.1.val - 1)
     rcases hz.2 i.1 with h | h
     · rw [hstep, h, zero_smul, add_zero, sub_self]
       simp
     · rw [hstep, h, one_smul]
-      have hexp : (β + ε.E i.1) ^ k =
-          (∑ j ∈ Finset.range k, β ^ j * ε.E i.1 ^ (k - j) * (k.choose j : K)) + β ^ k := by
+      have hexp : (β + ε.E i.1) ^ (k : ℕ) =
+          (∑ j ∈ Finset.range (k : ℕ), β ^ j * ε.E i.1 ^ ((k : ℕ) - j) * ((k : ℕ).choose j : K)) +
+            β ^ (k : ℕ) := by
         rw [add_pow, Finset.sum_range_succ]
         simp
       rw [hexp, add_sub_cancel_right]
       refine Finset.sum_congr rfl fun j _ => ?_
       rw [one_smul]
       ring
-  rw [momentMap_ptbl_honest V R ε hz 0 0 hk, Finset.sum_congr rfl fun i _ => hterm i,
-    sum_aux_telescope V (fun m => partialEnc V ε z m ^ k), hz.1, one_mul, one_smul,
+  rw [transLhs, momentMap_ptbl_honest V R ε hz 0 0, Finset.sum_congr rfl fun i _ => hterm i,
+    sum_aux_telescope V (fun m => partialEnc V ε z m ^ (k : ℕ)), hz.1, one_mul, one_smul,
     sub_sub_cancel, partialEnc_prefix V ε hz.1 hpre]
 
 /-- The honest solution satisfies all equations of Construction 4.5. -/
@@ -220,9 +209,9 @@ theorem honest_solves {x : Fin V.n → Bool} {z : Fin (V.S + 1) → ZMod p}
     (hz : V.IsBooleanAssignment z) (hval : V.IsValid z) (hpre : V.HasPrefix x z) :
     Solves V R ε x (honest V R ε z) where
   constraint := honest_constraint V R ε z
-  encoding := fun j _ hk => honest_encoding V R ε hz j hk
-  gate := fun b _ hk => honest_gate V R ε hz hval b hk
-  translation := fun _ hk => honest_translation V R ε hz hpre hk
+  encoding := fun j k => sub_eq_zero.mpr (honest_encoding V R ε hz j k)
+  gate := fun b k => honest_gate V R ε hz hval b k
+  translation := fun k => honest_translation V R ε hz hpre k
 
 /-! ### Binary entries and block sparsity -/
 

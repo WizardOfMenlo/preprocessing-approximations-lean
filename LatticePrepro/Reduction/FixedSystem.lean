@@ -13,7 +13,9 @@ we build the linear system `A · v = b_x` of Construction 4.5:
   auxiliary tables `v^{(i)}` for `n + 1 < i ≤ S` (`AuxIdx`). Symmetric and diagonal indices refer
   to the same table through the representative map `rep`.
 * **Equations.** The evaluation table constraints for every table, the encoding and gate moment
-  equations of orders `k < r`, and the translation equations of orders `k ≤ 2r - 2`.
+  equations of orders `k < r`, and the translation equations of orders `k ≤ 2r - 2`. Their
+  left-hand sides (`encLhs`, `gateLhs`, `transLhs`) define both the predicate `Solves` and the
+  linear map `sysMap`.
 
 The main results are completeness and soundness (Theorem 4.6): the system is a gap reduction
 from the language of `V` to the block-sparse linear-system problem with gap `g` whenever
@@ -149,45 +151,68 @@ lemma ptbl_diag (v : Col V R → ZMod p) (i : Fin (V.S + 1)) :
     ptbl V R v i i = ptbl V R v i 0 := by
   simp [ptbl, V.rep_diag i]
 
+/-! ### The equations
+
+Each family of equations is given by its left-hand side as a function of the variables; the
+predicate `Solves` and the linear map `sysMap` are both defined from these, so they cannot drift
+apart. -/
+
+/-- Left-hand side of the encoding equation of order `k < r` for column `j`:
+`M̂_{k+1}(v_{0,j}) - ∑ i, E_i M̂_k(v_{i,j})`. -/
+def encLhs (v : Col V R → ZMod p) (j : Fin (V.S + 1)) (k : Fin R.r) : K :=
+  R.momentMap (R.lowSucc k) (ptbl V R v 0 j) -
+    ∑ i, ε.E i * R.momentMap (R.low k) (ptbl V R v i j)
+
+/-- Left-hand side of the gate equation of gate `b` and order `k < r`:
+`∑ i j, c^{(b)}_{ij} M̂_k(v_{i,j})`. -/
+def gateLhs (v : Col V R → ZMod p) (b : Fin V.G) (k : Fin R.r) : K :=
+  ∑ i, ∑ j, V.coeff b i j • R.momentMap (R.low k) (ptbl V R v i j)
+
+/-- Left-hand side of the translation equation of order `k ≤ 2r - 2`:
+`M̂_k(v_{0,0}) - ∑ i, ∑_{j < k} C(k, j) E_i^{k-j} M̂_j(v^{(i)})`. -/
+def transLhs (v : Col V R → ZMod p) (k : R.Order) : K :=
+  R.momentMap k (ptbl V R v 0 0) - ∑ i : V.AuxIdx, ∑ j : Fin k,
+    ((k : ℕ).choose j : K) * ε.E i.1 ^ ((k : ℕ) - j) * R.momentMap (R.below k j) (atbl V R v i)
+
 /-- The equations of Construction 4.5 for instance `x`, as a predicate on the variables. -/
 structure Solves (x : Fin V.n → Bool) (v : Col V R → ZMod p) : Prop where
   /-- Evaluation table constraints for every table. -/
   constraint : ∀ T, R.constraint (tbl V R v T) = 0
   /-- Encoding equations of order `k < r`. -/
-  encoding : ∀ (j : Fin (V.S + 1)) (k : ℕ), k < R.r →
-    R.momentMap (k + 1) (ptbl V R v 0 j) = ∑ i, ε.E i * R.momentMap k (ptbl V R v i j)
+  encoding : ∀ (j : Fin (V.S + 1)) (k : Fin R.r), encLhs V R ε v j k = 0
   /-- Gate equations of order `k < r`. -/
-  gate : ∀ (b : Fin V.G) (k : ℕ), k < R.r →
-    ∑ i, ∑ j, V.coeff b i j • R.momentMap k (ptbl V R v i j) = 0
+  gate : ∀ (b : Fin V.G) (k : Fin R.r), gateLhs V R v b k = 0
   /-- Translation equations of order `k ≤ 2r - 2`. -/
-  translation : ∀ k ≤ 2 * R.r - 2,
-    R.momentMap k (ptbl V R v 0 0) - ∑ i : V.AuxIdx, ∑ j ∈ Finset.range k,
-      (k.choose j : K) * ε.E i.1 ^ (k - j) * R.momentMap j (atbl V R v i) =
-    V.instanceEnc ε x ^ k
+  translation : ∀ k : R.Order, transLhs V R ε v k = V.instanceEnc ε x ^ (k : ℕ)
+
+/-- The encoding equation, in the form `M̂_{k+1}(v_{0,j}) = ∑ i, E_i M̂_k(v_{i,j})`. -/
+lemma Solves.encoding_eq {x : Fin V.n → Bool} {v : Col V R → ZMod p} (hv : Solves V R ε x v)
+    (j : Fin (V.S + 1)) (k : Fin R.r) :
+    R.momentMap (R.lowSucc k) (ptbl V R v 0 j) =
+      ∑ i, ε.E i * R.momentMap (R.low k) (ptbl V R v i j) :=
+  sub_eq_zero.mp (hv.encoding j k)
 
 /-- The codomain of the system: rows for the table constraints, the encoding equations, the gate
 equations, and the translation equations. -/
 abbrev Rows : Type :=
-  (V.TblIdx → R.W) × (Fin (V.S + 1) × Fin R.r → K) × (Fin V.G × Fin R.r → K) ×
-    (Fin (2 * R.r - 1) → K)
+  (V.TblIdx → R.W) × (Fin (V.S + 1) × Fin R.r → K) × (Fin V.G × Fin R.r → K) × (R.Order → K)
 
 /-- The left-hand sides of all equations, as a function of the variables. -/
 def sysFun (v : Col V R → ZMod p) : Rows V R :=
   (fun T => R.constraint (tbl V R v T),
-   fun jk => R.momentMap (jk.2.val + 1) (ptbl V R v 0 jk.1) -
-     ∑ i, ε.E i * R.momentMap jk.2.val (ptbl V R v i jk.1),
-   fun bk => ∑ i, ∑ j, V.coeff bk.1 i j • R.momentMap bk.2.val (ptbl V R v i j),
-   fun k => R.momentMap k.val (ptbl V R v 0 0) - ∑ i : V.AuxIdx, ∑ j ∈ Finset.range k.val,
-     (k.val.choose j : K) * ε.E i.1 ^ (k.val - j) * R.momentMap j (atbl V R v i))
+   fun jk => encLhs V R ε v jk.1 jk.2,
+   fun bk => gateLhs V R v bk.1 bk.2,
+   fun k => transLhs V R ε v k)
 
 lemma sysFun_zero : sysFun V R ε 0 = 0 := by
-  simp only [sysFun, ptbl, atbl, tbl_zero, map_zero, mul_zero, smul_zero, Finset.sum_const_zero,
-    sub_zero]
+  simp only [sysFun, encLhs, gateLhs, transLhs, ptbl, atbl, tbl_zero, map_zero, mul_zero,
+    smul_zero, Finset.sum_const_zero, sub_zero]
   rfl
 
 lemma sysFun_add (v w : Col V R → ZMod p) :
     sysFun V R ε (v + w) = sysFun V R ε v + sysFun V R ε w := by
-  simp only [sysFun, ptbl, atbl, tbl_add, map_add, Prod.mk_add_mk, Prod.mk.injEq]
+  simp only [sysFun, encLhs, gateLhs, transLhs, ptbl, atbl, tbl_add, map_add, Prod.mk_add_mk,
+    Prod.mk.injEq]
   refine ⟨rfl, ?_, ?_, ?_⟩
   · funext jk
     simp only [Pi.add_apply, mul_add, Finset.sum_add_distrib]
@@ -212,22 +237,13 @@ def sysMap : (Col V R → ZMod p) →ₗ[ZMod p] Rows V R :=
 
 /-- The right-hand side `b_x`: zero except for the translation equations. -/
 def sysRhs (x : Fin V.n → Bool) : Rows V R :=
-  (0, 0, 0, fun k => V.instanceEnc ε x ^ k.val)
+  (0, 0, 0, fun k => V.instanceEnc ε x ^ (k : ℕ))
 
 /-- `A v = b_x` holds exactly when `v` satisfies the equations of Construction 4.5. -/
 theorem sysMap_eq_rhs_iff (x : Fin V.n → Bool) (v : Col V R → ZMod p) :
     sysMap V R ε v = sysRhs V R ε x ↔ Solves V R ε x v := by
-  simp only [sysMap_apply, sysFun, sysRhs, Prod.mk.injEq, funext_iff, Pi.zero_apply,
-    Prod.forall, sub_eq_zero]
-  constructor
-  · rintro ⟨h1, h2, h3, h4⟩
-    refine ⟨h1, fun j k hk => h2 j ⟨k, hk⟩, fun b k hk => h3 b ⟨k, hk⟩, fun k hk => ?_⟩
-    have hr := R.two_le_r
-    have := h4 ⟨k, by omega⟩
-    simpa using this
-  · rintro ⟨h1, h2, h3, h4⟩
-    refine ⟨h1, fun j k => h2 j k.val k.isLt, fun b k => h3 b k.val k.isLt, fun k => ?_⟩
-    exact h4 k.val (by have := k.isLt; omega)
+  simp only [sysMap_apply, sysFun, sysRhs, Prod.mk.injEq, funext_iff, Pi.zero_apply, Prod.forall]
+  exact ⟨fun ⟨h1, h2, h3, h4⟩ => ⟨h1, h2, h3, h4⟩, fun ⟨h1, h2, h3, h4⟩ => ⟨h1, h2, h3, h4⟩⟩
 
 /-- The block of a column: the table index together with the block of the coordinate. -/
 def blk (c : Col V R) : V.TblIdx × R.β := (c.1, R.blk c.2)

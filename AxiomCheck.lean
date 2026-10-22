@@ -24,6 +24,21 @@ info: 'LatticePrepro.exists_gapReduction' depends on axioms: [propext, Classical
 #guard_msgs in #print axioms LatticePrepro.exists_gapReduction
 
 /--
+info: 'LatticePrepro.exists_latticeReduction' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in #print axioms LatticePrepro.exists_latticeReduction
+
+/--
+info: 'LatticePrepro.code_gap' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in #print axioms LatticePrepro.code_gap
+
+/--
+info: 'LatticePrepro.lattice_gap' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in #print axioms LatticePrepro.lattice_gap
+
+/--
 info: 'LatticePrepro.exists_code_gap' depends on axioms: [propext, Classical.choice, Quot.sound]
 -/
 #guard_msgs in #print axioms LatticePrepro.exists_code_gap
@@ -32,6 +47,36 @@ info: 'LatticePrepro.exists_code_gap' depends on axioms: [propext, Classical.cho
 info: 'LatticePrepro.exists_lattice_gap' depends on axioms: [propext, Classical.choice, Quot.sound]
 -/
 #guard_msgs in #print axioms LatticePrepro.exists_lattice_gap
+
+/--
+info: 'LatticePrepro.ThreeSAT.mem_language_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in #print axioms LatticePrepro.ThreeSAT.mem_language_iff
+
+/--
+info: 'LatticePrepro.ThreeSAT.exists_code_gap' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in #print axioms LatticePrepro.ThreeSAT.exists_code_gap
+
+/--
+info: 'LatticePrepro.ThreeSAT.exists_lattice_gap' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in #print axioms LatticePrepro.ThreeSAT.exists_lattice_gap
+
+/--
+info: 'LatticePrepro.LatticeReduction.accepts_of_isApprox' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in #print axioms LatticePrepro.LatticeReduction.accepts_of_isApprox
+
+/--
+info: 'LatticePrepro.LatticeFamily.latticeDist_eq_infDist' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in #print axioms LatticePrepro.LatticeFamily.latticeDist_eq_infDist
+
+/--
+info: 'LatticePrepro.LatticeFamily.isZLattice_realLattice' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in #print axioms LatticePrepro.LatticeFamily.isZLattice_realLattice
 
 /--
 info: 'LatticePrepro.GateVerifier.language_toQuadratic' depends on axioms: [propext, Classical.choice, Quot.sound]

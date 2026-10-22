@@ -1,4 +1,4 @@
-import Mathlib
+import LatticePrepro.Basic.Nat
 
 /-!
 # Generalized digits (Definition A.1, Claim A.2)
@@ -22,37 +22,6 @@ def gdigits (B m k : ℕ) : Fin m → ℕ :=
 lemma digitVal_add (B : ℕ) {m : ℕ} (η η' : Fin m → ℕ) :
     digitVal B (η + η') = digitVal B η + digitVal B η' := by
   simp [digitVal, add_mul, Finset.sum_add_distrib]
-
-/-- The geometric identity `(B - 1) · ∑_{h<m} B^h + 1 = B^m`, without subtraction. -/
-lemma pred_mul_geomSum_add_one {B : ℕ} (hB : 1 ≤ B) (m : ℕ) :
-    (B - 1) * (∑ h ∈ Finset.range m, B ^ h) + 1 = B ^ m := by
-  obtain ⟨B', rfl⟩ : ∃ B', B = B' + 1 := ⟨B - 1, by omega⟩
-  simp only [Nat.add_sub_cancel]
-  induction m with
-  | zero => simp
-  | succ m ih =>
-    rw [Finset.sum_range_succ, mul_add, add_right_comm, ih, pow_succ]
-    ring
-
-/-- The geometric identity `(B - 1) · ∑_{h<m} B^h = B^m - 1`. -/
-lemma pred_mul_geomSum {B : ℕ} (hB : 1 ≤ B) (m : ℕ) :
-    (B - 1) * (∑ h ∈ Finset.range m, B ^ h) = B ^ m - 1 := by
-  have := pred_mul_geomSum_add_one hB m
-  omega
-
-/-- The base-`B` digit expansion of `b` up to `m` digits recovers `b mod B^m`. -/
-lemma sum_digit_mul_pow {B : ℕ} (b m : ℕ) :
-    ∑ h ∈ Finset.range m, (b / B ^ h % B) * B ^ h = b % B ^ m := by
-  induction m with
-  | zero => simp [Nat.mod_one]
-  | succ m ih =>
-    rw [Finset.sum_range_succ, ih, Nat.mod_pow_succ, mul_comm]
-
-lemma one_le_pow_sub_one {B m : ℕ} (hB : 2 ≤ B) (hm : 1 ≤ m) : 1 ≤ B ^ m - 1 := by
-  have : B ≤ B ^ m := by
-    calc B = B ^ 1 := (pow_one B).symm
-      _ ≤ B ^ m := Nat.pow_le_pow_right (by omega) hm
-  omega
 
 /-- Claim A.2, first part: `val B (gdigits B m k) = k`. -/
 theorem digitVal_gdigits {B m : ℕ} (hB : 2 ≤ B) (hm : 1 ≤ m) (k : ℕ) :

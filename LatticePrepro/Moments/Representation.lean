@@ -7,7 +7,7 @@ import LatticePrepro.Moments.Basic
 A *moment representation* over a field `K` of characteristic `p` consists of evaluation tables
 `y : ι → 𝔽_p` (with coordinates partitioned into blocks of equal size), linear *evaluation table
 constraints* `constraint y = 0`, and `𝔽_p`-linear *moment maps* `momentMap k : (ι → 𝔽_p) →ₗ K`
-for `0 ≤ k ≤ 2r - 2`, such that
+for the orders `k : Fin (2r - 1)`, i.e. `0 ≤ k ≤ 2r - 2`, such that
 
 * **completeness**: every `α : K` has a binary table with exactly one `1` per block, satisfying
   the constraints, whose moments are `α ^ k`;
@@ -47,14 +47,14 @@ structure MomentRepresentation (p : ℕ) [Fact p.Prime] (K : Type) [Field K] [Al
   [moduleW : Module (ZMod p) W]
   /-- The evaluation table constraints `constraint y = 0`. -/
   constraint : (ι → ZMod p) →ₗ[ZMod p] W
-  /-- The moment maps `M̂_k`. Only orders `k ≤ 2r - 2` matter. -/
-  momentMap : ℕ → (ι → ZMod p) →ₗ[ZMod p] K
+  /-- The moment maps `M̂_k` for the orders `0 ≤ k ≤ 2r - 2`. -/
+  momentMap : Fin (2 * r - 1) → (ι → ZMod p) →ₗ[ZMod p] K
   /-- Completeness: every field element has a block-unit table. -/
   complete : ∀ α : K, ∃ y : ι → ZMod p, IsBinary y ∧ ExactlyOnePerBlock blk y ∧
-    constraint y = 0 ∧ ∀ k ≤ 2 * r - 2, momentMap k y = α ^ k
+    constraint y = 0 ∧ ∀ k, momentMap k y = α ^ (k : ℕ)
   /-- Soundness: light tables represent sparse coefficient functions over `Ω`. -/
   sound : ∀ y : ι → ZMod p, constraint y = 0 → 2 * hammingNorm y < r * Fintype.card β →
-    ∃ f : Ω →₀ ZMod p, (∀ k ≤ 2 * r - 2, algebraMap K Ω (momentMap k y) = moment f k) ∧
+    ∃ f : Ω →₀ ZMod p, (∀ k, algebraMap K Ω (momentMap k y) = moment f k) ∧
       Fintype.card β * f.support.card ≤ 2 * hammingNorm y
 
 namespace MomentRepresentation
@@ -69,6 +69,35 @@ variable (R : MomentRepresentation p K Ω)
 /-- The number of blocks `D`. -/
 abbrev numBlocks : ℕ := Fintype.card R.β
 
+/-! ### Moment orders -/
+
+/-- The moment orders `0 ≤ k ≤ 2r - 2` carried by the representation. -/
+abbrev Order : Type := Fin (2 * R.r - 1)
+
+lemma two_le_order_card : 2 ≤ 2 * R.r - 1 := by have := R.two_le_r; omega
+
+lemma Order.le (k : R.Order) : (k : ℕ) ≤ 2 * R.r - 2 := by have := k.isLt; omega
+
+/-- A natural number `k ≤ 2r - 2` as a moment order. -/
+def ord (k : ℕ) (hk : k ≤ 2 * R.r - 2) : R.Order := ⟨k, by have := R.two_le_r; omega⟩
+
+@[simp] lemma ord_val (k : ℕ) (hk : k ≤ 2 * R.r - 2) : (R.ord k hk : ℕ) = k := rfl
+
+/-- An order `k < r` as a moment order (`r ≤ 2r - 2`). -/
+def low (k : Fin R.r) : R.Order := ⟨k, by have := R.two_le_r; have := k.isLt; omega⟩
+
+@[simp] lemma low_val (k : Fin R.r) : (R.low k : ℕ) = k := rfl
+
+/-- The order `k + 1` for `k < r`, as a moment order (`k + 1 ≤ r ≤ 2r - 2`). -/
+def lowSucc (k : Fin R.r) : R.Order := ⟨k + 1, by have := R.two_le_r; have := k.isLt; omega⟩
+
+@[simp] lemma lowSucc_val (k : Fin R.r) : (R.lowSucc k : ℕ) = k + 1 := rfl
+
+/-- The orders below a moment order `k`, as moment orders. -/
+def below (k : R.Order) (j : Fin k) : R.Order := Fin.castLE k.isLt.le j
+
+@[simp] lemma below_val (k : R.Order) (j : Fin k) : (R.below k j : ℕ) = j := rfl
+
 /-- The evaluation table length `D · b`. -/
 lemma card_ι : Fintype.card R.ι = R.numBlocks * R.blockSize := by
   classical
@@ -79,7 +108,7 @@ lemma card_ι : Fintype.card R.ι = R.numBlocks * R.blockSize := by
 /-- A table representing a coefficient function `f`: its moments of order `≤ 2r - 2`
 agree with those of `f`. -/
 def Represents (y : R.ι → ZMod p) (f : Ω →₀ ZMod p) : Prop :=
-  ∀ k ≤ 2 * R.r - 2, algebraMap K Ω (R.momentMap k y) = moment f k
+  ∀ k : R.Order, algebraMap K Ω (R.momentMap k y) = moment f k
 
 /-- A chosen block-unit table for `α` (Completeness). -/
 noncomputable def elemTable (α : K) : R.ι → ZMod p := (R.complete α).choose
@@ -92,9 +121,9 @@ lemma elemTable_onePerBlock (α : K) : ExactlyOnePerBlock R.blk (R.elemTable α)
 lemma constraint_elemTable (α : K) : R.constraint (R.elemTable α) = 0 :=
   (R.complete α).choose_spec.2.2.1
 
-lemma momentMap_elemTable (α : K) {k : ℕ} (hk : k ≤ 2 * R.r - 2) :
-    R.momentMap k (R.elemTable α) = α ^ k :=
-  (R.complete α).choose_spec.2.2.2 k hk
+lemma momentMap_elemTable (α : K) (k : R.Order) :
+    R.momentMap k (R.elemTable α) = α ^ (k : ℕ) :=
+  (R.complete α).choose_spec.2.2.2 k
 
 lemma hammingNorm_elemTable_le (α : K) : hammingNorm (R.elemTable α) ≤ R.numBlocks :=
   hammingNorm_le_card_of_atMostOnePerBlock R.blk (R.elemTable_onePerBlock α).atMostOne
@@ -108,8 +137,8 @@ lemma numBlocks_pos : 0 < R.numBlocks := by
   have hy : R.elemTable 1 = 0 := by
     funext i
     exact absurd (Fintype.card_pos_iff.mpr ⟨i⟩) (by omega)
-  have h0 := R.momentMap_elemTable 1 (k := 0) (Nat.zero_le _)
-  rw [hy, map_zero, pow_zero] at h0
+  have h0 := R.momentMap_elemTable 1 (R.ord 0 (Nat.zero_le _))
+  rw [hy, map_zero, ord_val, pow_zero] at h0
   exact zero_ne_one h0
 
 lemma card_ι_pos_iff : 0 < Fintype.card R.ι ↔ 0 < R.blockSize := by

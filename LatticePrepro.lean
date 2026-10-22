@@ -1,9 +1,17 @@
 import LatticePrepro.Basic.Blocks
+import LatticePrepro.Basic.Finset
+import LatticePrepro.Basic.FiniteField
+import LatticePrepro.Basic.Hamming
+import LatticePrepro.Basic.Matrix
+import LatticePrepro.Basic.Nat
+import LatticePrepro.Basic.RealSums
 import LatticePrepro.Moments.Basic
 import LatticePrepro.Moments.Representation
 import LatticePrepro.Verifier.Quadratic
 import LatticePrepro.Verifier.Gates
 import LatticePrepro.Verifier.Circuit
+import LatticePrepro.Verifier.Expr
+import LatticePrepro.Verifier.ThreeSAT
 import LatticePrepro.Reduction.LinearSystem
 import LatticePrepro.Reduction.FixedSystem
 import LatticePrepro.Reduction.Completeness
@@ -15,5 +23,9 @@ import LatticePrepro.Tables.PolyMatrixRank
 import LatticePrepro.Tables.Explicit
 import LatticePrepro.Conversions.Codes
 import LatticePrepro.Conversions.Lattices
+import LatticePrepro.Conversions.SearchTest
 import LatticePrepro.Lattices.Basis
+import LatticePrepro.Lattices.Distance
+import LatticePrepro.Lattices.Mathlib
 import LatticePrepro.Main
+import LatticePrepro.ThreeSAT

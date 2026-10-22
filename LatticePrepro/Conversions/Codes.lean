@@ -1,3 +1,4 @@
+import LatticePrepro.Basic.Hamming
 import LatticePrepro.Reduction.LinearSystem
 
 /-!
@@ -91,19 +92,6 @@ lemma LinearSystemFamily.codeTarget_of_exists {x : X} (h : ∃ v, L.IsSolution x
 lemma LinearSystemFamily.codeTarget_of_not_exists {x : X} (h : ¬ ∃ v, L.IsSolution x v) :
     L.codeTarget x = Sum.elim (0 : L.ι → ZMod p) (1 : L.ι → ZMod p) := by
   simp [LinearSystemFamily.codeTarget, h]
-
-/-- The Hamming weight of a vector on a sum type is the sum of the weights of its halves. -/
-lemma hammingNorm_sum_elim {α β γ : Type*} [Fintype α] [Fintype β] [Zero γ] [DecidableEq γ]
-    (a : α → γ) (b : β → γ) : hammingNorm (Sum.elim a b) = hammingNorm a + hammingNorm b := by
-  simp only [hammingNorm, Finset.card_filter, Fintype.sum_sum_type, Sum.elim_inl, Sum.elim_inr]
-  rfl
-
-/-- The Hamming distance of vectors on a sum type is the sum of the distances of their halves. -/
-lemma hammingDist_sum_elim {α β γ : Type*} [Fintype α] [Fintype β] [DecidableEq γ]
-    (a c : α → γ) (b d : β → γ) :
-    hammingDist (Sum.elim a b) (Sum.elim c d) = hammingDist a c + hammingDist b d := by
-  simp only [hammingDist, Finset.card_filter, Fintype.sum_sum_type, Sum.elim_inl, Sum.elim_inr]
-  rfl
 
 lemma LinearSystemFamily.card_blockSupport_codeBlk_inl (v w : L.ι → ZMod p) (t : L.β) :
     (blockSupport L.codeBlk (Sum.elim v w) (Sum.inl t)).card = (blockSupport L.blk v t).card := by

@@ -175,7 +175,7 @@ section Identities
 
 variable {x : Fin V.n → Bool} {v : Col V R → ZMod p} (hv : Solves V R ε x v)
   (f : V.TblIdx → Ω →₀ ZMod p)
-  (hf : ∀ T, ∀ k ≤ 2 * R.r - 2, algebraMap K Ω (R.momentMap k (tbl V R v T)) = moment (f T) k)
+  (hf : ∀ T (k : R.Order), algebraMap K Ω (R.momentMap k (tbl V R v T)) = moment (f T) k)
   (hN : ∑ T, (f T).support.card < R.r)
 
 include hv hf hN
@@ -199,19 +199,16 @@ theorem encoding_pointwise (j : Fin (V.S + 1)) (α : Ω) :
     simp [eq_zero_of_notMem_suppUnion V hβU]
   have hmom : ∀ k < R.r, moment g k = 0 := by
     intro k hk
-    have hr := R.two_le_r
-    have hk1 : k + 1 ≤ 2 * R.r - 2 := by omega
-    have hk2 : k ≤ 2 * R.r - 2 := by omega
-    have : moment g k = algebraMap K Ω (R.momentMap (k + 1) (ptbl V R v 0 j) -
-        ∑ i, ε.E i * R.momentMap k (ptbl V R v i j)) := by
-      rw [map_sub, map_sum, hg, moment_sub, moment_finset_sum, moment_mulVar,
+    have : moment g k = algebraMap K Ω (encLhs V R ε v j ⟨k, hk⟩) := by
+      rw [encLhs, map_sub, map_sum, hg, moment_sub, moment_finset_sum, moment_mulVar,
         moment_extendScalars]
       unfold ptbl
-      rw [hf _ _ hk1]
+      rw [hf _ (R.lowSucc ⟨k, hk⟩), MomentRepresentation.lowSucc_val]
       congr 1
       refine Finset.sum_congr rfl fun i _ => ?_
-      rw [moment_smul, moment_extendScalars, smul_eq_mul, map_mul, hf _ _ hk2]
-    rw [this, hv.encoding j k hk, sub_self, map_zero]
+      rw [moment_smul, moment_extendScalars, smul_eq_mul, map_mul, hf _ (R.low ⟨k, hk⟩),
+        MomentRepresentation.low_val]
+    rw [this, hv.encoding j ⟨k, hk⟩, map_zero]
   have hg0 : g = 0 := eq_zero_of_moment_eq_zero g
     ((Finset.card_le_card hsupp).trans ((card_suppUnion_le V f).trans hN.le)) hmom
   have h0 : g α = 0 := by rw [hg0]; rfl
@@ -236,18 +233,15 @@ theorem gate_pointwise (b : Fin V.G) (α : Ω) :
     simp [eq_zero_of_notMem_suppUnion V hβU]
   have hmom : ∀ k < R.r, moment g k = 0 := by
     intro k hk
-    have hr := R.two_le_r
-    have hk2 : k ≤ 2 * R.r - 2 := by omega
-    have : moment g k = algebraMap K Ω
-        (∑ i, ∑ j, V.coeff b i j • R.momentMap k (ptbl V R v i j)) := by
-      rw [map_sum, hg, moment_finset_sum]
+    have : moment g k = algebraMap K Ω (gateLhs V R v b ⟨k, hk⟩) := by
+      rw [gateLhs, map_sum, hg, moment_finset_sum]
       refine Finset.sum_congr rfl fun i _ => ?_
       rw [map_sum, moment_finset_sum]
       refine Finset.sum_congr rfl fun j _ => ?_
       rw [moment_smul, moment_extendScalars, smul_eq_mul, algebraMap_smul_eq, Algebra.smul_def]
       unfold ptbl
-      rw [hf _ _ hk2]
-    rw [this, hv.gate b k hk, map_zero]
+      rw [hf _ (R.low ⟨k, hk⟩), MomentRepresentation.low_val]
+    rw [this, hv.gate b ⟨k, hk⟩, map_zero]
   have hg0 : g = 0 := eq_zero_of_moment_eq_zero g
     ((Finset.card_le_card hsupp).trans ((card_suppUnion_le V f).trans hN.le)) hmom
   have h0 : g α = 0 := by rw [hg0]; rfl
@@ -318,23 +312,20 @@ theorem translation_pointwise (α : Ω) :
   -- moments
   have hmom : ∀ k < 2 * R.r - 1, moment g k = 0 := by
     intro k hk
-    have hr := R.two_le_r
-    have hk2 : k ≤ 2 * R.r - 2 := by omega
-    have : moment g k = algebraMap K Ω (R.momentMap k (ptbl V R v 0 0) -
-        ∑ i : V.AuxIdx, ∑ j ∈ Finset.range k,
-          (k.choose j : K) * ε.E i.1 ^ (k - j) * R.momentMap j (atbl V R v i) -
-        V.instanceEnc ε x ^ k) := by
-      rw [map_sub, map_sub, map_sum, map_pow, hg, moment_sub, moment_sub, moment_finset_sum,
-        moment_extendScalars, moment_single, one_smul]
+    have : moment g k = algebraMap K Ω (transLhs V R ε v ⟨k, hk⟩ - V.instanceEnc ε x ^ k) := by
+      rw [transLhs, map_sub, map_sub, map_sum, map_pow, hg, moment_sub, moment_sub,
+        moment_finset_sum, moment_extendScalars, moment_single, one_smul]
       unfold ptbl atbl
-      rw [hf _ _ hk2]
+      rw [hf _ ⟨k, hk⟩]
       congr 2
       refine Finset.sum_congr rfl fun i _ => ?_
-      rw [moment_translate_sub, map_sum]
-      refine Finset.sum_congr rfl fun j hj => ?_
-      have hj2 : j ≤ 2 * R.r - 2 := by have := Finset.mem_range.mp hj; omega
-      rw [moment_extendScalars, map_mul, map_mul, map_pow, map_natCast, hf _ _ hj2]
-    rw [this, hv.translation k hk2, sub_self, map_zero]
+      rw [moment_translate_sub, map_sum, ← Fin.sum_univ_eq_sum_range (fun j =>
+        (k.choose j : Ω) * algebraMap K Ω (ε.E i.1) ^ (k - j) *
+          moment (extendScalars (f (Sum.inr i))) j) k]
+      refine Finset.sum_congr rfl fun j _ => ?_
+      rw [moment_extendScalars, map_mul, map_mul, map_pow, map_natCast,
+        hf _ (R.below ⟨k, hk⟩ j), MomentRepresentation.below_val]
+    rw [this, hv.translation ⟨k, hk⟩, sub_self, map_zero]
   have hg0 : g = 0 := eq_zero_of_moment_eq_zero g
     ((Finset.card_le_card hsupp).trans hcardW) hmom
   have h0 : g α = 0 := by rw [hg0]; rfl
@@ -354,7 +345,7 @@ theorem mem_language_of_solves {x : Fin V.n → Bool} {v : Col V R → ZMod p}
   have htbl : ∀ T, 2 * hammingNorm (tbl V R v T) < R.r * R.numBlocks := fun T =>
     lt_of_le_of_lt (Nat.mul_le_mul_left 2 (hammingNorm_tbl_le V R v T)) hw
   choose f hf using fun T => R.sound (tbl V R v T) (hv.constraint T) (htbl T)
-  have hf' : ∀ T, ∀ k ≤ 2 * R.r - 2,
+  have hf' : ∀ T (k : R.Order),
       algebraMap K Ω (R.momentMap k (tbl V R v T)) = moment (f T) k := fun T => (hf T).1
   have hN : ∑ T, (f T).support.card < R.r := by
     have h1 : R.numBlocks * ∑ T, (f T).support.card ≤ 2 * hammingNorm v := by
