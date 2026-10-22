@@ -12,9 +12,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # The hosted runner has ~20 GB free on `/`, and toolchain + Mathlib cache download +
+      # unpacked `.lake` take ~13 GB. Drop preinstalled tooling we never use to get headroom.
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL || true
+          df -h /
       # Installs the toolchain from `lean-toolchain`, fetches the Mathlib cache and runs
       # `lake build`, which also builds `AxiomCheck`. `--wfail` turns every warning (in
       # particular "declaration uses 'sorry'") into an error.
+      #
+      # `use-github-cache: false`: lean-action would otherwise tar+zstd the whole `.lake`
+      # (~8 GB) into actions/cache after the build, which filled the runner disk and crashed
+      # the job. The Mathlib cache (`lake exe cache get`) already makes the build fast (the
+      # whole `lake build` takes ~4 min), so the GitHub cache buys nothing here.
       - uses: leanprover/lean-action@v1
         with:
           build-args: "--wfail"
+          use-github-cache: false
