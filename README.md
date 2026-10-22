@@ -1,6 +1,8 @@
 # Lean formalization: nearly optimal hardness for CVP and NCP with preprocessing
 
-This directory contains a Lean 4 / Mathlib formalization of the mathematical content of the
+[![CI](https://github.com/WizardOfMenlo/-preprocessing-approximations-lean/actions/workflows/ci.yml/badge.svg)](https://github.com/WizardOfMenlo/-preprocessing-approximations-lean/actions/workflows/ci.yml)
+
+This repository contains a Lean 4 / Mathlib formalization of the mathematical content of the
 main result of *Nearly Optimal Hardness for CVP and NCP with Preprocessing* (Fenzi, Weissenberg):
 for every verifier, there is a **fixed** code (over any finite field) or a **fixed** lattice (in any
 `ℓ_p` norm, `1 ≤ p ≤ ∞`) of polynomial dimension `M`, together with a target for every instance,
@@ -15,14 +17,19 @@ the ETH endpoint theorem (Theorem 5.3) and Corollary 5.4 are out of scope.
 
 ## Building and checking
 
+With [elan](https://github.com/leanprover/elan) installed (it picks up the toolchain from
+`lean-toolchain`), run from the repository root:
+
 ```
-cd lean
 lake exe cache get   # fetches the Mathlib build cache
 lake build
 ```
 
 Toolchain: `leanprover/lean4:v4.34.0`, Mathlib `v4.34.0`. The library contains no `sorry`;
 `#print axioms` on every main theorem reports only `propext`, `Classical.choice`, `Quot.sound`.
+Both claims are machine-checked: `lake build` also builds `AxiomCheck.lean`, which pins the axioms
+of every theorem listed below with `#guard_msgs` and fails if they change, and CI builds with
+`--wfail`, so any warning (in particular `declaration uses 'sorry'`) fails the build.
 
 ## Main statements
 

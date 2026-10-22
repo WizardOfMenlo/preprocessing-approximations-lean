@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build and check axioms
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Installs the toolchain from `lean-toolchain`, fetches the Mathlib cache and runs
+      # `lake build`, which also builds `AxiomCheck`. `--wfail` turns every warning (in
+      # particular "declaration uses 'sorry'") into an error.
+      - uses: leanprover/lean-action@v1
+        with:
+          build-args: "--wfail"

@@ -27,7 +27,7 @@ def partialEnc (z : Fin (V.S + 1) → ZMod p) (i : ℕ) : K :=
 lemma partialEnc_top (z : Fin (V.S + 1) → ZMod p) : partialEnc V ε z V.S = ε.enc z := by
   unfold partialEnc EncodingTuple.enc
   refine Finset.sum_congr rfl fun j _ => ?_
-  rw [if_pos (Nat.le_of_lt_succ j.isLt)]
+  rw [ite_eq_left (Nat.le_of_lt_succ j.isLt)]
 
 lemma partialEnc_succ (z : Fin (V.S + 1) → ZMod p) {i : ℕ} (hi : 1 ≤ i) (hiS : i ≤ V.S) :
     partialEnc V ε z i =
@@ -39,15 +39,15 @@ lemma partialEnc_succ (z : Fin (V.S + 1) → ZMod p) {i : ℕ} (hi : 1 ≤ i) (h
     intro j
     by_cases hj : j = ⟨i, by omega⟩
     · subst hj
-      simp only [if_true]
-      rw [if_pos le_rfl, if_neg (by omega), zero_smul, zero_add]
-    · rw [if_neg hj, add_zero]
+      simp only [ite_true]
+      rw [ite_eq_left le_rfl, ite_eq_right (by omega), zero_smul, zero_add]
+    · rw [ite_eq_right hj, add_zero]
       have hj' : j.val ≠ i := fun h => hj (Fin.ext h)
       by_cases h : j.val ≤ i
-      · rw [if_pos h, if_pos (by omega)]
-      · rw [if_neg h, if_neg (by omega)]
+      · rw [ite_eq_left h, ite_eq_left (by omega)]
+      · rw [ite_eq_right h, ite_eq_right (by omega)]
   simp_rw [key]
-  rw [Finset.sum_add_distrib, Finset.sum_ite_eq', if_pos (Finset.mem_univ _)]
+  rw [Finset.sum_add_distrib, Finset.sum_ite_eq', ite_eq_left (Finset.mem_univ _)]
 
 /-- For an assignment with prefix `(x, 1)`, the partial encoding up to `n + 1` is `θ_x`. -/
 lemma partialEnc_prefix {x : Fin V.n → Bool} {z : Fin (V.S + 1) → ZMod p} (h0 : z 0 = 1)
@@ -56,7 +56,7 @@ lemma partialEnc_prefix {x : Fin V.n → Bool} {z : Fin (V.S + 1) → ZMod p} (h
   refine Finset.sum_congr rfl fun j _ => ?_
   congr 1
   by_cases hj : j.val ≤ V.n + 1
-  · rw [if_pos hj]
+  · rw [ite_eq_left hj]
     by_cases hj0 : j.val = 0
     · rw [show j = 0 from Fin.ext hj0, h0, V.assignOf_zero]
     by_cases hjn : j.val ≤ V.n
@@ -68,7 +68,7 @@ lemma partialEnc_prefix {x : Fin V.n → Bool} {z : Fin (V.S + 1) → ZMod p} (h
     · have hje : j.val = V.n + 1 := by omega
       rw [V.assignOf_apply_of_eq x 0 hje, show j = V.outputIdx from Fin.ext hje]
       exact hpre.2
-  · rw [if_neg hj, V.assignOf_apply_of_lt x 0 (by omega)]
+  · rw [ite_eq_right hj, V.assignOf_apply_of_lt x 0 (by omega)]
     rfl
 
 /-! ### The honest solution -/

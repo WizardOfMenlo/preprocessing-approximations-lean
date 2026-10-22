@@ -50,14 +50,14 @@ theorem exists_fieldSetup (p : ℕ) [Fact p.Prime] (d δ : ℕ) (hd : 1 ≤ d) (
   have hdδ : d * δ ≠ 0 := Nat.mul_ne_zero hd0 (by omega)
   let 𝕊 := GaloisField p d
   let K := GaloisField p (d * δ)
-  letI : Fintype 𝕊 := Fintype.ofFinite _
-  letI : Fintype K := Fintype.ofFinite _
+  let : Fintype 𝕊 := Fintype.ofFinite _
+  let : Fintype K := Fintype.ofFinite _
   -- the embedding `𝕊 → K`
   obtain ⟨φ⟩ : Nonempty (𝕊 →ₐ[ZMod p] K) := by
     apply FiniteField.nonempty_algHom_of_finrank_dvd
     rw [GaloisField.finrank p hd0, GaloisField.finrank p hdδ]
     exact Dvd.intro δ rfl
-  letI : Algebra 𝕊 K := φ.toRingHom.toAlgebra
+  let : Algebra 𝕊 K := φ.toRingHom.toAlgebra
   have : IsScalarTower (ZMod p) 𝕊 K :=
     IsScalarTower.of_algebraMap_eq fun x => (φ.commutes x).symm
   -- cardinalities and the degree `[K : 𝕊] = δ`

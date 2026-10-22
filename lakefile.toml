@@ -1,6 +1,6 @@
 name = "LatticePrepro"
 version = "0.1.0"
-defaultTargets = ["LatticePrepro"]
+defaultTargets = ["LatticePrepro", "AxiomCheck"]
 
 [leanOptions]
 pp.unicode.fun = true
@@ -14,3 +14,7 @@ rev = "v4.34.0"
 
 [[lean_lib]]
 name = "LatticePrepro"
+
+# Pins the axioms used by the main theorems; `lake build` fails if they change.
+[[lean_lib]]
+name = "AxiomCheck"

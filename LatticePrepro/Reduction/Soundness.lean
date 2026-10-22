@@ -295,7 +295,7 @@ theorem translation_pointwise (α : Ω) :
       exact ⟨i, Finset.mem_univ _, Finset.mem_map.mpr
         ⟨β - algebraMap K Ω (ε.E i.1), Finsupp.mem_support_iff.mpr hne, by simp⟩⟩
     rw [hgapp, eq_zero_of_notMem_suppUnion V hβU, map_zero, zero_sub,
-      Finsupp.single_apply, if_neg (Ne.symm hβθ), sub_zero, neg_eq_zero]
+      Finsupp.single_apply, ite_eq_right (Ne.symm hβθ), sub_zero, neg_eq_zero]
     exact Finset.sum_eq_zero fun i _ => by
       rw [h1 i, eq_zero_of_notMem_suppUnion V hβU, map_zero, sub_self]
   have hcardW : W.card ≤ 2 * R.r - 1 := by
@@ -379,7 +379,7 @@ theorem mem_language_of_solves {x : Fin V.n → Bool} {v : Col V R → ZMod p}
     intro u i
     rw [hpt, hpt]
     simp only [Pi.sub_apply, sub_smul, Finset.sum_sub_distrib, Pi.single_apply, ite_smul,
-      zero_smul, one_smul, Finset.sum_ite_eq', Finset.mem_univ, if_true]
+      zero_smul, one_smul, Finset.sum_ite_eq', Finset.mem_univ, ite_true]
     ring
   have hpt_eq : ∀ u, pt u = θ ↔ u = 0 := by
     intro u
@@ -414,7 +414,7 @@ theorem mem_language_of_solves {x : Fin V.n → Bool} {v : Col V R → ZMod p}
     · rw [hpt0, Finsupp.single_eq_same]
     · intro u _ hu
       have : pt u ≠ θ := fun h => hu ((hpt_eq u).mp h)
-      rw [Finsupp.single_apply, if_neg (Ne.symm this)]
+      rw [Finsupp.single_apply, ite_eq_right (Ne.symm this)]
     · intro h; exact absurd (Finset.mem_univ _) h
   rw [hmid, hlast, sub_zero, sub_eq_zero] at hsum0
   obtain ⟨u, hu⟩ : ∃ u, f (Sum.inl (V.rep 0 0)) (pt u) ≠ 0 := by
