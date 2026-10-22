@@ -1,6 +1,6 @@
 # Lean formalization: nearly optimal hardness for CVP and NCP with preprocessing
 
-[![CI](https://github.com/WizardOfMenlo/-preprocessing-approximations-lean/actions/workflows/ci.yml/badge.svg)](https://github.com/WizardOfMenlo/-preprocessing-approximations-lean/actions/workflows/ci.yml)
+[![CI](https://github.com/WizardOfMenlo/preprocessing-approximations-lean/actions/workflows/ci.yml/badge.svg)](https://github.com/WizardOfMenlo/preprocessing-approximations-lean/actions/workflows/ci.yml)
 
 This repository contains a Lean 4 / Mathlib formalization of the mathematical content of the
 main result of *Nearly Optimal Hardness for CVP and NCP with Preprocessing* (Fenzi, Weissenberg):
