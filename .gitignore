@@ -1,0 +1,11 @@
+# Lake build artifacts and fetched dependencies (Mathlib etc.)
+/.lake/
+
+# macOS
+.DS_Store
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
