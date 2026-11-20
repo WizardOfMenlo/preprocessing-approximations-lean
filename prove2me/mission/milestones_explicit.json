@@ -1,0 +1,37 @@
+[
+ {
+  "theorem_name": "LatticePrepro.QuadraticVerifier.Tables.nonempty",
+  "milestone_title": "Theorem 4.8 (choice of parameters) — tables exist",
+  "milestone_description": "The proof of Theorem 4.8 chooses a base $B\\ge2$ with $8Ng\\le B^{m}\\le2^{m}\\cdot8Ng$ and applies Theorem A.8 to obtain an explicit moment representation with $m$ axes and representation bound $B^{m}$. The milestone states that this instance-independent data (the tables) exists for every verifier with $S\\ge2$ assignment coordinates and every gap exponent $\\delta<1$."
+ },
+ {
+  "theorem_name": "LatticePrepro.QuadraticVerifier.Tables.system_spec",
+  "milestone_title": "Theorem 4.8 — the fixed linear system of Construction 4.5 (explicit form)",
+  "milestone_description": "For a prime $p$, a verifier $V$ with $S$ coordinates and integers $g,m\\ge1$, there is a preprocessing reduction from $L(V)$ to block-sparse linear systems over $\\mathbb F_p$ with gap $g$ whose matrix has $n\\le(8p^{4}m(S+1))^{m+7}g^{1+1/m}$ columns (22). The milestone states this for the linear system of Construction 4.5 itself, for every choice of tables: completeness, soundness with gap $g$, $g<b$, at least one block, and the bound $n^{m}\\le(8p^{4}m(S+1))^{(m+7)m}g^{m+1}$."
+ },
+ {
+  "theorem_name": "LatticePrepro.LinearSystemFamily.exists_latticeReduction_eq",
+  "milestone_title": "Lemma 3.12 — the lattice reduction for the paper's lattice (explicit form)",
+  "milestone_description": "Lemma 3.12 gives a full-rank lattice $\\Lambda\\subseteq\\mathbb Z^{M}$ with $2Db\\le M<4Db$, integer targets, an integer radius $1\\le R\\le M$ and a weight $w$ with $w\\le16D(\\|t-v\\|_p/R)^{s}$ for all instances and $w>gD$ for NO instances. The milestone states that these properties hold for the lattice of the proof: the Construction A lattice of the padded code for $p\\le2$ and its blockwise Walsh–Hadamard transform for $p>2$ and $p=\\infty$, with the radius $\\lceil D^{1/p}\\rceil$, $\\lceil(2^{k}D)^{1/p}\\rceil$ or $1$."
+ },
+ {
+  "theorem_name": "LatticePrepro.QuadraticVerifier.Tables.codeFamily_hasGap",
+  "milestone_title": "Theorem 5.1 (codes) — the paper's code for any quadratic verifier",
+  "milestone_description": "Theorem 5.1 for codes, with the code named: for every field $F$ of characteristic $p$, every $0<\\varepsilon<1$, every quadratic verifier $V$ and every choice of tables, the code $\\ker A\\times\\{0\\}$ of the fixed linear system of Construction 4.5 (extended to $F$) with the targets of Lemma 3.11 has block length $M\\le(S+1)^{C}$, and $x\\in L(V)$ implies $\\Delta(t_x,\\mathcal C)\\le D$ while $x\\notin L(V)$ implies $\\Delta(t_x,\\mathcal C)>M^{1-\\varepsilon}\\cdot D$, where $D$ is the number of blocks. The milestone is stated for the code and lattice that the paper constructs, so it cannot be met by a construction whose targets depend on the instance in an arbitrary way; polynomial-time computability is not formalized."
+ },
+ {
+  "theorem_name": "LatticePrepro.QuadraticVerifier.Tables.latticeFamily_hasGap",
+  "milestone_title": "Theorem 5.1 (lattices) — the paper's lattice for any quadratic verifier",
+  "milestone_description": "Theorem 5.1 for lattices, with the lattice named: for every norm exponent $p\\ge1$ or $p=\\infty$, $s=\\min\\{p,2\\}$, every $0<\\varepsilon<1/s$, every quadratic verifier $V$ over $\\mathbb F_2$ and every choice of tables, the lattice of Lemma 3.12 for the fixed linear system of Construction 4.5 has full rank and dimension $M\\le(S+1)^{C}$, and $x\\in L(V)$ implies $\\operatorname{dist}_p(t_x,\\Lambda)\\le R$ while $x\\notin L(V)$ implies $\\operatorname{dist}_p(t_x,\\Lambda)>M^{1/s-\\varepsilon}\\cdot R$, with the radius $R$ of Lemma 3.12. The milestone is stated for the code and lattice that the paper constructs, so it cannot be met by a construction whose targets depend on the instance in an arbitrary way; polynomial-time computability is not formalized."
+ },
+ {
+  "theorem_name": "LatticePrepro.ThreeSAT.explicit_code_gap",
+  "milestone_title": "Theorem 5.1 (codes, 3SAT) — the paper's code with $M\\le n^{C}$",
+  "milestone_description": "Theorem 5.1 for the nearest codeword problem and the 3SAT verifier, with the code named: for every finite field $F$ and every $0<\\varepsilon<1$ there is a constant $C$ such that for every number $v\\ge1$ of variables there are tables for which the code of the previous milestone has block length $M\\le n^{C}$, $n=(2v)^{3}$, and gap $M^{1-\\varepsilon}$ between satisfiable and unsatisfiable instances. The milestone is stated for the code and lattice that the paper constructs, so it cannot be met by a construction whose targets depend on the instance in an arbitrary way; polynomial-time computability is not formalized."
+ },
+ {
+  "theorem_name": "LatticePrepro.ThreeSAT.explicit_lattice_gap",
+  "milestone_title": "Theorem 5.1 (lattices, 3SAT) — the paper's lattice with $M\\le n^{C}$",
+  "milestone_description": "Theorem 5.1 for the closest vector problem in $\\ell_p$ and the 3SAT verifier, with the lattice named: for every $p\\ge1$ or $p=\\infty$, $s=\\min\\{p,2\\}$, and every $0<\\varepsilon<1/s$ there is a constant $C$ such that for every number $v\\ge1$ of variables there are tables for which the lattice of the previous milestone has full rank, dimension $M\\le n^{C}$, $n=(2v)^{3}$, and gap $M^{1/s-\\varepsilon}$ between satisfiable and unsatisfiable instances. The milestone is stated for the code and lattice that the paper constructs, so it cannot be met by a construction whose targets depend on the instance in an arbitrary way; polynomial-time computability is not formalized."
+ }
+]

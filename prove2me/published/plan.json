@@ -1,0 +1,3462 @@
+{
+ "definitions": [
+  {
+   "definition_name": "LatticePrepro_Basic_Blocks",
+   "module": "LatticePrepro.Basic.Blocks",
+   "imports": [],
+   "defs": [
+    "LatticePrepro.AtMostOnePerBlock",
+    "LatticePrepro.ExactlyOnePerBlock",
+    "LatticePrepro.IsBinary",
+    "LatticePrepro.blockSupport"
+   ],
+   "embedded_theorems": [],
+   "lines": 32
+  },
+  {
+   "definition_name": "LatticePrepro_Reduction_LinearSystem",
+   "module": "LatticePrepro.Reduction.LinearSystem",
+   "imports": [
+    "LatticePrepro_Basic_Blocks"
+   ],
+   "defs": [
+    "LatticePrepro.LinearSystemFamily",
+    "LatticePrepro.LinearSystemFamily.IsGapReduction",
+    "LatticePrepro.LinearSystemFamily.IsNo",
+    "LatticePrepro.LinearSystemFamily.IsSolution",
+    "LatticePrepro.LinearSystemFamily.IsYes",
+    "LatticePrepro.LinearSystemFamily.numBlocks"
+   ],
+   "embedded_theorems": [],
+   "lines": 74
+  },
+  {
+   "definition_name": "LatticePrepro_Conversions_Codes",
+   "module": "LatticePrepro.Conversions.Codes",
+   "imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem"
+   ],
+   "defs": [
+    "LatticePrepro.CodeFamily",
+    "LatticePrepro.CodeFamily.codeDist",
+    "LatticePrepro.CodeFamily.extend",
+    "LatticePrepro.LinearSystemFamily.code",
+    "LatticePrepro.LinearSystemFamily.codeBlk",
+    "LatticePrepro.LinearSystemFamily.codeTarget"
+   ],
+   "embedded_theorems": [],
+   "lines": 78
+  },
+  {
+   "definition_name": "LatticePrepro_Conversions_ConstructionA",
+   "module": "LatticePrepro.Conversions.ConstructionA",
+   "imports": [
+    "LatticePrepro_Basic_Blocks"
+   ],
+   "defs": [
+    "LatticePrepro.liftZMod"
+   ],
+   "embedded_theorems": [],
+   "lines": 23
+  },
+  {
+   "definition_name": "LatticePrepro_Conversions_Hadamard",
+   "module": "LatticePrepro.Conversions.Hadamard",
+   "imports": [],
+   "defs": [
+    "LatticePrepro.Hadamard.Idx",
+    "LatticePrepro.Hadamard.blockHad",
+    "LatticePrepro.Hadamard.ip",
+    "LatticePrepro.Hadamard.sgn",
+    "LatticePrepro.Hadamard.wh",
+    "LatticePrepro.Hadamard.whMat"
+   ],
+   "embedded_theorems": [
+    "LatticePrepro.Hadamard.sgn_zero"
+   ],
+   "lines": 48
+  },
+  {
+   "definition_name": "LatticePrepro_Conversions_Lattices",
+   "module": "LatticePrepro.Conversions.Lattices",
+   "imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_Hadamard"
+   ],
+   "defs": [
+    "LatticePrepro.LatticeFamily",
+    "LatticePrepro.LatticeFamily.dist",
+    "LatticePrepro.LatticeFamily.toReal",
+    "LatticePrepro.LatticeReduction",
+    "LatticePrepro.PNorm",
+    "LatticePrepro.PNorm.norm",
+    "LatticePrepro.PNorm.s"
+   ],
+   "embedded_theorems": [],
+   "lines": 108
+  },
+  {
+   "definition_name": "LatticePrepro_Lattices_Distance",
+   "module": "LatticePrepro.Lattices.Distance",
+   "imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Lattices"
+   ],
+   "defs": [
+    "(instance)",
+    "LatticePrepro.LatticeFamily.latticeDist"
+   ],
+   "embedded_theorems": [],
+   "lines": 37
+  },
+  {
+   "definition_name": "LatticePrepro_Conversions_SearchTest",
+   "module": "LatticePrepro.Conversions.SearchTest",
+   "imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Lattices_Distance"
+   ],
+   "defs": [
+    "LatticePrepro.CodeFamily.Accepts",
+    "LatticePrepro.CodeFamily.IsApprox",
+    "LatticePrepro.LatticeReduction.Accepts",
+    "LatticePrepro.LatticeReduction.IsApprox"
+   ],
+   "embedded_theorems": [],
+   "lines": 63
+  },
+  {
+   "definition_name": "LatticePrepro_Lattices_Mathlib",
+   "module": "LatticePrepro.Lattices.Mathlib",
+   "imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Lattices_Distance"
+   ],
+   "defs": [
+    "(instance)",
+    "LatticePrepro.LatticeFamily.castₗ",
+    "LatticePrepro.LatticeFamily.discreteTopology_realLattice",
+    "LatticePrepro.LatticeFamily.realLattice",
+    "LatticePrepro.PNorm.toENNReal"
+   ],
+   "embedded_theorems": [
+    "LatticePrepro.LatticeFamily.castₗ_apply",
+    "LatticePrepro.LatticeFamily.realLattice_le_span_basisFun",
+    "LatticePrepro.PNorm.one_le_toENNReal"
+   ],
+   "lines": 92
+  },
+  {
+   "definition_name": "LatticePrepro_Moments_Basic",
+   "module": "LatticePrepro.Moments.Basic",
+   "imports": [],
+   "defs": [
+    "LatticePrepro.moment"
+   ],
+   "embedded_theorems": [
+    "LatticePrepro.moment_single",
+    "LatticePrepro.moment_zero"
+   ],
+   "lines": 39
+  },
+  {
+   "definition_name": "LatticePrepro_Moments_Representation",
+   "module": "LatticePrepro.Moments.Representation",
+   "imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Moments_Basic"
+   ],
+   "defs": [
+    "LatticePrepro.MomentRepresentation",
+    "LatticePrepro.MomentRepresentation.Order",
+    "LatticePrepro.MomentRepresentation.below",
+    "LatticePrepro.MomentRepresentation.low",
+    "LatticePrepro.MomentRepresentation.lowSucc",
+    "LatticePrepro.MomentRepresentation.numBlocks"
+   ],
+   "embedded_theorems": [
+    "LatticePrepro.MomentRepresentation.below_val",
+    "LatticePrepro.MomentRepresentation.lowSucc_val",
+    "LatticePrepro.MomentRepresentation.low_val"
+   ],
+   "lines": 95
+  },
+  {
+   "definition_name": "LatticePrepro_Verifier_Quadratic",
+   "module": "LatticePrepro.Verifier.Quadratic",
+   "imports": [],
+   "defs": [
+    "LatticePrepro.EncodingTuple",
+    "LatticePrepro.EncodingTuple.enc",
+    "LatticePrepro.QuadraticVerifier",
+    "LatticePrepro.QuadraticVerifier.AuxIdx",
+    "LatticePrepro.QuadraticVerifier.HasPrefix",
+    "LatticePrepro.QuadraticVerifier.IsAccepting",
+    "LatticePrepro.QuadraticVerifier.IsBooleanAssignment",
+    "LatticePrepro.QuadraticVerifier.IsValid",
+    "LatticePrepro.QuadraticVerifier.Language",
+    "LatticePrepro.QuadraticVerifier.assignOf",
+    "LatticePrepro.QuadraticVerifier.gateEq",
+    "LatticePrepro.QuadraticVerifier.inputIdx",
+    "LatticePrepro.QuadraticVerifier.instanceEnc",
+    "LatticePrepro.QuadraticVerifier.outputIdx"
+   ],
+   "embedded_theorems": [],
+   "lines": 112
+  },
+  {
+   "definition_name": "LatticePrepro_Reduction_FixedSystem",
+   "module": "LatticePrepro.Reduction.FixedSystem",
+   "imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic"
+   ],
+   "defs": [
+    "LatticePrepro.FixedSystem.Col",
+    "LatticePrepro.FixedSystem.Rows",
+    "LatticePrepro.FixedSystem.Solves",
+    "LatticePrepro.FixedSystem.atbl",
+    "LatticePrepro.FixedSystem.blk",
+    "LatticePrepro.FixedSystem.encLhs",
+    "LatticePrepro.FixedSystem.gateLhs",
+    "LatticePrepro.FixedSystem.ptbl",
+    "LatticePrepro.FixedSystem.sysAddHom",
+    "LatticePrepro.FixedSystem.sysFun",
+    "LatticePrepro.FixedSystem.sysMap",
+    "LatticePrepro.FixedSystem.sysRhs",
+    "LatticePrepro.FixedSystem.tbl",
+    "LatticePrepro.FixedSystem.transLhs",
+    "LatticePrepro.QuadraticVerifier.ProdIdx",
+    "LatticePrepro.QuadraticVerifier.TblIdx",
+    "LatticePrepro.QuadraticVerifier.mainIdx",
+    "LatticePrepro.QuadraticVerifier.rep",
+    "LatticePrepro.fixedSystem"
+   ],
+   "embedded_theorems": [
+    "LatticePrepro.FixedSystem.card_fiber_blk",
+    "LatticePrepro.FixedSystem.sysFun_add",
+    "LatticePrepro.FixedSystem.sysFun_zero",
+    "LatticePrepro.FixedSystem.sysMap_apply",
+    "LatticePrepro.FixedSystem.tbl_add",
+    "LatticePrepro.FixedSystem.tbl_zero"
+   ],
+   "lines": 195
+  },
+  {
+   "definition_name": "LatticePrepro_Tables_Digits",
+   "module": "LatticePrepro.Tables.Digits",
+   "imports": [],
+   "defs": [
+    "LatticePrepro.digitVal",
+    "LatticePrepro.gdigits"
+   ],
+   "embedded_theorems": [],
+   "lines": 22
+  },
+  {
+   "definition_name": "LatticePrepro_Tables_FieldSetup",
+   "module": "LatticePrepro.Tables.FieldSetup",
+   "imports": [],
+   "defs": [
+    "LatticePrepro.FieldSetup"
+   ],
+   "embedded_theorems": [],
+   "lines": 48
+  },
+  {
+   "definition_name": "LatticePrepro_Tables_Hankel",
+   "module": "LatticePrepro.Tables.Hankel",
+   "imports": [
+    "LatticePrepro_Moments_Basic"
+   ],
+   "defs": [
+    "LatticePrepro.hankelLen"
+   ],
+   "embedded_theorems": [],
+   "lines": 38
+  },
+  {
+   "definition_name": "LatticePrepro_Tables_Construction",
+   "module": "LatticePrepro.Tables.Construction",
+   "imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup"
+   ],
+   "defs": [
+    "LatticePrepro.ExplicitTables.ConstrW",
+    "LatticePrepro.ExplicitTables.Coord",
+    "LatticePrepro.ExplicitTables.IdxSet",
+    "LatticePrepro.ExplicitTables.IdxSet.toNat",
+    "LatticePrepro.ExplicitTables.colSum",
+    "LatticePrepro.ExplicitTables.constraintFun",
+    "LatticePrepro.ExplicitTables.degBound",
+    "LatticePrepro.ExplicitTables.interp",
+    "LatticePrepro.ExplicitTables.maxOrder",
+    "LatticePrepro.ExplicitTables.mom"
+   ],
+   "embedded_theorems": [],
+   "lines": 78
+  },
+  {
+   "definition_name": "LatticePrepro_Tables_ElementTable",
+   "module": "LatticePrepro.Tables.ElementTable",
+   "imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Construction"
+   ],
+   "defs": [
+    "LatticePrepro.ExplicitTables.elemPoly",
+    "LatticePrepro.ExplicitTables.elemProd"
+   ],
+   "embedded_theorems": [],
+   "lines": 38
+  },
+  {
+   "definition_name": "LatticePrepro_Tables_TableSoundness",
+   "module": "LatticePrepro.Tables.TableSoundness",
+   "imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Construction"
+   ],
+   "defs": [
+    "LatticePrepro.ExplicitTables.hLen"
+   ],
+   "embedded_theorems": [],
+   "lines": 37
+  },
+  {
+   "definition_name": "LatticePrepro_Tables_Explicit",
+   "module": "LatticePrepro.Tables.Explicit",
+   "imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Hankel",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable",
+    "LatticePrepro_Tables_TableSoundness"
+   ],
+   "defs": [
+    "LatticePrepro.ExplicitMomentRepresentation"
+   ],
+   "embedded_theorems": [],
+   "lines": 61
+  },
+  {
+   "definition_name": "LatticePrepro_Main",
+   "module": "LatticePrepro.Main",
+   "imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Lattices_Mathlib",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Hankel",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable",
+    "LatticePrepro_Tables_TableSoundness",
+    "LatticePrepro_Tables_Explicit"
+   ],
+   "defs": [
+    "LatticePrepro.CodeGap",
+    "LatticePrepro.GapReduction",
+    "LatticePrepro.LatticeGap",
+    "LatticePrepro.gapExp",
+    "LatticePrepro.momentAxes",
+    "LatticePrepro.prefactorExp",
+    "LatticePrepro.sizeExp"
+   ],
+   "embedded_theorems": [],
+   "lines": 123
+  },
+  {
+   "definition_name": "LatticePrepro_PCP_Verifier",
+   "module": "LatticePrepro.PCP.Verifier",
+   "imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes"
+   ],
+   "defs": [
+    "(instance)",
+    "LatticePrepro.ObliviousPCP",
+    "LatticePrepro.ObliviousPCP.Accepts",
+    "LatticePrepro.ObliviousPCP.PerfectlyComplete",
+    "LatticePrepro.ObliviousPCP.Proof",
+    "LatticePrepro.ObliviousPCP.Rand",
+    "LatticePrepro.ObliviousPCP.SoundnessError",
+    "LatticePrepro.ObliviousPCP.View",
+    "LatticePrepro.ObliviousPCP.View.ans",
+    "LatticePrepro.ObliviousPCP.View.pred",
+    "LatticePrepro.ObliviousPCP.Views"
+   ],
+   "embedded_theorems": [],
+   "lines": 110
+  },
+  {
+   "definition_name": "LatticePrepro_PCP_Code",
+   "module": "LatticePrepro.PCP.Code",
+   "imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_PCP_Verifier"
+   ],
+   "defs": [
+    "(instance)",
+    "LatticePrepro.ObliviousPCP.Coord",
+    "LatticePrepro.ObliviousPCP.Hits",
+    "LatticePrepro.ObliviousPCP.Row",
+    "LatticePrepro.ObliviousPCP.code",
+    "LatticePrepro.ObliviousPCP.constraintMap",
+    "LatticePrepro.ObliviousPCP.constraintRhs",
+    "LatticePrepro.ObliviousPCP.radius",
+    "LatticePrepro.ObliviousPCP.restrict",
+    "LatticePrepro.ObliviousPCP.stackMap",
+    "LatticePrepro.ObliviousPCP.target",
+    "LatticePrepro.padZero"
+   ],
+   "embedded_theorems": [],
+   "lines": 113
+  },
+  {
+   "definition_name": "LatticePrepro_Verifier_Gates",
+   "module": "LatticePrepro.Verifier.Gates",
+   "imports": [
+    "LatticePrepro_Verifier_Quadratic"
+   ],
+   "defs": [
+    "LatticePrepro.GateVerifier",
+    "LatticePrepro.GateVerifier.HasPrefix",
+    "LatticePrepro.GateVerifier.IsValid",
+    "LatticePrepro.GateVerifier.Language",
+    "LatticePrepro.GateVerifier.c00",
+    "LatticePrepro.GateVerifier.c01",
+    "LatticePrepro.GateVerifier.c10",
+    "LatticePrepro.GateVerifier.c11",
+    "LatticePrepro.GateVerifier.fn",
+    "LatticePrepro.GateVerifier.in1",
+    "LatticePrepro.GateVerifier.in2",
+    "LatticePrepro.GateVerifier.inputWire",
+    "LatticePrepro.GateVerifier.out",
+    "LatticePrepro.GateVerifier.outputWire",
+    "LatticePrepro.GateVerifier.toQuadratic",
+    "LatticePrepro.deltaTensor"
+   ],
+   "embedded_theorems": [
+    "LatticePrepro.GateVerifier.toQuadratic_G",
+    "LatticePrepro.GateVerifier.toQuadratic_S",
+    "LatticePrepro.GateVerifier.toQuadratic_n"
+   ],
+   "lines": 117
+  },
+  {
+   "definition_name": "LatticePrepro_Verifier_Circuit",
+   "module": "LatticePrepro.Verifier.Circuit",
+   "imports": [
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Verifier_Gates"
+   ],
+   "defs": [
+    "LatticePrepro.BoolCircuit",
+    "LatticePrepro.BoolCircuit.Language",
+    "LatticePrepro.BoolCircuit.S",
+    "LatticePrepro.BoolCircuit.coordOf",
+    "LatticePrepro.BoolCircuit.coordOfNat",
+    "LatticePrepro.BoolCircuit.evalAux",
+    "LatticePrepro.BoolCircuit.gateWire",
+    "LatticePrepro.BoolCircuit.inWire1",
+    "LatticePrepro.BoolCircuit.inWire2",
+    "LatticePrepro.BoolCircuit.outW",
+    "LatticePrepro.BoolCircuit.toGateVerifier"
+   ],
+   "embedded_theorems": [
+    "LatticePrepro.BoolCircuit.coordOfNat_lt",
+    "LatticePrepro.BoolCircuit.n_le_outW",
+    "LatticePrepro.BoolCircuit.outW_lt"
+   ],
+   "lines": 112
+  },
+  {
+   "definition_name": "LatticePrepro_Verifier_Expr",
+   "module": "LatticePrepro.Verifier.Expr",
+   "imports": [
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Verifier_Gates",
+    "LatticePrepro_Verifier_Circuit"
+   ],
+   "defs": [
+    "LatticePrepro.BExpr",
+    "LatticePrepro.BExpr.and",
+    "LatticePrepro.BExpr.bigAnd",
+    "LatticePrepro.BExpr.compile",
+    "LatticePrepro.BExpr.const",
+    "LatticePrepro.BExpr.eqConst",
+    "LatticePrepro.BExpr.eval",
+    "LatticePrepro.BExpr.imp",
+    "LatticePrepro.BExpr.or",
+    "LatticePrepro.BExpr.size",
+    "LatticePrepro.BExpr.toCircuit",
+    "LatticePrepro.GateList.WF",
+    "LatticePrepro.GateSpec"
+   ],
+   "embedded_theorems": [
+    "LatticePrepro.BExpr.bigAnd_cons",
+    "LatticePrepro.BExpr.bigAnd_nil",
+    "LatticePrepro.BExpr.compile_fst_prefix",
+    "LatticePrepro.BExpr.compile_snd_add_one",
+    "LatticePrepro.BExpr.compile_snd_lt",
+    "LatticePrepro.BExpr.compile_wf",
+    "LatticePrepro.BExpr.eval_and",
+    "LatticePrepro.BExpr.eval_const",
+    "LatticePrepro.BExpr.eval_eqConst",
+    "LatticePrepro.BExpr.eval_gate",
+    "LatticePrepro.BExpr.eval_imp",
+    "LatticePrepro.BExpr.eval_leaf",
+    "LatticePrepro.BExpr.eval_or",
+    "LatticePrepro.BExpr.length_compile_fst",
+    "LatticePrepro.BExpr.size_and",
+    "LatticePrepro.BExpr.size_bigAnd",
+    "LatticePrepro.BExpr.size_const",
+    "LatticePrepro.BExpr.size_eqConst",
+    "LatticePrepro.BExpr.size_gate",
+    "LatticePrepro.BExpr.size_imp",
+    "LatticePrepro.BExpr.size_leaf",
+    "LatticePrepro.BExpr.size_or",
+    "LatticePrepro.BExpr.toCircuit_n",
+    "LatticePrepro.BExpr.toCircuit_w",
+    "LatticePrepro.GateList.WF.nil",
+    "LatticePrepro.GateList.WF.snoc"
+   ],
+   "lines": 249
+  },
+  {
+   "definition_name": "LatticePrepro_Verifier_ThreeSAT",
+   "module": "LatticePrepro.Verifier.ThreeSAT",
+   "imports": [
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Verifier_Gates",
+    "LatticePrepro_Verifier_Circuit",
+    "LatticePrepro_Verifier_Expr"
+   ],
+   "defs": [
+    "LatticePrepro.ThreeSAT.Clause",
+    "LatticePrepro.ThreeSAT.Clause.Satisfied",
+    "LatticePrepro.ThreeSAT.Instance",
+    "LatticePrepro.ThreeSAT.Satisfiable",
+    "LatticePrepro.ThreeSAT.circuit",
+    "LatticePrepro.ThreeSAT.clauseEquiv",
+    "LatticePrepro.ThreeSAT.clauseExpr",
+    "LatticePrepro.ThreeSAT.dummyLeaf",
+    "LatticePrepro.ThreeSAT.encode",
+    "LatticePrepro.ThreeSAT.formula",
+    "LatticePrepro.ThreeSAT.inputLeaf",
+    "LatticePrepro.ThreeSAT.len",
+    "LatticePrepro.ThreeSAT.litExpr",
+    "LatticePrepro.ThreeSAT.numLeaves",
+    "LatticePrepro.ThreeSAT.varLeaf"
+   ],
+   "embedded_theorems": [
+    "LatticePrepro.ThreeSAT.circuit_n",
+    "LatticePrepro.ThreeSAT.circuit_w",
+    "LatticePrepro.ThreeSAT.len_eq",
+    "LatticePrepro.ThreeSAT.size_clauseExpr",
+    "LatticePrepro.ThreeSAT.size_formula",
+    "LatticePrepro.ThreeSAT.size_formula_pos",
+    "LatticePrepro.ThreeSAT.size_litExpr"
+   ],
+   "lines": 112
+  },
+  {
+   "definition_name": "LatticePrepro_ThreeSAT",
+   "module": "LatticePrepro.ThreeSAT",
+   "imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Lattices_Mathlib",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Hankel",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable",
+    "LatticePrepro_Tables_TableSoundness",
+    "LatticePrepro_Tables_Explicit",
+    "LatticePrepro_Main",
+    "LatticePrepro_Verifier_Gates",
+    "LatticePrepro_Verifier_Circuit",
+    "LatticePrepro_Verifier_Expr",
+    "LatticePrepro_Verifier_ThreeSAT"
+   ],
+   "defs": [
+    "LatticePrepro.ThreeSAT.SAT"
+   ],
+   "embedded_theorems": [],
+   "lines": 47
+  },
+  {
+   "definition_name": "LatticePrepro_Conversions_Codes_Ext",
+   "module": "LatticePrepro.Conversions.Codes",
+   "imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes"
+   ],
+   "defs": [
+    "LatticePrepro.LinearSystemFamily.toCodeFamily"
+   ],
+   "embedded_theorems": [
+    "LatticePrepro.LinearSystemFamily.card_codeBlk_fiber"
+   ],
+   "lines": 32
+  },
+  {
+   "definition_name": "LatticePrepro_Conversions_ConstructionA_Ext",
+   "module": "LatticePrepro.Conversions.ConstructionA",
+   "imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Conversions_ConstructionA"
+   ],
+   "defs": [
+    "LatticePrepro.constructionA",
+    "LatticePrepro.redMod"
+   ],
+   "embedded_theorems": [
+    "LatticePrepro.redMod_apply",
+    "LatticePrepro.redMod_liftZMod"
+   ],
+   "lines": 27
+  },
+  {
+   "definition_name": "LatticePrepro_Conversions_Hadamard_Ext",
+   "module": "LatticePrepro.Conversions.Hadamard",
+   "imports": [
+    "LatticePrepro_Conversions_Hadamard"
+   ],
+   "defs": [
+    "LatticePrepro.Hadamard.blockHadₗ"
+   ],
+   "embedded_theorems": [
+    "LatticePrepro.Hadamard.blockHad_add",
+    "LatticePrepro.Hadamard.blockHad_apply",
+    "LatticePrepro.Hadamard.blockHad_smul",
+    "LatticePrepro.Hadamard.blockHadₗ_apply",
+    "LatticePrepro.Hadamard.card_Idx"
+   ],
+   "lines": 41
+  },
+  {
+   "definition_name": "LatticePrepro_Conversions_Padding",
+   "module": "LatticePrepro.Conversions.Padding",
+   "imports": [
+    "LatticePrepro_Basic_Blocks"
+   ],
+   "defs": [
+    "LatticePrepro.padMap"
+   ],
+   "embedded_theorems": [],
+   "lines": 26
+  },
+  {
+   "definition_name": "LatticePrepro_Conversions_Lattices_Ext",
+   "module": "LatticePrepro.Conversions.Lattices",
+   "imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_Codes_Ext",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_ConstructionA_Ext",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Hadamard_Ext",
+    "LatticePrepro_Conversions_Padding",
+    "LatticePrepro_Conversions_Lattices"
+   ],
+   "defs": [
+    "LatticePrepro.LinearSystemFamily.PadIdx",
+    "LatticePrepro.LinearSystemFamily.PadM",
+    "LatticePrepro.LinearSystemFamily.codeEnum",
+    "LatticePrepro.LinearSystemFamily.codeRank",
+    "LatticePrepro.LinearSystemFamily.latticeA",
+    "LatticePrepro.LinearSystemFamily.latticeH",
+    "LatticePrepro.LinearSystemFamily.padCode",
+    "LatticePrepro.LinearSystemFamily.padEmb",
+    "LatticePrepro.LinearSystemFamily.padEmbFn",
+    "LatticePrepro.LinearSystemFamily.padIdxEquiv",
+    "LatticePrepro.LinearSystemFamily.padK",
+    "LatticePrepro.LinearSystemFamily.padTarget"
+   ],
+   "embedded_theorems": [
+    "LatticePrepro.LinearSystemFamily.blockSize_le_two_pow_padK",
+    "LatticePrepro.LinearSystemFamily.codeRank_inj",
+    "LatticePrepro.LinearSystemFamily.codeRank_lt_blockSize",
+    "LatticePrepro.LinearSystemFamily.codeRank_lt_of_lt",
+    "LatticePrepro.LinearSystemFamily.padEmbFn_injective"
+   ],
+   "lines": 127
+  },
+  {
+   "definition_name": "LatticePrepro_ThreeSAT_Ext",
+   "module": "LatticePrepro.ThreeSAT",
+   "imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_Codes_Ext",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_ConstructionA_Ext",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Hadamard_Ext",
+    "LatticePrepro_Conversions_Padding",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Conversions_Lattices_Ext",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Hankel",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable",
+    "LatticePrepro_Tables_TableSoundness",
+    "LatticePrepro_Tables_Explicit",
+    "LatticePrepro_Lattices_Mathlib",
+    "LatticePrepro_Main",
+    "LatticePrepro_Verifier_Gates",
+    "LatticePrepro_Verifier_Circuit",
+    "LatticePrepro_Verifier_Expr",
+    "LatticePrepro_Verifier_ThreeSAT",
+    "LatticePrepro_ThreeSAT"
+   ],
+   "defs": [
+    "LatticePrepro.ThreeSAT.verifier"
+   ],
+   "embedded_theorems": [],
+   "lines": 44
+  },
+  {
+   "definition_name": "LatticePrepro_Explicit",
+   "module": "LatticePrepro.Explicit",
+   "imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_Codes_Ext",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_ConstructionA_Ext",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Hadamard_Ext",
+    "LatticePrepro_Conversions_Padding",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Conversions_Lattices_Ext",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Hankel",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable",
+    "LatticePrepro_Tables_TableSoundness",
+    "LatticePrepro_Tables_Explicit",
+    "LatticePrepro_Lattices_Mathlib",
+    "LatticePrepro_Main",
+    "LatticePrepro_Verifier_Gates",
+    "LatticePrepro_Verifier_Circuit",
+    "LatticePrepro_Verifier_Expr",
+    "LatticePrepro_Verifier_ThreeSAT",
+    "LatticePrepro_ThreeSAT",
+    "LatticePrepro_ThreeSAT_Ext"
+   ],
+   "defs": [
+    "LatticePrepro.CodeFamily.HasGap",
+    "LatticePrepro.CodeFamily.comap",
+    "LatticePrepro.LatticeFamily.HasGap",
+    "LatticePrepro.LatticeFamily.comap",
+    "LatticePrepro.LinearSystemFamily.codeFamily",
+    "LatticePrepro.LinearSystemFamily.latticeFamily",
+    "LatticePrepro.LinearSystemFamily.latticeRadius",
+    "LatticePrepro.QuadraticVerifier.Tables",
+    "LatticePrepro.QuadraticVerifier.Tables.codeFamily",
+    "LatticePrepro.QuadraticVerifier.Tables.latticeFamily",
+    "LatticePrepro.QuadraticVerifier.Tables.latticeRadius",
+    "LatticePrepro.QuadraticVerifier.Tables.system"
+   ],
+   "embedded_theorems": [],
+   "lines": 190
+  }
+ ],
+ "nodes": [
+  {
+   "theorem_name": "LatticePrepro.exists_zmod_of_pow_eq",
+   "slug": "LatticePrepro_exists_zmod_of_pow_eq",
+   "module": "LatticePrepro.Basic.FiniteField",
+   "source_lines": [
+    13,
+    39
+   ],
+   "proof_lines": 24,
+   "is_target": false,
+   "preamble": "import Mathlib\n\nopen Polynomial\nvariable {Ω : Type*} [Field Ω]",
+   "formal_statement": "theorem LatticePrepro.exists_zmod_of_pow_eq {p : ℕ} [hp : Fact p.Prime] [Algebra (ZMod p) Ω] {c : Ω}\n    (hc : c ^ p = c) : ∃ a : ZMod p, algebraMap (ZMod p) Ω a = c := by sorry",
+   "definition_imports": [],
+   "node_deps": [],
+   "inlined": [],
+   "inlined_defs": 0,
+   "solution_lines": 44
+  },
+  {
+   "theorem_name": "LatticePrepro.exists_det_submatrix_ne_zero",
+   "slug": "LatticePrepro_exists_det_submatrix_ne_zero",
+   "module": "LatticePrepro.Basic.Matrix",
+   "source_lines": [
+    66,
+    84
+   ],
+   "proof_lines": 16,
+   "is_target": false,
+   "preamble": "import Mathlib\n\nopen Polynomial Matrix\nvariable {K : Type*} [Field K] {m n : Type*} [Fintype n]",
+   "formal_statement": "theorem LatticePrepro.exists_det_submatrix_ne_zero [Fintype m] (A : Matrix m n K) {k : ℕ} (hk : A.rank = k) :\n    ∃ (r : Fin k → m) (c : Fin k → n), (A.submatrix r c).det ≠ 0 := by sorry",
+   "definition_imports": [],
+   "node_deps": [],
+   "inlined": [
+    "LatticePrepro.exists_linearIndependent_cols",
+    "LatticePrepro.rank_eq_card_of_linearIndependent_cols"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 65
+  },
+  {
+   "theorem_name": "LatticePrepro.pow_X_sub_C_dvd_det",
+   "slug": "LatticePrepro_pow_X_sub_C_dvd_det",
+   "module": "LatticePrepro.Basic.Matrix",
+   "source_lines": [
+    117,
+    162
+   ],
+   "proof_lines": 42,
+   "is_target": false,
+   "preamble": "import Mathlib\n\nopen Polynomial Matrix\nvariable {𝕊 : Type*} [Field 𝕊] {n : Type*} [Fintype n] [DecidableEq n]",
+   "formal_statement": "theorem LatticePrepro.pow_X_sub_C_dvd_det (M : Matrix n n 𝕊[X]) (s : 𝕊) :\n    (X - C s) ^ (Fintype.card n - (M.map (eval s)).rank) ∣ M.det := by sorry",
+   "definition_imports": [],
+   "node_deps": [],
+   "inlined": [
+    "LatticePrepro.exists_isUnit_mul_rows_eq_zero"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 92
+  },
+  {
+   "theorem_name": "LatticePrepro.exists_dependence_of_rank_le",
+   "slug": "LatticePrepro_exists_dependence_of_rank_le",
+   "module": "LatticePrepro.Basic.Matrix",
+   "source_lines": [
+    166,
+    186
+   ],
+   "proof_lines": 17,
+   "is_target": false,
+   "preamble": "import Mathlib\n\nopen Polynomial Matrix",
+   "formal_statement": "theorem LatticePrepro.exists_dependence_of_rank_le {K : Type*} [Field K] {ℓ : ℕ} (A : Matrix (Fin ℓ) (Fin ℓ) K)\n    {t : ℕ} (ht : A.rank ≤ t) (htℓ : t + 1 ≤ ℓ) :\n    ∃ c : Fin (t + 1) → K, c ≠ 0 ∧ ∀ i : Fin ℓ, ∑ j, c j * A i (Fin.castLE htℓ j) = 0 := by sorry",
+   "definition_imports": [],
+   "node_deps": [],
+   "inlined": [],
+   "inlined_defs": 0,
+   "solution_lines": 36
+  },
+  {
+   "theorem_name": "LatticePrepro.exists_base",
+   "slug": "LatticePrepro_exists_base",
+   "module": "LatticePrepro.Basic.Nat",
+   "source_lines": [
+    43,
+    63
+   ],
+   "proof_lines": 18,
+   "is_target": false,
+   "preamble": "import Mathlib",
+   "formal_statement": "theorem LatticePrepro.exists_base {Y m : ℕ} (hm : 1 ≤ m) (hY : 1 ≤ Y) :\n    ∃ B : ℕ, 2 ≤ B ∧ Y ≤ B ^ m ∧ B ^ m ≤ 2 ^ m * Y := by sorry",
+   "definition_imports": [],
+   "node_deps": [],
+   "inlined": [],
+   "inlined_defs": 0,
+   "solution_lines": 32
+  },
+  {
+   "theorem_name": "LatticePrepro.exists_pow_between",
+   "slug": "LatticePrepro_exists_pow_between",
+   "module": "LatticePrepro.Basic.Nat",
+   "source_lines": [
+    65,
+    84
+   ],
+   "proof_lines": 17,
+   "is_target": false,
+   "preamble": "import Mathlib",
+   "formal_statement": "theorem LatticePrepro.exists_pow_between {p N : ℕ} (hp : 2 ≤ p) (hN : 2 ≤ N) :\n    ∃ d, 1 ≤ d ∧ N ≤ p ^ d ∧ p ^ d < p * N := by sorry",
+   "definition_imports": [],
+   "node_deps": [],
+   "inlined": [],
+   "inlined_defs": 0,
+   "solution_lines": 31
+  },
+  {
+   "theorem_name": "LatticePrepro.LinearSystemFamily.code_yes",
+   "slug": "LatticePrepro_LinearSystemFamily_code_yes",
+   "module": "LatticePrepro.Conversions.Codes",
+   "source_lines": [
+    120,
+    142
+   ],
+   "proof_lines": 19,
+   "is_target": false,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\n\nopen LatticePrepro\nvariable {p : ℕ} [Fact p.Prime] {X : Type} (L : LinearSystemFamily (ZMod p) X)",
+   "formal_statement": "theorem LatticePrepro.LinearSystemFamily.code_yes {x : X} (hx : L.IsYes x) :\n    ∃ e : L.ι ⊕ L.ι → ZMod p, IsBinary e ∧ AtMostOnePerBlock L.codeBlk e ∧\n      hammingNorm e ≤ L.numBlocks ∧ L.codeTarget x - e ∈ L.code := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes"
+   ],
+   "node_deps": [],
+   "inlined": [
+    "LatticePrepro.LinearSystemFamily.card_blockSupport_codeBlk_inl",
+    "LatticePrepro.LinearSystemFamily.card_blockSupport_codeBlk_inr",
+    "LatticePrepro.LinearSystemFamily.codeTarget_of_exists",
+    "LatticePrepro.LinearSystemFamily.mem_code_iff",
+    "LatticePrepro.hammingNorm_eq_sum_blockSupport",
+    "LatticePrepro.hammingNorm_le_card_of_atMostOnePerBlock",
+    "LatticePrepro.hammingNorm_sum_elim"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 112
+  },
+  {
+   "theorem_name": "LatticePrepro.LinearSystemFamily.code_no",
+   "slug": "LatticePrepro_LinearSystemFamily_code_no",
+   "module": "LatticePrepro.Conversions.Codes",
+   "source_lines": [
+    144,
+    168
+   ],
+   "proof_lines": 21,
+   "is_target": false,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\n\nopen LatticePrepro\nvariable {p : ℕ} [Fact p.Prime] {X : Type} (L : LinearSystemFamily (ZMod p) X)",
+   "formal_statement": "theorem LatticePrepro.LinearSystemFamily.code_no {g : ℕ} (hg : g < L.blockSize) (hD : 0 < L.numBlocks) {x : X}\n    (hx : L.IsNo g x) :\n    ∀ c ∈ L.code, g * L.numBlocks < hammingDist (L.codeTarget x) c := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes"
+   ],
+   "node_deps": [],
+   "inlined": [
+    "LatticePrepro.LinearSystemFamily.card_ι",
+    "LatticePrepro.LinearSystemFamily.codeTarget_of_exists",
+    "LatticePrepro.LinearSystemFamily.codeTarget_of_not_exists",
+    "LatticePrepro.LinearSystemFamily.mem_code_iff",
+    "LatticePrepro.hammingDist_sum_elim"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 93
+  },
+  {
+   "theorem_name": "LatticePrepro.CodeFamily.codeDist_extend",
+   "slug": "LatticePrepro_CodeFamily_codeDist_extend",
+   "module": "LatticePrepro.Conversions.Codes",
+   "source_lines": [
+    236,
+    256
+   ],
+   "proof_lines": 16,
+   "is_target": false,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\n\nopen LatticePrepro\nvariable {p : ℕ} [Fact p.Prime] {X : Type} (F : Type) [Field F] [Algebra (ZMod p) F]",
+   "formal_statement": "theorem LatticePrepro.CodeFamily.codeDist_extend [DecidableEq F] (C : CodeFamily (ZMod p) X) (x : X) :\n    CodeFamily.codeDist ((C.extend F).target x) (C.extend F).code =\n      CodeFamily.codeDist (C.target x) C.code := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes"
+   ],
+   "node_deps": [],
+   "inlined": [
+    "LatticePrepro.CodeFamily.codeDist_le",
+    "LatticePrepro.CodeFamily.exists_codeDist_eq",
+    "LatticePrepro.CodeFamily.exists_retract_mem",
+    "LatticePrepro.CodeFamily.exists_retraction",
+    "LatticePrepro.CodeFamily.hammingDist_liftWord",
+    "LatticePrepro.CodeFamily.liftWord",
+    "LatticePrepro.CodeFamily.liftWord_mem_extend"
+   ],
+   "inlined_defs": 1,
+   "solution_lines": 97
+  },
+  {
+   "theorem_name": "LatticePrepro.blockHad_lift_bound",
+   "slug": "LatticePrepro_blockHad_lift_bound",
+   "module": "LatticePrepro.Conversions.Lattices",
+   "source_lines": [
+    221,
+    283
+   ],
+   "proof_lines": 56,
+   "is_target": false,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\n\nopen LatticePrepro\nopen Finset\nvariable {p : ℕ} [Fact p.Prime] {β : Type*} [Fintype β] [DecidableEq β] {k : ℕ}",
+   "formal_statement": "theorem LatticePrepro.blockHad_lift_bound {e : β × Hadamard.Idx k → ZMod p} (hb : IsBinary e)\n    (h1 : AtMostOnePerBlock Prod.fst e) :\n    (∀ su, |Hadamard.blockHad k (liftZMod e) su| ≤ 1) ∧\n    (univ.filter fun su => Hadamard.blockHad k (liftZMod e) su ≠ 0).card ≤\n      hammingNorm e * 2 ^ k := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Lattices"
+   ],
+   "node_deps": [],
+   "inlined": [
+    "LatticePrepro.Hadamard.abs_blockHad_le",
+    "LatticePrepro.Hadamard.abs_sgn",
+    "LatticePrepro.Hadamard.abs_wh",
+    "LatticePrepro.Hadamard.blockHad_apply",
+    "LatticePrepro.Hadamard.blockHad_eq_zero_of_block",
+    "LatticePrepro.Hadamard.card_Idx",
+    "LatticePrepro.liftZMod_binary",
+    "LatticePrepro.liftZMod_eq_zero_iff"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 154
+  },
+  {
+   "theorem_name": "LatticePrepro.radius_bound_gt_two",
+   "slug": "LatticePrepro_radius_bound_gt_two",
+   "module": "LatticePrepro.Conversions.Lattices",
+   "source_lines": [
+    320,
+    380
+   ],
+   "proof_lines": 56,
+   "is_target": false,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\n\nopen LatticePrepro",
+   "formal_statement": "theorem LatticePrepro.radius_bound_gt_two {q t D A B w : ℝ} (hq : 2 < q) (ht : 1 ≤ t) (hD : 1 ≤ D)\n    (hB : 0 ≤ B) (hw : w ≤ A / t) (hAB : A ≤ (2 * (t * D)) ^ (1 - 2 / q) * B ^ (2 / q)) :\n    w ≤ 16 * D * (B ^ (1 / q) / (⌈(t * D) ^ (1 / q)⌉₊ : ℝ)) ^ (2 : ℝ) := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Lattices"
+   ],
+   "node_deps": [],
+   "inlined": [],
+   "inlined_defs": 0,
+   "solution_lines": 85
+  },
+  {
+   "theorem_name": "LatticePrepro.exists_latticeReduction",
+   "slug": "LatticePrepro_exists_latticeReduction",
+   "module": "LatticePrepro.Conversions.Lattices",
+   "source_lines": [
+    684,
+    699
+   ],
+   "proof_lines": 5,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\n\nopen LatticePrepro",
+   "formal_statement": "theorem LatticePrepro.exists_latticeReduction {p : ℕ} [Fact p.Prime] {X : Type}\n    (L : LinearSystemFamily (ZMod p) X) {g : ℕ} (hg : g < L.blockSize) (hD : 0 < L.numBlocks)\n    (pn : PNorm) : Nonempty (LatticeReduction L g pn) := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Lattices"
+   ],
+   "node_deps": [
+    "LatticePrepro.LinearSystemFamily.code_no",
+    "LatticePrepro.LinearSystemFamily.code_yes",
+    "LatticePrepro.blockHad_lift_bound",
+    "LatticePrepro.radius_bound_gt_two"
+   ],
+   "inlined": [
+    "LatticePrepro.Hadamard.blockHad_add",
+    "LatticePrepro.Hadamard.blockHad_apply",
+    "LatticePrepro.Hadamard.blockHad_blockHad",
+    "LatticePrepro.Hadamard.blockHad_smul",
+    "LatticePrepro.Hadamard.blockHad_sub",
+    "LatticePrepro.Hadamard.blockHadₗ",
+    "LatticePrepro.Hadamard.blockHadₗ_apply",
+    "LatticePrepro.Hadamard.blockInv",
+    "LatticePrepro.Hadamard.blockInv_blockHad",
+    "LatticePrepro.Hadamard.card_Idx",
+    "LatticePrepro.Hadamard.dotProduct_mulVec_self",
+    "LatticePrepro.Hadamard.idx_add_eq_zero_iff",
+    "LatticePrepro.Hadamard.ip_add_right",
+    "LatticePrepro.Hadamard.ip_add_single",
+    "LatticePrepro.Hadamard.ip_comm",
+    "LatticePrepro.Hadamard.ip_zero_right",
+    "LatticePrepro.Hadamard.sgn_add",
+    "LatticePrepro.Hadamard.sgn_one",
+    "LatticePrepro.Hadamard.sum_sgn_ip",
+    "LatticePrepro.Hadamard.sum_sq_blockHad",
+    "LatticePrepro.Hadamard.sum_wh_mul_wh",
+    "LatticePrepro.Hadamard.whMat_mul_whMat",
+    "LatticePrepro.Hadamard.whMat_transpose",
+    "LatticePrepro.Hadamard.wh_comm",
+    "LatticePrepro.Hadamard.wh_mul_wh",
+    "LatticePrepro.Hadamard.zmod2_add_eq_zero_iff",
+    "LatticePrepro.Hadamard.zmod2_eq_one_of_ne_zero",
+    "LatticePrepro.LinearSystemFamily.PadIdx",
+    "LatticePrepro.LinearSystemFamily.PadM",
+    "LatticePrepro.LinearSystemFamily.blockSize_le_two_pow_padK",
+    "LatticePrepro.LinearSystemFamily.card_codeBlk_fiber",
+    "LatticePrepro.LinearSystemFamily.card_padM",
+    "LatticePrepro.LinearSystemFamily.card_padM_lt",
+    "LatticePrepro.LinearSystemFamily.card_ι",
+    "LatticePrepro.LinearSystemFamily.codeEnum",
+    "LatticePrepro.LinearSystemFamily.codeRank",
+    "LatticePrepro.LinearSystemFamily.codeRank_inj",
+    "LatticePrepro.LinearSystemFamily.codeRank_lt_blockSize",
+    "LatticePrepro.LinearSystemFamily.codeRank_lt_of_lt",
+    "LatticePrepro.LinearSystemFamily.latticeA",
+    "LatticePrepro.LinearSystemFamily.latticeH",
+    "LatticePrepro.LinearSystemFamily.latticeH_smul_mem",
+    "LatticePrepro.LinearSystemFamily.latticeH_yes",
+    "LatticePrepro.LinearSystemFamily.lt_weightA",
+    "LatticePrepro.LinearSystemFamily.lt_weightH",
+    "LatticePrepro.LinearSystemFamily.padCode",
+    "LatticePrepro.LinearSystemFamily.padEmb",
+    "LatticePrepro.LinearSystemFamily.padEmbFn",
+    "LatticePrepro.LinearSystemFamily.padEmbFn_injective",
+    "LatticePrepro.LinearSystemFamily.padEmb_fst",
+    "LatticePrepro.LinearSystemFamily.padIdxEquiv",
+    "LatticePrepro.LinearSystemFamily.padK",
+    "LatticePrepro.LinearSystemFamily.padTarget",
+    "LatticePrepro.LinearSystemFamily.pad_no",
+    "LatticePrepro.LinearSystemFamily.pad_yes",
+    "LatticePrepro.LinearSystemFamily.reduction_gt_two",
+    "LatticePrepro.LinearSystemFamily.reduction_inf",
+    "LatticePrepro.LinearSystemFamily.reduction_le_two",
+    "LatticePrepro.LinearSystemFamily.two_mul_card_le_card_padM",
+    "LatticePrepro.LinearSystemFamily.two_pow_padK_lt",
+    "LatticePrepro.LinearSystemFamily.weightA",
+    "LatticePrepro.LinearSystemFamily.weightH",
+    "LatticePrepro.LinearSystemFamily.weightH_blockHad",
+    "LatticePrepro.LinearSystemFamily.weightH_le",
+    "LatticePrepro.abs_le_supNorm",
+    "LatticePrepro.abs_liftZMod_le_one",
+    "LatticePrepro.atMostOnePerBlock_padMap",
+    "LatticePrepro.blockSupport_padMap",
+    "LatticePrepro.card_ne_zero_le_sum_abs_rpow",
+    "LatticePrepro.card_ne_zero_le_sum_sq",
+    "LatticePrepro.constructionA",
+    "LatticePrepro.filter_padMap_ne",
+    "LatticePrepro.hammingDist_padMap",
+    "LatticePrepro.hammingNorm_padMap",
+    "LatticePrepro.hammingNorm_redMod_le",
+    "LatticePrepro.hammingNorm_sub_eq_hammingDist",
+    "LatticePrepro.isBinary_padMap",
+    "LatticePrepro.liftZMod_binary",
+    "LatticePrepro.liftZMod_eq_zero_iff",
+    "LatticePrepro.lift_sub_lift_mem_constructionA",
+    "LatticePrepro.lpNorm",
+    "LatticePrepro.lpNorm_le_rpow_of_sum_le",
+    "LatticePrepro.lpNorm_nonneg",
+    "LatticePrepro.lpNorm_rpow",
+    "LatticePrepro.mem_constructionA",
+    "LatticePrepro.natCast_smul_mem_constructionA",
+    "LatticePrepro.padMap",
+    "LatticePrepro.padMap_apply",
+    "LatticePrepro.padMap_apply_emb",
+    "LatticePrepro.padMap_apply_of_not",
+    "LatticePrepro.radius_bound_inf",
+    "LatticePrepro.radius_bound_le_two",
+    "LatticePrepro.redMod",
+    "LatticePrepro.redMod_apply",
+    "LatticePrepro.redMod_liftZMod",
+    "LatticePrepro.redMod_lift_sub",
+    "LatticePrepro.sum_abs_rpow_le_card_ne_zero",
+    "LatticePrepro.sum_abs_rpow_nonneg",
+    "LatticePrepro.sum_sq_le_card_mul_supNorm_sq",
+    "LatticePrepro.sum_sq_le_card_rpow_mul",
+    "LatticePrepro.supNorm",
+    "LatticePrepro.supNorm_le"
+   ],
+   "inlined_defs": 24,
+   "solution_lines": 942
+  },
+  {
+   "theorem_name": "LatticePrepro.CodeFamily.accepts_of_isApprox",
+   "slug": "LatticePrepro_CodeFamily_accepts_of_isApprox",
+   "module": "LatticePrepro.Conversions.SearchTest",
+   "source_lines": [
+    37,
+    45
+   ],
+   "proof_lines": 5,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\nimport Definitions.Def_LatticePrepro_Lattices_Distance\nimport Definitions.Def_LatticePrepro_Conversions_SearchTest\n\nopen LatticePrepro\nopen LatticePrepro.CodeFamily\nvariable {F : Type} [Field F] [DecidableEq F] {X : Type} (C : CodeFamily F X)",
+   "formal_statement": "theorem LatticePrepro.CodeFamily.accepts_of_isApprox {g R : ℕ} {x : X} (hx : codeDist (C.target x) C.code ≤ R) {f : ℝ}\n    (hfg : f ≤ g) {c : C.M → F} (hc : C.IsApprox f x c) : C.Accepts g R x c := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Conversions_SearchTest"
+   ],
+   "node_deps": [],
+   "inlined": [],
+   "inlined_defs": 0,
+   "solution_lines": 39
+  },
+  {
+   "theorem_name": "LatticePrepro.CodeFamily.not_accepts_of_lt",
+   "slug": "LatticePrepro_CodeFamily_not_accepts_of_lt",
+   "module": "LatticePrepro.Conversions.SearchTest",
+   "source_lines": [
+    47,
+    51
+   ],
+   "proof_lines": 2,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\nimport Definitions.Def_LatticePrepro_Lattices_Distance\nimport Definitions.Def_LatticePrepro_Conversions_SearchTest\n\nopen LatticePrepro\nopen LatticePrepro.CodeFamily\nvariable {F : Type} [Field F] [DecidableEq F] {X : Type} (C : CodeFamily F X)",
+   "formal_statement": "theorem LatticePrepro.CodeFamily.not_accepts_of_lt {g R : ℕ} {x : X} (hx : g * R < codeDist (C.target x) C.code)\n    (c : C.M → F) : ¬ C.Accepts g R x c := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Conversions_SearchTest"
+   ],
+   "node_deps": [],
+   "inlined": [
+    "LatticePrepro.CodeFamily.codeDist_le"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 49
+  },
+  {
+   "theorem_name": "LatticePrepro.LatticeReduction.accepts_of_isApprox",
+   "slug": "LatticePrepro_LatticeReduction_accepts_of_isApprox",
+   "module": "LatticePrepro.Conversions.SearchTest",
+   "source_lines": [
+    72,
+    95
+   ],
+   "proof_lines": 20,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\nimport Definitions.Def_LatticePrepro_Lattices_Distance\nimport Definitions.Def_LatticePrepro_Conversions_SearchTest\n\nopen LatticePrepro\nopen LatticePrepro.LatticeReduction\nvariable {p : ℕ} [Fact p.Prime] {X : Type} {L : LinearSystemFamily (ZMod p) X} {g : ℕ}\n  {pn : PNorm} (Red : LatticeReduction L g pn)",
+   "formal_statement": "theorem LatticePrepro.LatticeReduction.accepts_of_isApprox {f : ℝ} (hf : 0 ≤ f) (hgf : 16 * f ^ pn.s ≤ g) {x : X}\n    (hx : L.IsYes x) {v : Red.Λ.M → ℤ} (hv : Red.IsApprox f x v) : Red.Accepts x v := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Conversions_SearchTest"
+   ],
+   "node_deps": [],
+   "inlined": [
+    "LatticePrepro.LatticeFamily.bddBelow_range_dist",
+    "LatticePrepro.LatticeFamily.dist_nonneg",
+    "LatticePrepro.LatticeFamily.latticeDist_le",
+    "LatticePrepro.LatticeFamily.latticeDist_le_of_exists",
+    "LatticePrepro.PNorm.norm_nonneg",
+    "LatticePrepro.PNorm.one_le_s"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 102
+  },
+  {
+   "theorem_name": "LatticePrepro.LatticeReduction.not_accepts_of_isNo",
+   "slug": "LatticePrepro_LatticeReduction_not_accepts_of_isNo",
+   "module": "LatticePrepro.Conversions.SearchTest",
+   "source_lines": [
+    97,
+    100
+   ],
+   "proof_lines": 2,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\nimport Definitions.Def_LatticePrepro_Lattices_Distance\nimport Definitions.Def_LatticePrepro_Conversions_SearchTest\n\nopen LatticePrepro\nopen LatticePrepro.LatticeReduction\nvariable {p : ℕ} [Fact p.Prime] {X : Type} {L : LinearSystemFamily (ZMod p) X} {g : ℕ}\n  {pn : PNorm} (Red : LatticeReduction L g pn)",
+   "formal_statement": "theorem LatticePrepro.LatticeReduction.not_accepts_of_isNo {x : X} (hx : L.IsNo g x) (v : Red.Λ.M → ℤ) : ¬ Red.Accepts x v := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Conversions_SearchTest"
+   ],
+   "node_deps": [],
+   "inlined": [],
+   "inlined_defs": 0,
+   "solution_lines": 35
+  },
+  {
+   "theorem_name": "LatticePrepro.eq_zero_of_moment_eq_zero",
+   "slug": "LatticePrepro_eq_zero_of_moment_eq_zero",
+   "module": "LatticePrepro.Moments.Basic",
+   "source_lines": [
+    194,
+    220
+   ],
+   "proof_lines": 23,
+   "is_target": false,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Moments_Basic\n\nopen LatticePrepro\nopen Finsupp\nvariable {Ω : Type*} [Field Ω]",
+   "formal_statement": "theorem LatticePrepro.eq_zero_of_moment_eq_zero (g : Ω →₀ Ω) {t : ℕ} (hs : g.support.card ≤ t)\n    (h : ∀ k < t, moment g k = 0) : g = 0 := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Moments_Basic"
+   ],
+   "node_deps": [],
+   "inlined": [
+    "LatticePrepro.moment_eq_sum"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 60
+  },
+  {
+   "theorem_name": "LatticePrepro.QuadraticVerifier.enc_assignOf",
+   "slug": "LatticePrepro_QuadraticVerifier_enc_assignOf",
+   "module": "LatticePrepro.Verifier.Quadratic",
+   "source_lines": [
+    213,
+    244
+   ],
+   "proof_lines": 29,
+   "is_target": false,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\n\nopen LatticePrepro\nopen LatticePrepro.QuadraticVerifier\nvariable {p : ℕ} [Fact p.Prime] {K : Type} [Field K] [Algebra (ZMod p) K]\n  (V : QuadraticVerifier p) (ε : EncodingTuple p K V.S)",
+   "formal_statement": "theorem LatticePrepro.QuadraticVerifier.enc_assignOf (x : Fin V.n → Bool) (u : V.AuxIdx → ZMod p) :\n    ε.enc (V.assignOf x u) = V.instanceEnc ε x + ∑ i : V.AuxIdx, u i • ε.E i.1 := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Verifier_Quadratic"
+   ],
+   "node_deps": [],
+   "inlined": [
+    "LatticePrepro.QuadraticVerifier.assignOf_apply_of_eq",
+    "LatticePrepro.QuadraticVerifier.assignOf_apply_of_le",
+    "LatticePrepro.QuadraticVerifier.assignOf_apply_of_lt",
+    "LatticePrepro.QuadraticVerifier.assignOf_zero"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 82
+  },
+  {
+   "theorem_name": "LatticePrepro.QuadraticVerifier.card_tblIdx_le",
+   "slug": "LatticePrepro_QuadraticVerifier_card_tblIdx_le",
+   "module": "LatticePrepro.Reduction.FixedSystem",
+   "source_lines": [
+    79,
+    113
+   ],
+   "proof_lines": 33,
+   "is_target": false,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Reduction_FixedSystem\n\nopen LatticePrepro\nopen LatticePrepro.QuadraticVerifier\nvariable {p : ℕ} (V : QuadraticVerifier p)",
+   "formal_statement": "theorem LatticePrepro.QuadraticVerifier.card_tblIdx_le : Fintype.card V.TblIdx ≤ (V.S + 1) ^ 2 := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem"
+   ],
+   "node_deps": [],
+   "inlined": [],
+   "inlined_defs": 0,
+   "solution_lines": 62
+  },
+  {
+   "theorem_name": "LatticePrepro.FixedSystem.hammingNorm_eq_sum_tbl",
+   "slug": "LatticePrepro_FixedSystem_hammingNorm_eq_sum_tbl",
+   "module": "LatticePrepro.Reduction.FixedSystem",
+   "source_lines": [
+    290,
+    307
+   ],
+   "proof_lines": 15,
+   "is_target": false,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Reduction_FixedSystem\n\nopen LatticePrepro\nvariable {p : ℕ} [Fact p.Prime] {K : Type} [Field K] [Algebra (ZMod p) K]\n    {Ω : Type} [Field Ω] [Algebra (ZMod p) Ω] [Algebra K Ω] [IsScalarTower (ZMod p) K Ω]\n    (V : QuadraticVerifier p) (R : MomentRepresentation p K Ω) (ε : EncodingTuple p K V.S)\nopen LatticePrepro.FixedSystem",
+   "formal_statement": "theorem LatticePrepro.FixedSystem.hammingNorm_eq_sum_tbl (v : Col V R → ZMod p) :\n    hammingNorm v = ∑ T, hammingNorm (tbl V R v T) := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem"
+   ],
+   "node_deps": [],
+   "inlined": [],
+   "inlined_defs": 0,
+   "solution_lines": 54
+  },
+  {
+   "theorem_name": "LatticePrepro.FixedSystem.recover",
+   "slug": "LatticePrepro_FixedSystem_recover",
+   "module": "LatticePrepro.Reduction.Soundness",
+   "source_lines": [
+    67,
+    140
+   ],
+   "proof_lines": 64,
+   "is_target": false,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Reduction_FixedSystem\n\nopen LatticePrepro\nopen Finsupp\nopen LatticePrepro.FixedSystem\nvariable {p : ℕ} [Fact p.Prime] {K : Type} [Field K] [Algebra (ZMod p) K]\n    {Ω : Type} [Field Ω] [Algebra (ZMod p) Ω] [Algebra K Ω] [IsScalarTower (ZMod p) K Ω]\n    (V : QuadraticVerifier p) (R : MomentRepresentation p K Ω) (ε : EncodingTuple p K V.S)",
+   "formal_statement": "theorem LatticePrepro.FixedSystem.recover {Fv : Fin (V.S + 1) → Fin (V.S + 1) → ZMod p}\n    (hsymm : ∀ i j, Fv i j = Fv j i) (hdiag : ∀ i, Fv i i = Fv i 0) {α : Ω}\n    (henc : ∀ j, α * algebraMap (ZMod p) Ω (Fv 0 j) =\n      ∑ i, algebraMap K Ω (ε.E i) * algebraMap (ZMod p) Ω (Fv i j))\n    (hgate : ∀ b, ∑ i, ∑ j, V.coeff b i j * Fv i j = 0) (hne : Fv 0 0 ≠ 0) :\n    ∃ z : Fin (V.S + 1) → ZMod p, V.IsBooleanAssignment z ∧ V.IsValid z ∧\n      algebraMap K Ω (ε.enc z) = α := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem"
+   ],
+   "node_deps": [],
+   "inlined": [
+    "LatticePrepro.EncodingTuple.eq_zero_of_sum_smul_eq_zero",
+    "LatticePrepro.FixedSystem.algebraMap_smul_eq",
+    "LatticePrepro.FixedSystem.coeff_eq_zero_of_sum_smul_algebraMap"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 146
+  },
+  {
+   "theorem_name": "LatticePrepro.FixedSystem.translation_pointwise",
+   "slug": "LatticePrepro_FixedSystem_translation_pointwise",
+   "module": "LatticePrepro.Reduction.Soundness",
+   "source_lines": [
+    251,
+    333
+   ],
+   "proof_lines": 77,
+   "is_target": false,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Reduction_FixedSystem\n\nopen LatticePrepro\nopen Finsupp\nopen LatticePrepro.FixedSystem\nvariable {p : ℕ} [Fact p.Prime] {K : Type} [Field K] [Algebra (ZMod p) K]\n    {Ω : Type} [Field Ω] [Algebra (ZMod p) Ω] [Algebra K Ω] [IsScalarTower (ZMod p) K Ω]\n    (V : QuadraticVerifier p) (R : MomentRepresentation p K Ω) (ε : EncodingTuple p K V.S)\nvariable {x : Fin V.n → Bool} {v : Col V R → ZMod p} (hv : Solves V R ε x v)\n  (f : V.TblIdx → Ω →₀ ZMod p)\n  (hf : ∀ T (k : R.Order), algebraMap K Ω (R.momentMap k (tbl V R v T)) = moment (f T) k)\n  (hN : ∑ T, (f T).support.card < R.r)\ninclude hv hf hN",
+   "formal_statement": "theorem LatticePrepro.FixedSystem.translation_pointwise (α : Ω) :\n    algebraMap (ZMod p) Ω (f (Sum.inl (V.rep 0 0)) α) -\n      ∑ i : V.AuxIdx, (algebraMap (ZMod p) Ω (f (Sum.inr i) (α - algebraMap K Ω (ε.E i.1))) -\n        algebraMap (ZMod p) Ω (f (Sum.inr i) α)) -\n      Finsupp.single (algebraMap K Ω (V.instanceEnc ε x)) (1 : Ω) α = 0 := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem"
+   ],
+   "node_deps": [
+    "LatticePrepro.eq_zero_of_moment_eq_zero"
+   ],
+   "inlined": [
+    "LatticePrepro.FixedSystem.card_suppUnion_le",
+    "LatticePrepro.FixedSystem.eq_zero_of_notMem_suppUnion",
+    "LatticePrepro.FixedSystem.mem_suppUnion",
+    "LatticePrepro.FixedSystem.suppUnion",
+    "LatticePrepro.extendScalars",
+    "LatticePrepro.extendScalars_apply",
+    "LatticePrepro.extendScalars_zero",
+    "LatticePrepro.moment_extendScalars",
+    "LatticePrepro.moment_finset_sum",
+    "LatticePrepro.moment_sub",
+    "LatticePrepro.moment_translate",
+    "LatticePrepro.moment_translate_sub",
+    "LatticePrepro.momentₗ",
+    "LatticePrepro.momentₗ_apply",
+    "LatticePrepro.translate",
+    "LatticePrepro.translate_apply",
+    "LatticePrepro.translate_single"
+   ],
+   "inlined_defs": 4,
+   "solution_lines": 248
+  },
+  {
+   "theorem_name": "LatticePrepro.FixedSystem.mem_language_of_solves",
+   "slug": "LatticePrepro_FixedSystem_mem_language_of_solves",
+   "module": "LatticePrepro.Reduction.Soundness",
+   "source_lines": [
+    339,
+    426
+   ],
+   "proof_lines": 84,
+   "is_target": false,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Reduction_FixedSystem\n\nopen LatticePrepro\nopen Finsupp\nopen LatticePrepro.FixedSystem\nvariable {p : ℕ} [Fact p.Prime] {K : Type} [Field K] [Algebra (ZMod p) K]\n    {Ω : Type} [Field Ω] [Algebra (ZMod p) Ω] [Algebra K Ω] [IsScalarTower (ZMod p) K Ω]\n    (V : QuadraticVerifier p) (R : MomentRepresentation p K Ω) (ε : EncodingTuple p K V.S)",
+   "formal_statement": "theorem LatticePrepro.FixedSystem.mem_language_of_solves {x : Fin V.n → Bool} {v : Col V R → ZMod p}\n    (hv : Solves V R ε x v) (hw : 2 * hammingNorm v < R.r * R.numBlocks) : x ∈ V.Language := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem"
+   ],
+   "node_deps": [
+    "LatticePrepro.FixedSystem.hammingNorm_eq_sum_tbl",
+    "LatticePrepro.FixedSystem.recover",
+    "LatticePrepro.FixedSystem.translation_pointwise",
+    "LatticePrepro.QuadraticVerifier.enc_assignOf",
+    "LatticePrepro.eq_zero_of_moment_eq_zero"
+   ],
+   "inlined": [
+    "LatticePrepro.EncodingTuple.enc_injective",
+    "LatticePrepro.EncodingTuple.enc_sub",
+    "LatticePrepro.EncodingTuple.eq_zero_of_sum_smul_eq_zero",
+    "LatticePrepro.FixedSystem.algebraMap_smul_eq",
+    "LatticePrepro.FixedSystem.card_suppUnion_le",
+    "LatticePrepro.FixedSystem.encoding_pointwise",
+    "LatticePrepro.FixedSystem.eq_zero_of_notMem_suppUnion",
+    "LatticePrepro.FixedSystem.gate_pointwise",
+    "LatticePrepro.FixedSystem.hammingNorm_tbl_le",
+    "LatticePrepro.FixedSystem.mem_suppUnion",
+    "LatticePrepro.FixedSystem.suppUnion",
+    "LatticePrepro.QuadraticVerifier.assignOf_apply_of_eq",
+    "LatticePrepro.QuadraticVerifier.assignOf_apply_of_le",
+    "LatticePrepro.QuadraticVerifier.assignOf_apply_of_lt",
+    "LatticePrepro.QuadraticVerifier.assignOf_aux",
+    "LatticePrepro.QuadraticVerifier.assignOf_hasPrefix",
+    "LatticePrepro.QuadraticVerifier.assignOf_inputIdx",
+    "LatticePrepro.QuadraticVerifier.assignOf_outputIdx",
+    "LatticePrepro.QuadraticVerifier.assignOf_zero",
+    "LatticePrepro.QuadraticVerifier.rep_comm",
+    "LatticePrepro.QuadraticVerifier.rep_diag",
+    "LatticePrepro.extendScalars",
+    "LatticePrepro.extendScalars_apply",
+    "LatticePrepro.extendScalars_zero",
+    "LatticePrepro.moment_eq_sum",
+    "LatticePrepro.moment_eq_sum_of_subset",
+    "LatticePrepro.moment_extendScalars",
+    "LatticePrepro.moment_finset_sum",
+    "LatticePrepro.moment_mulVar",
+    "LatticePrepro.moment_smul",
+    "LatticePrepro.moment_sub",
+    "LatticePrepro.momentₗ",
+    "LatticePrepro.momentₗ_apply",
+    "LatticePrepro.mulVar",
+    "LatticePrepro.mulVar_apply",
+    "LatticePrepro.support_mulVar_subset"
+   ],
+   "inlined_defs": 4,
+   "solution_lines": 419
+  },
+  {
+   "theorem_name": "LatticePrepro.FixedSystem.isGapReduction",
+   "slug": "LatticePrepro_FixedSystem_isGapReduction",
+   "module": "LatticePrepro.Reduction.Soundness",
+   "source_lines": [
+    444,
+    448
+   ],
+   "proof_lines": 1,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Reduction_FixedSystem\n\nopen LatticePrepro\nopen Finsupp\nopen LatticePrepro.FixedSystem\nvariable {p : ℕ} [Fact p.Prime] {K : Type} [Field K] [Algebra (ZMod p) K]\n    {Ω : Type} [Field Ω] [Algebra (ZMod p) Ω] [Algebra K Ω] [IsScalarTower (ZMod p) K Ω]\n    (V : QuadraticVerifier p) (R : MomentRepresentation p K Ω) (ε : EncodingTuple p K V.S)",
+   "formal_statement": "theorem LatticePrepro.FixedSystem.isGapReduction {g : ℕ} (hg : 2 * g * Fintype.card V.TblIdx < R.r) :\n    (fixedSystem V R ε).IsGapReduction V.Language g := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem"
+   ],
+   "node_deps": [
+    "LatticePrepro.FixedSystem.mem_language_of_solves"
+   ],
+   "inlined": [
+    "LatticePrepro.AtMostOnePerBlock.smul",
+    "LatticePrepro.ExactlyOnePerBlock.atMostOne",
+    "LatticePrepro.FixedSystem.binary_mul",
+    "LatticePrepro.FixedSystem.card_blockSupport_blk",
+    "LatticePrepro.FixedSystem.complete",
+    "LatticePrepro.FixedSystem.honest",
+    "LatticePrepro.FixedSystem.honestTbl",
+    "LatticePrepro.FixedSystem.honest_atMostOnePerBlock",
+    "LatticePrepro.FixedSystem.honest_binary",
+    "LatticePrepro.FixedSystem.honest_constraint",
+    "LatticePrepro.FixedSystem.honest_encoding",
+    "LatticePrepro.FixedSystem.honest_gate",
+    "LatticePrepro.FixedSystem.honest_solves",
+    "LatticePrepro.FixedSystem.honest_translation",
+    "LatticePrepro.FixedSystem.isSolution_iff",
+    "LatticePrepro.FixedSystem.momentMap_atbl_honest",
+    "LatticePrepro.FixedSystem.momentMap_ptbl_honest",
+    "LatticePrepro.FixedSystem.numBlocks_eq",
+    "LatticePrepro.FixedSystem.partialEnc",
+    "LatticePrepro.FixedSystem.partialEnc_prefix",
+    "LatticePrepro.FixedSystem.partialEnc_succ",
+    "LatticePrepro.FixedSystem.partialEnc_top",
+    "LatticePrepro.FixedSystem.rep_mul",
+    "LatticePrepro.FixedSystem.sound",
+    "LatticePrepro.FixedSystem.sum_aux_telescope",
+    "LatticePrepro.FixedSystem.sysMap_eq_rhs_iff",
+    "LatticePrepro.FixedSystem.tbl_honest",
+    "LatticePrepro.MomentRepresentation.card_ι",
+    "LatticePrepro.MomentRepresentation.constraint_elemTable",
+    "LatticePrepro.MomentRepresentation.elemTable",
+    "LatticePrepro.MomentRepresentation.elemTable_binary",
+    "LatticePrepro.MomentRepresentation.elemTable_onePerBlock",
+    "LatticePrepro.MomentRepresentation.momentMap_elemTable",
+    "LatticePrepro.MomentRepresentation.numBlocks_pos",
+    "LatticePrepro.MomentRepresentation.ord",
+    "LatticePrepro.MomentRepresentation.ord_val",
+    "LatticePrepro.QuadraticVerifier.assignOf_apply_of_eq",
+    "LatticePrepro.QuadraticVerifier.assignOf_apply_of_le",
+    "LatticePrepro.QuadraticVerifier.assignOf_apply_of_lt",
+    "LatticePrepro.QuadraticVerifier.assignOf_zero",
+    "LatticePrepro.blockSupport_smul_subset",
+    "LatticePrepro.sum_Ico_telescope"
+   ],
+   "inlined_defs": 5,
+   "solution_lines": 464
+  },
+  {
+   "theorem_name": "LatticePrepro.digitVal_gdigits",
+   "slug": "LatticePrepro_digitVal_gdigits",
+   "module": "LatticePrepro.Tables.Digits",
+   "source_lines": [
+    26,
+    39
+   ],
+   "proof_lines": 11,
+   "is_target": false,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Tables_Digits\n\nopen LatticePrepro",
+   "formal_statement": "theorem LatticePrepro.digitVal_gdigits {B m : ℕ} (hB : 2 ≤ B) (hm : 1 ≤ m) (k : ℕ) :\n    digitVal B (gdigits B m k) = k := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Tables_Digits"
+   ],
+   "node_deps": [],
+   "inlined": [
+    "LatticePrepro.one_le_pow_sub_one",
+    "LatticePrepro.pred_mul_geomSum",
+    "LatticePrepro.pred_mul_geomSum_add_one",
+    "LatticePrepro.sum_digit_mul_pow"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 63
+  },
+  {
+   "theorem_name": "LatticePrepro.gdigits_le",
+   "slug": "LatticePrepro_gdigits_le",
+   "module": "LatticePrepro.Tables.Digits",
+   "source_lines": [
+    41,
+    63
+   ],
+   "proof_lines": 19,
+   "is_target": false,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Tables_Digits\n\nopen LatticePrepro",
+   "formal_statement": "theorem LatticePrepro.gdigits_le {B m J k : ℕ} (hB : 2 ≤ B) (hm : 1 ≤ m) (hJ : 1 ≤ J)\n    (hk : k ≤ J * (B ^ m - 1)) (h : Fin m) : gdigits B m k h ≤ J * (B - 1) := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Tables_Digits"
+   ],
+   "node_deps": [],
+   "inlined": [
+    "LatticePrepro.one_le_pow_sub_one"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 47
+  },
+  {
+   "theorem_name": "LatticePrepro.FieldSetup.exists_fieldSetup",
+   "slug": "LatticePrepro_FieldSetup_exists_fieldSetup",
+   "module": "LatticePrepro.Tables.FieldSetup",
+   "source_lines": [
+    44,
+    84
+   ],
+   "proof_lines": 37,
+   "is_target": false,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Tables_FieldSetup\n\nopen LatticePrepro\nopen LatticePrepro.FieldSetup\nvariable {p : ℕ} [Fact p.Prime] {d δ : ℕ}",
+   "formal_statement": "theorem LatticePrepro.FieldSetup.exists_fieldSetup (p : ℕ) [Fact p.Prime] (d δ : ℕ) (hd : 1 ≤ d) (hδ : 1 ≤ δ) :\n    Nonempty (FieldSetup p d δ) := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Tables_FieldSetup"
+   ],
+   "node_deps": [],
+   "inlined": [],
+   "inlined_defs": 0,
+   "solution_lines": 66
+  },
+  {
+   "theorem_name": "LatticePrepro.hankel_reconstruction",
+   "slug": "LatticePrepro_hankel_reconstruction",
+   "module": "LatticePrepro.Tables.Hankel",
+   "source_lines": [
+    232,
+    366
+   ],
+   "proof_lines": 127,
+   "is_target": false,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Tables_Hankel\n\nopen LatticePrepro\nopen Polynomial",
+   "formal_statement": "theorem LatticePrepro.hankel_reconstruction {p : ℕ} [hp : Fact p.Prime] {Ω : Type} [Field Ω]\n    [Algebra (ZMod p) Ω] [IsAlgClosed Ω] {r : ℕ} (hr : 2 ≤ r) (y : ℕ → Ω)\n    (hfrob : ∀ k, p * k ≤ 2 * hankelLen p r - 2 → y (p * k) = y k ^ p)\n    {t : ℕ} (ht : t < r)\n    (hdep : ∃ c : Fin (t + 1) → Ω, c ≠ 0 ∧\n      ∀ i : Fin (hankelLen p r), ∑ j, c j * y (i.val + j.val) = 0) :\n    ∃ f : Ω →₀ ZMod p, f.support.card ≤ t ∧ ∀ k < hankelLen p r, y k = moment f k := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Tables_Hankel"
+   ],
+   "node_deps": [
+    "LatticePrepro.exists_zmod_of_pow_eq"
+   ],
+   "inlined": [
+    "LatticePrepro.Hankel.Annihilates",
+    "LatticePrepro.Hankel.Annihilates.mul_C",
+    "LatticePrepro.Hankel.Annihilates.seqFun_mul_eq_zero",
+    "LatticePrepro.Hankel.dvd_nodal_pow",
+    "LatticePrepro.Hankel.dvd_of_forall_root_eval_eq_zero",
+    "LatticePrepro.Hankel.dvd_sub_modByMonic",
+    "LatticePrepro.Hankel.natDegree_modByMonic_le",
+    "LatticePrepro.Hankel.psi",
+    "LatticePrepro.Hankel.psi_C_mul",
+    "LatticePrepro.Hankel.psi_X_pow",
+    "LatticePrepro.Hankel.psi_apply",
+    "LatticePrepro.Hankel.psi_eq_of_dvd_sub",
+    "LatticePrepro.Hankel.psi_eq_seqFun",
+    "LatticePrepro.Hankel.psi_eq_zero_of_dvd",
+    "LatticePrepro.Hankel.psi_pow_char",
+    "LatticePrepro.Hankel.psi_pow_char_pow",
+    "LatticePrepro.Hankel.roots_nodal_id",
+    "LatticePrepro.Hankel.seqFun",
+    "LatticePrepro.Hankel.seqFun_C_mul",
+    "LatticePrepro.Hankel.seqFun_C_mul_X_pow",
+    "LatticePrepro.Hankel.seqFun_X_pow",
+    "LatticePrepro.Hankel.seqFun_X_pow_mul",
+    "LatticePrepro.Hankel.seqFun_apply",
+    "LatticePrepro.Hankel.seqFun_monomial",
+    "LatticePrepro.Hankel.seqFun_pow_char",
+    "LatticePrepro.moment_eq_sum",
+    "LatticePrepro.moment_eq_sum_of_subset"
+   ],
+   "inlined_defs": 3,
+   "solution_lines": 368
+  },
+  {
+   "theorem_name": "LatticePrepro.card_mul_rank_eval_le",
+   "slug": "LatticePrepro_card_mul_rank_eval_le",
+   "module": "LatticePrepro.Tables.PolyMatrixRank",
+   "source_lines": [
+    22,
+    76
+   ],
+   "proof_lines": 48,
+   "is_target": false,
+   "preamble": "import Mathlib\n\nopen Polynomial Matrix",
+   "formal_statement": "theorem LatticePrepro.card_mul_rank_eval_le {𝕊 : Type*} [Field 𝕊] [Fintype 𝕊] [DecidableEq 𝕊]\n    {K : Type*} [Field K] [Algebra 𝕊 K] (γ : K) {ℓ Δ : ℕ}\n    (H : Matrix (Fin ℓ) (Fin ℓ) 𝕊[X]) (hdeg : ∀ i j, (H i j).natDegree ≤ Δ) :\n    Fintype.card 𝕊 * (H.map (aeval γ)).rank ≤\n      (∑ s : 𝕊, (H.map (eval s)).rank) + Δ * (H.map (aeval γ)).rank := by sorry",
+   "definition_imports": [],
+   "node_deps": [
+    "LatticePrepro.exists_det_submatrix_ne_zero",
+    "LatticePrepro.pow_X_sub_C_dvd_det"
+   ],
+   "inlined": [
+    "LatticePrepro.natDegree_det_le_of_natDegree_le"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 98
+  },
+  {
+   "theorem_name": "LatticePrepro.ExplicitTables.natDegree_elemProd_le",
+   "slug": "LatticePrepro_ExplicitTables_natDegree_elemProd_le",
+   "module": "LatticePrepro.Tables.ElementTable",
+   "source_lines": [
+    75,
+    88
+   ],
+   "proof_lines": 12,
+   "is_target": false,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Tables_Digits\nimport Definitions.Def_LatticePrepro_Tables_FieldSetup\nimport Definitions.Def_LatticePrepro_Tables_Construction\nimport Definitions.Def_LatticePrepro_Tables_ElementTable\n\nopen LatticePrepro\nopen Polynomial\nopen LatticePrepro.ExplicitTables\nvariable {p : ℕ} [Fact p.Prime] {d δ : ℕ} (FS : FieldSetup p d δ) (m B : ℕ)\nvariable {FS m B}",
+   "formal_statement": "theorem LatticePrepro.ExplicitTables.natDegree_elemProd_le (α : FS.K) {η : Fin m → ℕ} (hη : ∀ h, η h ≤ 2 * p * (B - 1)) :\n    (elemProd FS m B α η).natDegree ≤ degBound p m B δ := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable"
+   ],
+   "node_deps": [],
+   "inlined": [
+    "LatticePrepro.ExplicitTables.natDegree_elemPoly_lt"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 52
+  },
+  {
+   "theorem_name": "LatticePrepro.ExplicitTables.soundness_setup",
+   "slug": "LatticePrepro_ExplicitTables_soundness_setup",
+   "module": "LatticePrepro.Tables.TableSoundness",
+   "source_lines": [
+    141,
+    179
+   ],
+   "proof_lines": 30,
+   "is_target": false,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Tables_Digits\nimport Definitions.Def_LatticePrepro_Tables_FieldSetup\nimport Definitions.Def_LatticePrepro_Tables_Construction\nimport Definitions.Def_LatticePrepro_Tables_TableSoundness\n\nopen LatticePrepro\nopen Polynomial Matrix\nopen LatticePrepro.ExplicitTables\nvariable {p : ℕ} [Fact p.Prime] {d δ : ℕ} (FS : FieldSetup p d δ) (m B : ℕ)\nvariable {FS m B}",
+   "formal_statement": "theorem LatticePrepro.ExplicitTables.soundness_setup (hB : 2 ≤ B) (hm : 1 ≤ m)\n    (hΔ : 4 * degBound p m B δ < Fintype.card FS.𝕊) {y : Coord FS m → ZMod p}\n    (hy : constraintFun FS m B y = 0) (hw : 2 * hammingNorm y < B ^ m * Fintype.card FS.𝕊) :\n    ∃ t : ℕ, t < B ^ m ∧ Fintype.card FS.𝕊 * t ≤ 2 * hammingNorm y ∧\n      ∃ c : Fin (t + 1) → FS.K, c ≠ 0 ∧\n        ∀ i : Fin (hLen p m B), ∑ j, c j * mom FS m B y (i.val + j.val) = 0 := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_TableSoundness"
+   ],
+   "node_deps": [
+    "LatticePrepro.card_mul_rank_eval_le",
+    "LatticePrepro.digitVal_gdigits",
+    "LatticePrepro.exists_dependence_of_rank_le",
+    "LatticePrepro.gdigits_le"
+   ],
+   "inlined": [
+    "LatticePrepro.ExplicitTables.Emat",
+    "LatticePrepro.ExplicitTables.Hmat",
+    "LatticePrepro.ExplicitTables.Hmat_map_aeval",
+    "LatticePrepro.ExplicitTables.Hmat_map_eval",
+    "LatticePrepro.ExplicitTables.IdxSet.ofNat",
+    "LatticePrepro.ExplicitTables.IdxSet.toNat_ofNat",
+    "LatticePrepro.ExplicitTables.aeval_interp_eq_mom_of_constraint",
+    "LatticePrepro.ExplicitTables.card_mul_rank_hankel_le",
+    "LatticePrepro.ExplicitTables.coeff_interp_eq_zero_of_card_le",
+    "LatticePrepro.ExplicitTables.coeff_interp_eq_zero_of_constraint",
+    "LatticePrepro.ExplicitTables.degree_interp_lt",
+    "LatticePrepro.ExplicitTables.eval_interp",
+    "LatticePrepro.ExplicitTables.gdigits_hLen_le",
+    "LatticePrepro.ExplicitTables.hammingNorm_eq_sum_cols",
+    "LatticePrepro.ExplicitTables.hankelExp_le",
+    "LatticePrepro.ExplicitTables.hankelIdx",
+    "LatticePrepro.ExplicitTables.hankelIdx_toNat",
+    "LatticePrepro.ExplicitTables.natDegree_Hmat_le",
+    "LatticePrepro.ExplicitTables.natDegree_interp_le_of_constraint",
+    "LatticePrepro.ExplicitTables.rank_Hmat_map_eval_le",
+    "LatticePrepro.ExplicitTables.sum_rank_Hmat_map_eval_le",
+    "LatticePrepro.digitVal_add"
+   ],
+   "inlined_defs": 4,
+   "solution_lines": 275
+  },
+  {
+   "theorem_name": "LatticePrepro.exists_explicit_momentRepresentation",
+   "slug": "LatticePrepro_exists_explicit_momentRepresentation",
+   "module": "LatticePrepro.Tables.Explicit",
+   "source_lines": [
+    166,
+    209
+   ],
+   "proof_lines": 40,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Tables_Digits\nimport Definitions.Def_LatticePrepro_Tables_FieldSetup\nimport Definitions.Def_LatticePrepro_Tables_Hankel\nimport Definitions.Def_LatticePrepro_Tables_Construction\nimport Definitions.Def_LatticePrepro_Tables_ElementTable\nimport Definitions.Def_LatticePrepro_Tables_TableSoundness\nimport Definitions.Def_LatticePrepro_Tables_Explicit\n\nopen LatticePrepro\nopen Polynomial\nopen ExplicitTables",
+   "formal_statement": "theorem LatticePrepro.exists_explicit_momentRepresentation (p : ℕ) [Fact p.Prime] (S m B : ℕ)\n    (hS : 2 ≤ S) (hm : 1 ≤ m) (hB : 2 ≤ B) : Nonempty (ExplicitMomentRepresentation p S m B) := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Hankel",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable",
+    "LatticePrepro_Tables_TableSoundness",
+    "LatticePrepro_Tables_Explicit"
+   ],
+   "node_deps": [
+    "LatticePrepro.ExplicitTables.natDegree_elemProd_le",
+    "LatticePrepro.ExplicitTables.soundness_setup",
+    "LatticePrepro.FieldSetup.exists_fieldSetup",
+    "LatticePrepro.digitVal_gdigits",
+    "LatticePrepro.exists_pow_between",
+    "LatticePrepro.gdigits_le",
+    "LatticePrepro.hankel_reconstruction"
+   ],
+   "inlined": [
+    "LatticePrepro.ExplicitTables.IdxSet.toNat_le",
+    "LatticePrepro.ExplicitTables.aeval_elemPoly",
+    "LatticePrepro.ExplicitTables.aeval_elemProd",
+    "LatticePrepro.ExplicitTables.aeval_interp_elemTab",
+    "LatticePrepro.ExplicitTables.blockSupport_elemTab",
+    "LatticePrepro.ExplicitTables.card_fiber_snd",
+    "LatticePrepro.ExplicitTables.charP_K",
+    "LatticePrepro.ExplicitTables.colSum_add",
+    "LatticePrepro.ExplicitTables.colSum_elemTab",
+    "LatticePrepro.ExplicitTables.colSum_zero",
+    "LatticePrepro.ExplicitTables.constraintFun_add",
+    "LatticePrepro.ExplicitTables.constraintFun_elemTab",
+    "LatticePrepro.ExplicitTables.constraintFun_zero",
+    "LatticePrepro.ExplicitTables.constraintₗ",
+    "LatticePrepro.ExplicitTables.constraintₗ_apply",
+    "LatticePrepro.ExplicitTables.elemLabel",
+    "LatticePrepro.ExplicitTables.elemTab",
+    "LatticePrepro.ExplicitTables.elemTab_binary",
+    "LatticePrepro.ExplicitTables.elemTab_complete",
+    "LatticePrepro.ExplicitTables.elemTab_onePerBlock",
+    "LatticePrepro.ExplicitTables.encodingTuple",
+    "LatticePrepro.ExplicitTables.eval_elemProd",
+    "LatticePrepro.ExplicitTables.gdigits_le_of_le",
+    "LatticePrepro.ExplicitTables.interp_add",
+    "LatticePrepro.ExplicitTables.interp_elemTab",
+    "LatticePrepro.ExplicitTables.interp_eq_of_eval_eq",
+    "LatticePrepro.ExplicitTables.interp_zero",
+    "LatticePrepro.ExplicitTables.maxOrder_eq",
+    "LatticePrepro.ExplicitTables.mom_add",
+    "LatticePrepro.ExplicitTables.mom_elemTab",
+    "LatticePrepro.ExplicitTables.mom_mul_eq_pow_of_constraint",
+    "LatticePrepro.ExplicitTables.mom_zero",
+    "LatticePrepro.ExplicitTables.momₗ",
+    "LatticePrepro.ExplicitTables.momₗ_apply",
+    "LatticePrepro.ExplicitTables.rep",
+    "LatticePrepro.ExplicitTables.rep_sound",
+    "LatticePrepro.ExplicitTables.two_mul_sub_two_lt_hankelLen",
+    "LatticePrepro.FieldSetup.linearIndependent_pow_zmod",
+    "LatticePrepro.digitVal_le_of_le",
+    "LatticePrepro.pred_mul_geomSum",
+    "LatticePrepro.pred_mul_geomSum_add_one"
+   ],
+   "inlined_defs": 6,
+   "solution_lines": 514
+  },
+  {
+   "theorem_name": "LatticePrepro.LatticeFamily.latticeDist_eq_infDist",
+   "slug": "LatticePrepro_LatticeFamily_latticeDist_eq_infDist",
+   "module": "LatticePrepro.Lattices.Mathlib",
+   "source_lines": [
+    100,
+    122
+   ],
+   "proof_lines": 17,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\nimport Definitions.Def_LatticePrepro_Lattices_Distance\nimport Definitions.Def_LatticePrepro_Lattices_Mathlib\n\nopen LatticePrepro\nopen scoped ENNReal\nopen WithLp\nopen LatticePrepro.LatticeFamily\nvariable {X : Type} (Λ : LatticeFamily X)",
+   "formal_statement": "theorem LatticePrepro.LatticeFamily.latticeDist_eq_infDist (pn : PNorm) (x : X) :\n    Λ.latticeDist pn x =\n      Metric.infDist (toLp pn.toENNReal (toReal (Λ.target x)) : PiLp pn.toENNReal fun _ => ℝ)\n        (toLp pn.toENNReal '' (Λ.realLattice : Set (Λ.M → ℝ))) := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Lattices_Mathlib"
+   ],
+   "node_deps": [],
+   "inlined": [
+    "LatticePrepro.LatticeFamily.bddBelow_range_dist",
+    "LatticePrepro.LatticeFamily.dist_eq_piLp",
+    "LatticePrepro.LatticeFamily.dist_nonneg",
+    "LatticePrepro.LatticeFamily.latticeDist_le",
+    "LatticePrepro.LatticeFamily.mem_realLattice_iff",
+    "LatticePrepro.LatticeFamily.toReal_mem_realLattice",
+    "LatticePrepro.LatticeFamily.toReal_sub",
+    "LatticePrepro.PNorm.norm_eq_piLp",
+    "LatticePrepro.PNorm.norm_nonneg"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 137
+  },
+  {
+   "theorem_name": "LatticePrepro.LatticeFamily.isZLattice_realLattice",
+   "slug": "LatticePrepro_LatticeFamily_isZLattice_realLattice",
+   "module": "LatticePrepro.Lattices.Mathlib",
+   "source_lines": [
+    141,
+    157
+   ],
+   "proof_lines": 13,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\nimport Definitions.Def_LatticePrepro_Lattices_Distance\nimport Definitions.Def_LatticePrepro_Lattices_Mathlib\n\nopen LatticePrepro\nopen scoped ENNReal\nopen WithLp\nopen LatticePrepro.LatticeFamily\nvariable {X : Type} (Λ : LatticeFamily X)",
+   "formal_statement": "theorem LatticePrepro.LatticeFamily.isZLattice_realLattice {N : ℕ} (hN : 0 < N)\n    (h : ∀ v : Λ.M → ℤ, (N : ℤ) • v ∈ Λ.lattice) : IsZLattice ℝ Λ.realLattice := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Lattices_Mathlib"
+   ],
+   "node_deps": [],
+   "inlined": [
+    "LatticePrepro.LatticeFamily.toReal_mem_realLattice"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 56
+  },
+  {
+   "theorem_name": "LatticePrepro.exists_gapReduction",
+   "slug": "LatticePrepro_exists_gapReduction",
+   "module": "LatticePrepro.Main",
+   "source_lines": [
+    98,
+    144
+   ],
+   "proof_lines": 44,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\nimport Definitions.Def_LatticePrepro_Lattices_Distance\nimport Definitions.Def_LatticePrepro_Lattices_Mathlib\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Reduction_FixedSystem\nimport Definitions.Def_LatticePrepro_Tables_Digits\nimport Definitions.Def_LatticePrepro_Tables_FieldSetup\nimport Definitions.Def_LatticePrepro_Tables_Hankel\nimport Definitions.Def_LatticePrepro_Tables_Construction\nimport Definitions.Def_LatticePrepro_Tables_ElementTable\nimport Definitions.Def_LatticePrepro_Tables_TableSoundness\nimport Definitions.Def_LatticePrepro_Tables_Explicit\nimport Definitions.Def_LatticePrepro_Main\n\nopen LatticePrepro",
+   "formal_statement": "theorem LatticePrepro.exists_gapReduction (p : ℕ) [hp : Fact p.Prime] (V : QuadraticVerifier p) (g m : ℕ)\n    (hg : 1 ≤ g) (hm : 1 ≤ m) : Nonempty (GapReduction p V g m) := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Lattices_Mathlib",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Hankel",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable",
+    "LatticePrepro_Tables_TableSoundness",
+    "LatticePrepro_Tables_Explicit",
+    "LatticePrepro_Main"
+   ],
+   "node_deps": [
+    "LatticePrepro.FixedSystem.isGapReduction",
+    "LatticePrepro.QuadraticVerifier.card_tblIdx_le",
+    "LatticePrepro.exists_base",
+    "LatticePrepro.exists_explicit_momentRepresentation"
+   ],
+   "inlined": [
+    "LatticePrepro.EncodingTuple.castLE",
+    "LatticePrepro.FixedSystem.numBlocks_eq",
+    "LatticePrepro.MomentRepresentation.card_ι",
+    "LatticePrepro.MomentRepresentation.elemTable",
+    "LatticePrepro.MomentRepresentation.momentMap_elemTable",
+    "LatticePrepro.MomentRepresentation.numBlocks_pos",
+    "LatticePrepro.MomentRepresentation.ord",
+    "LatticePrepro.MomentRepresentation.ord_val",
+    "LatticePrepro.size_bound_aux"
+   ],
+   "inlined_defs": 3,
+   "solution_lines": 200
+  },
+  {
+   "theorem_name": "LatticePrepro.params_spec",
+   "slug": "LatticePrepro_params_spec",
+   "module": "LatticePrepro.Main",
+   "source_lines": [
+    179,
+    260
+   ],
+   "proof_lines": 74,
+   "is_target": false,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\nimport Definitions.Def_LatticePrepro_Lattices_Distance\nimport Definitions.Def_LatticePrepro_Lattices_Mathlib\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Reduction_FixedSystem\nimport Definitions.Def_LatticePrepro_Tables_Digits\nimport Definitions.Def_LatticePrepro_Tables_FieldSetup\nimport Definitions.Def_LatticePrepro_Tables_Hankel\nimport Definitions.Def_LatticePrepro_Tables_Construction\nimport Definitions.Def_LatticePrepro_Tables_ElementTable\nimport Definitions.Def_LatticePrepro_Tables_TableSoundness\nimport Definitions.Def_LatticePrepro_Tables_Explicit\nimport Definitions.Def_LatticePrepro_Main\n\nopen LatticePrepro",
+   "formal_statement": "theorem LatticePrepro.params_spec (p : ℕ) {δ : ℝ} (hδ0 : 0 ≤ δ) (hδ1 : δ < 1) (S n : ℕ) (hS : 1 ≤ S)\n    (hn : 1 ≤ n)\n    (hbound : n ^ momentAxes δ ≤ (8 * p ^ 4 * momentAxes δ * (S + 1)) ^\n      ((momentAxes δ + 7) * momentAxes δ) * ((S + 1) ^ gapExp p δ) ^ (momentAxes δ + 1)) :\n    64 * (n : ℝ) ^ δ ≤ ((S + 1) ^ gapExp p δ : ℕ) ∧ 4 * n ≤ (S + 1) ^ sizeExp p δ := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Lattices_Mathlib",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Hankel",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable",
+    "LatticePrepro_Tables_TableSoundness",
+    "LatticePrepro_Tables_Explicit",
+    "LatticePrepro_Main"
+   ],
+   "node_deps": [],
+   "inlined": [
+    "LatticePrepro.momentAxes_spec"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 129
+  },
+  {
+   "theorem_name": "LatticePrepro.code_gap",
+   "slug": "LatticePrepro_code_gap",
+   "module": "LatticePrepro.Main",
+   "source_lines": [
+    307,
+    351
+   ],
+   "proof_lines": 38,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\nimport Definitions.Def_LatticePrepro_Lattices_Distance\nimport Definitions.Def_LatticePrepro_Lattices_Mathlib\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Reduction_FixedSystem\nimport Definitions.Def_LatticePrepro_Tables_Digits\nimport Definitions.Def_LatticePrepro_Tables_FieldSetup\nimport Definitions.Def_LatticePrepro_Tables_Hankel\nimport Definitions.Def_LatticePrepro_Tables_Construction\nimport Definitions.Def_LatticePrepro_Tables_ElementTable\nimport Definitions.Def_LatticePrepro_Tables_TableSoundness\nimport Definitions.Def_LatticePrepro_Tables_Explicit\nimport Definitions.Def_LatticePrepro_Main\n\nopen LatticePrepro",
+   "formal_statement": "theorem LatticePrepro.code_gap (p : ℕ) [hp : Fact p.Prime] (F : Type) [Field F] [Fintype F]\n    [DecidableEq F] [Algebra (ZMod p) F] (ε : ℝ) (hε : 0 < ε) (hε1 : ε < 1)\n    (V : QuadraticVerifier p) :\n    Nonempty (CodeGap F ε V.Language (V.S + 1) (sizeExp p (1 - ε))) := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Lattices_Mathlib",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Hankel",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable",
+    "LatticePrepro_Tables_TableSoundness",
+    "LatticePrepro_Tables_Explicit",
+    "LatticePrepro_Main"
+   ],
+   "node_deps": [
+    "LatticePrepro.CodeFamily.codeDist_extend",
+    "LatticePrepro.LinearSystemFamily.code_no",
+    "LatticePrepro.LinearSystemFamily.code_yes",
+    "LatticePrepro.exists_gapReduction",
+    "LatticePrepro.params_spec"
+   ],
+   "inlined": [
+    "LatticePrepro.CodeFamily.codeDist_le",
+    "LatticePrepro.CodeFamily.exists_codeDist_eq",
+    "LatticePrepro.CodeFamily.lt_codeDist_of_forall",
+    "LatticePrepro.LinearSystemFamily.card_ι",
+    "LatticePrepro.LinearSystemFamily.codeDist_le_of_yes",
+    "LatticePrepro.LinearSystemFamily.lt_codeDist_of_no",
+    "LatticePrepro.LinearSystemFamily.toCodeFamily",
+    "LatticePrepro.momentAxes_spec",
+    "LatticePrepro.rpow_le_of_le_four_mul"
+   ],
+   "inlined_defs": 1,
+   "solution_lines": 180
+  },
+  {
+   "theorem_name": "LatticePrepro.exists_code_gap",
+   "slug": "LatticePrepro_exists_code_gap",
+   "module": "LatticePrepro.Main",
+   "source_lines": [
+    353,
+    361
+   ],
+   "proof_lines": 1,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\nimport Definitions.Def_LatticePrepro_Lattices_Distance\nimport Definitions.Def_LatticePrepro_Lattices_Mathlib\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Reduction_FixedSystem\nimport Definitions.Def_LatticePrepro_Tables_Digits\nimport Definitions.Def_LatticePrepro_Tables_FieldSetup\nimport Definitions.Def_LatticePrepro_Tables_Hankel\nimport Definitions.Def_LatticePrepro_Tables_Construction\nimport Definitions.Def_LatticePrepro_Tables_ElementTable\nimport Definitions.Def_LatticePrepro_Tables_TableSoundness\nimport Definitions.Def_LatticePrepro_Tables_Explicit\nimport Definitions.Def_LatticePrepro_Main\n\nopen LatticePrepro",
+   "formal_statement": "theorem LatticePrepro.exists_code_gap (p : ℕ) [Fact p.Prime] (F : Type) [Field F] [Fintype F]\n    [DecidableEq F] [Algebra (ZMod p) F] (ε : ℝ) (hε : 0 < ε) (hε1 : ε < 1) :\n    ∃ C : ℕ, ∀ V : QuadraticVerifier p, Nonempty (CodeGap F ε V.Language (V.S + 1) C) := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Lattices_Mathlib",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Hankel",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable",
+    "LatticePrepro_Tables_TableSoundness",
+    "LatticePrepro_Tables_Explicit",
+    "LatticePrepro_Main"
+   ],
+   "node_deps": [
+    "LatticePrepro.code_gap"
+   ],
+   "inlined": [],
+   "inlined_defs": 0,
+   "solution_lines": 44
+  },
+  {
+   "theorem_name": "LatticePrepro.lattice_gap",
+   "slug": "LatticePrepro_lattice_gap",
+   "module": "LatticePrepro.Main",
+   "source_lines": [
+    419,
+    477
+   ],
+   "proof_lines": 52,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\nimport Definitions.Def_LatticePrepro_Lattices_Distance\nimport Definitions.Def_LatticePrepro_Lattices_Mathlib\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Reduction_FixedSystem\nimport Definitions.Def_LatticePrepro_Tables_Digits\nimport Definitions.Def_LatticePrepro_Tables_FieldSetup\nimport Definitions.Def_LatticePrepro_Tables_Hankel\nimport Definitions.Def_LatticePrepro_Tables_Construction\nimport Definitions.Def_LatticePrepro_Tables_ElementTable\nimport Definitions.Def_LatticePrepro_Tables_TableSoundness\nimport Definitions.Def_LatticePrepro_Tables_Explicit\nimport Definitions.Def_LatticePrepro_Main\n\nopen LatticePrepro",
+   "formal_statement": "theorem LatticePrepro.lattice_gap (pn : PNorm) (ε : ℝ) (hε : 0 < ε) (hε1 : ε < 1 / pn.s)\n    (V : QuadraticVerifier 2) :\n    Nonempty (LatticeGap pn ε V.Language (V.S + 1) (sizeExp 2 (1 - pn.s * ε))) := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Lattices_Mathlib",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Hankel",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable",
+    "LatticePrepro_Tables_TableSoundness",
+    "LatticePrepro_Tables_Explicit",
+    "LatticePrepro_Main"
+   ],
+   "node_deps": [
+    "LatticePrepro.exists_gapReduction",
+    "LatticePrepro.exists_latticeReduction",
+    "LatticePrepro.params_spec"
+   ],
+   "inlined": [
+    "LatticePrepro.LatticeFamily.bddBelow_range_dist",
+    "LatticePrepro.LatticeFamily.dist_nonneg",
+    "LatticePrepro.LatticeFamily.exists_dist_eq_latticeDist",
+    "LatticePrepro.LatticeFamily.finite_dist_le",
+    "LatticePrepro.LatticeFamily.latticeDist_le",
+    "LatticePrepro.LatticeFamily.latticeDist_le_of_exists",
+    "LatticePrepro.LatticeFamily.le_latticeDist",
+    "LatticePrepro.LatticeFamily.lt_latticeDist_of_forall",
+    "LatticePrepro.LinearSystemFamily.card_ι",
+    "LatticePrepro.PNorm.abs_apply_le_norm",
+    "LatticePrepro.PNorm.norm_nonneg",
+    "LatticePrepro.PNorm.one_le_s",
+    "LatticePrepro.PNorm.s_le_two",
+    "LatticePrepro.momentAxes_spec",
+    "LatticePrepro.rpow_le_of_le_four_mul"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 251
+  },
+  {
+   "theorem_name": "LatticePrepro.exists_lattice_gap",
+   "slug": "LatticePrepro_exists_lattice_gap",
+   "module": "LatticePrepro.Main",
+   "source_lines": [
+    479,
+    486
+   ],
+   "proof_lines": 1,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\nimport Definitions.Def_LatticePrepro_Lattices_Distance\nimport Definitions.Def_LatticePrepro_Lattices_Mathlib\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Reduction_FixedSystem\nimport Definitions.Def_LatticePrepro_Tables_Digits\nimport Definitions.Def_LatticePrepro_Tables_FieldSetup\nimport Definitions.Def_LatticePrepro_Tables_Hankel\nimport Definitions.Def_LatticePrepro_Tables_Construction\nimport Definitions.Def_LatticePrepro_Tables_ElementTable\nimport Definitions.Def_LatticePrepro_Tables_TableSoundness\nimport Definitions.Def_LatticePrepro_Tables_Explicit\nimport Definitions.Def_LatticePrepro_Main\n\nopen LatticePrepro",
+   "formal_statement": "theorem LatticePrepro.exists_lattice_gap (pn : PNorm) (ε : ℝ) (hε : 0 < ε) (hε1 : ε < 1 / pn.s) :\n    ∃ C : ℕ, ∀ V : QuadraticVerifier 2, Nonempty (LatticeGap pn ε V.Language (V.S + 1) C) := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Lattices_Mathlib",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Hankel",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable",
+    "LatticePrepro_Tables_TableSoundness",
+    "LatticePrepro_Tables_Explicit",
+    "LatticePrepro_Main"
+   ],
+   "node_deps": [
+    "LatticePrepro.lattice_gap"
+   ],
+   "inlined": [],
+   "inlined_defs": 0,
+   "solution_lines": 42
+  },
+  {
+   "theorem_name": "LatticePrepro.GateVerifier.language_toQuadratic",
+   "slug": "LatticePrepro_GateVerifier_language_toQuadratic",
+   "module": "LatticePrepro.Verifier.Gates",
+   "source_lines": [
+    223,
+    233
+   ],
+   "proof_lines": 9,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Verifier_Gates\n\nopen LatticePrepro\nopen LatticePrepro.GateVerifier\nvariable (W : GateVerifier)\nvariable (p : ℕ)\nvariable [Fact p.Prime]",
+   "formal_statement": "theorem LatticePrepro.GateVerifier.language_toQuadratic : (W.toQuadratic p).Language = W.Language := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Verifier_Gates"
+   ],
+   "node_deps": [],
+   "inlined": [
+    "LatticePrepro.GateVerifier.eq_lift_toBits",
+    "LatticePrepro.GateVerifier.gateEq_lift",
+    "LatticePrepro.GateVerifier.gateEq_toQuadratic",
+    "LatticePrepro.GateVerifier.hasPrefix_lift_iff",
+    "LatticePrepro.GateVerifier.inputIdx_toQuadratic",
+    "LatticePrepro.GateVerifier.isBoolean_lift",
+    "LatticePrepro.GateVerifier.isValid_lift_iff",
+    "LatticePrepro.GateVerifier.lift",
+    "LatticePrepro.GateVerifier.lift_succ",
+    "LatticePrepro.GateVerifier.lift_zero",
+    "LatticePrepro.GateVerifier.outputIdx_toQuadratic",
+    "LatticePrepro.GateVerifier.toBits",
+    "LatticePrepro.GateVerifier.toNat_cast_eq_ite_iff",
+    "LatticePrepro.GateVerifier.toNat_cast_eq_one_iff",
+    "LatticePrepro.GateVerifier.toNat_eq_interp",
+    "LatticePrepro.GateVerifier.toNat_sub_toNat_cast_eq_zero_iff",
+    "LatticePrepro.quadForm",
+    "LatticePrepro.quadForm_deltaTensor",
+    "LatticePrepro.quadForm_sub"
+   ],
+   "inlined_defs": 3,
+   "solution_lines": 155
+  },
+  {
+   "theorem_name": "LatticePrepro.BoolCircuit.language_toGateVerifier",
+   "slug": "LatticePrepro_BoolCircuit_language_toGateVerifier",
+   "module": "LatticePrepro.Verifier.Circuit",
+   "source_lines": [
+    205,
+    220
+   ],
+   "proof_lines": 14,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Verifier_Gates\nimport Definitions.Def_LatticePrepro_Verifier_Circuit\n\nopen LatticePrepro\nopen LatticePrepro.BoolCircuit\nvariable (C : BoolCircuit)",
+   "formal_statement": "theorem LatticePrepro.BoolCircuit.language_toGateVerifier : C.toGateVerifier.Language = C.Language := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Verifier_Gates",
+    "LatticePrepro_Verifier_Circuit"
+   ],
+   "node_deps": [],
+   "inlined": [
+    "LatticePrepro.BoolCircuit.coordOfNat_of_lt",
+    "LatticePrepro.BoolCircuit.coordOfNat_outW",
+    "LatticePrepro.BoolCircuit.evalAux_eq_of_isValid",
+    "LatticePrepro.BoolCircuit.evalAux_gate",
+    "LatticePrepro.BoolCircuit.evalAux_input",
+    "LatticePrepro.BoolCircuit.evalAux_wit",
+    "LatticePrepro.BoolCircuit.hasPrefix_eval",
+    "LatticePrepro.BoolCircuit.isValid_eval",
+    "LatticePrepro.BoolCircuit.wireOfNat",
+    "LatticePrepro.BoolCircuit.wireOfNat_coordOfNat",
+    "LatticePrepro.BoolCircuit.wireOfNat_n",
+    "LatticePrepro.BoolCircuit.wireOfNat_of_lt",
+    "LatticePrepro.BoolCircuit.witOf"
+   ],
+   "inlined_defs": 2,
+   "solution_lines": 137
+  },
+  {
+   "theorem_name": "LatticePrepro.ThreeSAT.mem_language_iff",
+   "slug": "LatticePrepro_ThreeSAT_mem_language_iff",
+   "module": "LatticePrepro.Verifier.ThreeSAT",
+   "source_lines": [
+    196,
+    209
+   ],
+   "proof_lines": 12,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Verifier_Gates\nimport Definitions.Def_LatticePrepro_Verifier_Circuit\nimport Definitions.Def_LatticePrepro_Verifier_Expr\nimport Definitions.Def_LatticePrepro_Verifier_ThreeSAT\n\nopen LatticePrepro\nopen LatticePrepro.ThreeSAT\nvariable {v : ℕ}",
+   "formal_statement": "theorem LatticePrepro.ThreeSAT.mem_language_iff (x : Instance v) : encode x ∈ (circuit v).Language ↔ Satisfiable x := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Verifier_Gates",
+    "LatticePrepro_Verifier_Circuit",
+    "LatticePrepro_Verifier_Expr",
+    "LatticePrepro_Verifier_ThreeSAT"
+   ],
+   "node_deps": [],
+   "inlined": [
+    "LatticePrepro.BExpr.append_mk_of_le",
+    "LatticePrepro.BExpr.append_mk_of_lt",
+    "LatticePrepro.BExpr.evalAux_toCircuit",
+    "LatticePrepro.BExpr.evalWire_compile",
+    "LatticePrepro.BExpr.eval_bigAnd",
+    "LatticePrepro.BExpr.mem_language_toCircuit",
+    "LatticePrepro.BExpr.toCircuit_outW",
+    "LatticePrepro.BoolCircuit.evalAux_gate",
+    "LatticePrepro.BoolCircuit.evalAux_input",
+    "LatticePrepro.BoolCircuit.evalAux_wit",
+    "LatticePrepro.GateList.evalWire",
+    "LatticePrepro.GateList.evalWire_append",
+    "LatticePrepro.GateList.evalWire_of_lt",
+    "LatticePrepro.GateList.evalWire_of_none",
+    "LatticePrepro.GateList.evalWire_of_some",
+    "LatticePrepro.ThreeSAT.append_inputLeaf",
+    "LatticePrepro.ThreeSAT.append_varLeaf",
+    "LatticePrepro.ThreeSAT.assignOf",
+    "LatticePrepro.ThreeSAT.eval_clauseExpr",
+    "LatticePrepro.ThreeSAT.eval_formula",
+    "LatticePrepro.ThreeSAT.eval_litExpr"
+   ],
+   "inlined_defs": 2,
+   "solution_lines": 298
+  },
+  {
+   "theorem_name": "LatticePrepro.ThreeSAT.exists_code_gap",
+   "slug": "LatticePrepro_ThreeSAT_exists_code_gap",
+   "module": "LatticePrepro.ThreeSAT",
+   "source_lines": [
+    36,
+    47
+   ],
+   "proof_lines": 5,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\nimport Definitions.Def_LatticePrepro_Lattices_Distance\nimport Definitions.Def_LatticePrepro_Lattices_Mathlib\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Reduction_FixedSystem\nimport Definitions.Def_LatticePrepro_Tables_Digits\nimport Definitions.Def_LatticePrepro_Tables_FieldSetup\nimport Definitions.Def_LatticePrepro_Tables_Hankel\nimport Definitions.Def_LatticePrepro_Tables_Construction\nimport Definitions.Def_LatticePrepro_Tables_ElementTable\nimport Definitions.Def_LatticePrepro_Tables_TableSoundness\nimport Definitions.Def_LatticePrepro_Tables_Explicit\nimport Definitions.Def_LatticePrepro_Main\nimport Definitions.Def_LatticePrepro_Verifier_Gates\nimport Definitions.Def_LatticePrepro_Verifier_Circuit\nimport Definitions.Def_LatticePrepro_Verifier_Expr\nimport Definitions.Def_LatticePrepro_Verifier_ThreeSAT\nimport Definitions.Def_LatticePrepro_ThreeSAT\n\nopen LatticePrepro\nopen LatticePrepro.ThreeSAT",
+   "formal_statement": "theorem LatticePrepro.ThreeSAT.exists_code_gap (p : ℕ) [Fact p.Prime] (F : Type) [Field F] [Fintype F]\n    [DecidableEq F] [Algebra (ZMod p) F] (ε : ℝ) (hε : 0 < ε) (hε1 : ε < 1) :\n    ∃ C : ℕ, ∀ v : ℕ, 1 ≤ v → Nonempty (CodeGap F ε (SAT v) (len v) C) := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Lattices_Mathlib",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Hankel",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable",
+    "LatticePrepro_Tables_TableSoundness",
+    "LatticePrepro_Tables_Explicit",
+    "LatticePrepro_Main",
+    "LatticePrepro_Verifier_Gates",
+    "LatticePrepro_Verifier_Circuit",
+    "LatticePrepro_Verifier_Expr",
+    "LatticePrepro_Verifier_ThreeSAT",
+    "LatticePrepro_ThreeSAT"
+   ],
+   "node_deps": [
+    "LatticePrepro.BoolCircuit.language_toGateVerifier",
+    "LatticePrepro.GateVerifier.language_toQuadratic",
+    "LatticePrepro.ThreeSAT.mem_language_iff",
+    "LatticePrepro.code_gap"
+   ],
+   "inlined": [
+    "LatticePrepro.BExpr.toCircuit_S",
+    "LatticePrepro.BExpr.toCircuit_g",
+    "LatticePrepro.CodeGap.comap",
+    "LatticePrepro.ThreeSAT.S_circuit_eq",
+    "LatticePrepro.ThreeSAT.S_circuit_le",
+    "LatticePrepro.ThreeSAT.S_succ_le_len_pow",
+    "LatticePrepro.ThreeSAT.S_verifier_succ_le",
+    "LatticePrepro.ThreeSAT.eight_le_len",
+    "LatticePrepro.ThreeSAT.le_len",
+    "LatticePrepro.ThreeSAT.mem_language_verifier_iff",
+    "LatticePrepro.ThreeSAT.verifier"
+   ],
+   "inlined_defs": 2,
+   "solution_lines": 159
+  },
+  {
+   "theorem_name": "LatticePrepro.ThreeSAT.exists_lattice_gap",
+   "slug": "LatticePrepro_ThreeSAT_exists_lattice_gap",
+   "module": "LatticePrepro.ThreeSAT",
+   "source_lines": [
+    49,
+    59
+   ],
+   "proof_lines": 5,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\nimport Definitions.Def_LatticePrepro_Lattices_Distance\nimport Definitions.Def_LatticePrepro_Lattices_Mathlib\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Reduction_FixedSystem\nimport Definitions.Def_LatticePrepro_Tables_Digits\nimport Definitions.Def_LatticePrepro_Tables_FieldSetup\nimport Definitions.Def_LatticePrepro_Tables_Hankel\nimport Definitions.Def_LatticePrepro_Tables_Construction\nimport Definitions.Def_LatticePrepro_Tables_ElementTable\nimport Definitions.Def_LatticePrepro_Tables_TableSoundness\nimport Definitions.Def_LatticePrepro_Tables_Explicit\nimport Definitions.Def_LatticePrepro_Main\nimport Definitions.Def_LatticePrepro_Verifier_Gates\nimport Definitions.Def_LatticePrepro_Verifier_Circuit\nimport Definitions.Def_LatticePrepro_Verifier_Expr\nimport Definitions.Def_LatticePrepro_Verifier_ThreeSAT\nimport Definitions.Def_LatticePrepro_ThreeSAT\n\nopen LatticePrepro\nopen LatticePrepro.ThreeSAT",
+   "formal_statement": "theorem LatticePrepro.ThreeSAT.exists_lattice_gap (pn : PNorm) (ε : ℝ) (hε : 0 < ε) (hε1 : ε < 1 / pn.s) :\n    ∃ C : ℕ, ∀ v : ℕ, 1 ≤ v → Nonempty (LatticeGap pn ε (SAT v) (len v) C) := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Lattices_Mathlib",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Hankel",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable",
+    "LatticePrepro_Tables_TableSoundness",
+    "LatticePrepro_Tables_Explicit",
+    "LatticePrepro_Main",
+    "LatticePrepro_Verifier_Gates",
+    "LatticePrepro_Verifier_Circuit",
+    "LatticePrepro_Verifier_Expr",
+    "LatticePrepro_Verifier_ThreeSAT",
+    "LatticePrepro_ThreeSAT"
+   ],
+   "node_deps": [
+    "LatticePrepro.BoolCircuit.language_toGateVerifier",
+    "LatticePrepro.GateVerifier.language_toQuadratic",
+    "LatticePrepro.ThreeSAT.mem_language_iff",
+    "LatticePrepro.lattice_gap"
+   ],
+   "inlined": [
+    "LatticePrepro.BExpr.toCircuit_S",
+    "LatticePrepro.BExpr.toCircuit_g",
+    "LatticePrepro.LatticeGap.comap",
+    "LatticePrepro.ThreeSAT.S_circuit_eq",
+    "LatticePrepro.ThreeSAT.S_circuit_le",
+    "LatticePrepro.ThreeSAT.S_succ_le_len_pow",
+    "LatticePrepro.ThreeSAT.S_verifier_succ_le",
+    "LatticePrepro.ThreeSAT.eight_le_len",
+    "LatticePrepro.ThreeSAT.le_len",
+    "LatticePrepro.ThreeSAT.mem_language_verifier_iff",
+    "LatticePrepro.ThreeSAT.verifier"
+   ],
+   "inlined_defs": 2,
+   "solution_lines": 164
+  },
+  {
+   "theorem_name": "LatticePrepro.ThreeSAT.fixed_code_and_lattice_gaps",
+   "slug": "LatticePrepro_ThreeSAT_fixed_code_and_lattice_gaps",
+   "module": "LatticePrepro.ThreeSAT",
+   "source_lines": [
+    61,
+    71
+   ],
+   "proof_lines": 1,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\nimport Definitions.Def_LatticePrepro_Lattices_Distance\nimport Definitions.Def_LatticePrepro_Lattices_Mathlib\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Reduction_FixedSystem\nimport Definitions.Def_LatticePrepro_Tables_Digits\nimport Definitions.Def_LatticePrepro_Tables_FieldSetup\nimport Definitions.Def_LatticePrepro_Tables_Hankel\nimport Definitions.Def_LatticePrepro_Tables_Construction\nimport Definitions.Def_LatticePrepro_Tables_ElementTable\nimport Definitions.Def_LatticePrepro_Tables_TableSoundness\nimport Definitions.Def_LatticePrepro_Tables_Explicit\nimport Definitions.Def_LatticePrepro_Main\nimport Definitions.Def_LatticePrepro_Verifier_Gates\nimport Definitions.Def_LatticePrepro_Verifier_Circuit\nimport Definitions.Def_LatticePrepro_Verifier_Expr\nimport Definitions.Def_LatticePrepro_Verifier_ThreeSAT\nimport Definitions.Def_LatticePrepro_ThreeSAT\n\nopen LatticePrepro\nopen LatticePrepro.ThreeSAT",
+   "formal_statement": "theorem LatticePrepro.ThreeSAT.fixed_code_and_lattice_gaps :\n    (∀ (p : ℕ) [Fact p.Prime] (F : Type) [Field F] [Fintype F] [DecidableEq F]\n        [Algebra (ZMod p) F] (ε : ℝ), 0 < ε → ε < 1 →\n        ∃ C : ℕ, ∀ v : ℕ, 1 ≤ v → Nonempty (CodeGap F ε (SAT v) (len v) C)) ∧\n      (∀ (pn : PNorm) (ε : ℝ), 0 < ε → ε < 1 / pn.s →\n        ∃ C : ℕ, ∀ v : ℕ, 1 ≤ v → Nonempty (LatticeGap pn ε (SAT v) (len v) C)) := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Lattices_Mathlib",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Hankel",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable",
+    "LatticePrepro_Tables_TableSoundness",
+    "LatticePrepro_Tables_Explicit",
+    "LatticePrepro_Main",
+    "LatticePrepro_Verifier_Gates",
+    "LatticePrepro_Verifier_Circuit",
+    "LatticePrepro_Verifier_Expr",
+    "LatticePrepro_Verifier_ThreeSAT",
+    "LatticePrepro_ThreeSAT"
+   ],
+   "node_deps": [
+    "LatticePrepro.ThreeSAT.exists_code_gap",
+    "LatticePrepro.ThreeSAT.exists_lattice_gap"
+   ],
+   "inlined": [],
+   "inlined_defs": 0,
+   "solution_lines": 61
+  },
+  {
+   "theorem_name": "LatticePrepro.LinearSystemFamily.exists_latticeReduction_eq",
+   "slug": "LatticePrepro_LinearSystemFamily_exists_latticeReduction_eq",
+   "module": "LatticePrepro.Explicit",
+   "source_lines": [
+    147,
+    167
+   ],
+   "proof_lines": 16,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_Codes_Ext\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA_Ext\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard_Ext\nimport Definitions.Def_LatticePrepro_Conversions_Padding\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\nimport Definitions.Def_LatticePrepro_Conversions_Lattices_Ext\nimport Definitions.Def_LatticePrepro_Lattices_Distance\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Reduction_FixedSystem\nimport Definitions.Def_LatticePrepro_Tables_Digits\nimport Definitions.Def_LatticePrepro_Tables_FieldSetup\nimport Definitions.Def_LatticePrepro_Tables_Hankel\nimport Definitions.Def_LatticePrepro_Tables_Construction\nimport Definitions.Def_LatticePrepro_Tables_ElementTable\nimport Definitions.Def_LatticePrepro_Tables_TableSoundness\nimport Definitions.Def_LatticePrepro_Tables_Explicit\nimport Definitions.Def_LatticePrepro_Lattices_Mathlib\nimport Definitions.Def_LatticePrepro_Main\nimport Definitions.Def_LatticePrepro_Verifier_Gates\nimport Definitions.Def_LatticePrepro_Verifier_Circuit\nimport Definitions.Def_LatticePrepro_Verifier_Expr\nimport Definitions.Def_LatticePrepro_Verifier_ThreeSAT\nimport Definitions.Def_LatticePrepro_ThreeSAT\nimport Definitions.Def_LatticePrepro_ThreeSAT_Ext\nimport Definitions.Def_LatticePrepro_Explicit\n\nopen LatticePrepro\nopen LatticePrepro.LinearSystemFamily\nvariable {p : ℕ} [Fact p.Prime] {X : Type} (L : LinearSystemFamily (ZMod p) X)",
+   "formal_statement": "theorem LatticePrepro.LinearSystemFamily.exists_latticeReduction_eq {g : ℕ} (hg : g < L.blockSize) (hD : 0 < L.numBlocks)\n    (pn : PNorm) :\n    ∃ Red : LatticeReduction L g pn, Red.Λ = L.latticeFamily pn ∧ Red.R = L.latticeRadius pn := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_Codes_Ext",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_ConstructionA_Ext",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Hadamard_Ext",
+    "LatticePrepro_Conversions_Padding",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Conversions_Lattices_Ext",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Hankel",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable",
+    "LatticePrepro_Tables_TableSoundness",
+    "LatticePrepro_Tables_Explicit",
+    "LatticePrepro_Lattices_Mathlib",
+    "LatticePrepro_Main",
+    "LatticePrepro_Verifier_Gates",
+    "LatticePrepro_Verifier_Circuit",
+    "LatticePrepro_Verifier_Expr",
+    "LatticePrepro_Verifier_ThreeSAT",
+    "LatticePrepro_ThreeSAT",
+    "LatticePrepro_ThreeSAT_Ext",
+    "LatticePrepro_Explicit"
+   ],
+   "node_deps": [
+    "LatticePrepro.LinearSystemFamily.code_no",
+    "LatticePrepro.LinearSystemFamily.code_yes",
+    "LatticePrepro.blockHad_lift_bound",
+    "LatticePrepro.radius_bound_gt_two"
+   ],
+   "inlined": [
+    "LatticePrepro.Hadamard.blockHad_blockHad",
+    "LatticePrepro.Hadamard.blockHad_sub",
+    "LatticePrepro.Hadamard.blockInv",
+    "LatticePrepro.Hadamard.blockInv_blockHad",
+    "LatticePrepro.Hadamard.dotProduct_mulVec_self",
+    "LatticePrepro.Hadamard.idx_add_eq_zero_iff",
+    "LatticePrepro.Hadamard.ip_add_right",
+    "LatticePrepro.Hadamard.ip_add_single",
+    "LatticePrepro.Hadamard.ip_comm",
+    "LatticePrepro.Hadamard.ip_zero_right",
+    "LatticePrepro.Hadamard.sgn_add",
+    "LatticePrepro.Hadamard.sgn_one",
+    "LatticePrepro.Hadamard.sum_sgn_ip",
+    "LatticePrepro.Hadamard.sum_sq_blockHad",
+    "LatticePrepro.Hadamard.sum_wh_mul_wh",
+    "LatticePrepro.Hadamard.whMat_mul_whMat",
+    "LatticePrepro.Hadamard.whMat_transpose",
+    "LatticePrepro.Hadamard.wh_comm",
+    "LatticePrepro.Hadamard.wh_mul_wh",
+    "LatticePrepro.Hadamard.zmod2_add_eq_zero_iff",
+    "LatticePrepro.Hadamard.zmod2_eq_one_of_ne_zero",
+    "LatticePrepro.LinearSystemFamily.card_padM",
+    "LatticePrepro.LinearSystemFamily.card_padM_lt",
+    "LatticePrepro.LinearSystemFamily.card_ι",
+    "LatticePrepro.LinearSystemFamily.latticeH_smul_mem",
+    "LatticePrepro.LinearSystemFamily.latticeH_yes",
+    "LatticePrepro.LinearSystemFamily.lt_weightA",
+    "LatticePrepro.LinearSystemFamily.lt_weightH",
+    "LatticePrepro.LinearSystemFamily.padEmb_fst",
+    "LatticePrepro.LinearSystemFamily.pad_no",
+    "LatticePrepro.LinearSystemFamily.pad_yes",
+    "LatticePrepro.LinearSystemFamily.reduction_gt_two",
+    "LatticePrepro.LinearSystemFamily.reduction_inf",
+    "LatticePrepro.LinearSystemFamily.reduction_le_two",
+    "LatticePrepro.LinearSystemFamily.two_mul_card_le_card_padM",
+    "LatticePrepro.LinearSystemFamily.two_pow_padK_lt",
+    "LatticePrepro.LinearSystemFamily.weightA",
+    "LatticePrepro.LinearSystemFamily.weightH",
+    "LatticePrepro.LinearSystemFamily.weightH_blockHad",
+    "LatticePrepro.LinearSystemFamily.weightH_le",
+    "LatticePrepro.abs_le_supNorm",
+    "LatticePrepro.abs_liftZMod_le_one",
+    "LatticePrepro.atMostOnePerBlock_padMap",
+    "LatticePrepro.blockSupport_padMap",
+    "LatticePrepro.card_ne_zero_le_sum_abs_rpow",
+    "LatticePrepro.card_ne_zero_le_sum_sq",
+    "LatticePrepro.filter_padMap_ne",
+    "LatticePrepro.hammingDist_padMap",
+    "LatticePrepro.hammingNorm_padMap",
+    "LatticePrepro.hammingNorm_redMod_le",
+    "LatticePrepro.hammingNorm_sub_eq_hammingDist",
+    "LatticePrepro.isBinary_padMap",
+    "LatticePrepro.liftZMod_binary",
+    "LatticePrepro.liftZMod_eq_zero_iff",
+    "LatticePrepro.lift_sub_lift_mem_constructionA",
+    "LatticePrepro.lpNorm",
+    "LatticePrepro.lpNorm_le_rpow_of_sum_le",
+    "LatticePrepro.lpNorm_nonneg",
+    "LatticePrepro.lpNorm_rpow",
+    "LatticePrepro.mem_constructionA",
+    "LatticePrepro.natCast_smul_mem_constructionA",
+    "LatticePrepro.padMap_apply",
+    "LatticePrepro.padMap_apply_emb",
+    "LatticePrepro.padMap_apply_of_not",
+    "LatticePrepro.radius_bound_inf",
+    "LatticePrepro.radius_bound_le_two",
+    "LatticePrepro.redMod_lift_sub",
+    "LatticePrepro.sum_abs_rpow_le_card_ne_zero",
+    "LatticePrepro.sum_abs_rpow_nonneg",
+    "LatticePrepro.sum_sq_le_card_mul_supNorm_sq",
+    "LatticePrepro.sum_sq_le_card_rpow_mul",
+    "LatticePrepro.supNorm",
+    "LatticePrepro.supNorm_le"
+   ],
+   "inlined_defs": 8,
+   "solution_lines": 840
+  },
+  {
+   "theorem_name": "LatticePrepro.QuadraticVerifier.Tables.nonempty",
+   "slug": "LatticePrepro_QuadraticVerifier_Tables_nonempty",
+   "module": "LatticePrepro.Explicit",
+   "source_lines": [
+    217,
+    228
+   ],
+   "proof_lines": 8,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_Codes_Ext\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA_Ext\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard_Ext\nimport Definitions.Def_LatticePrepro_Conversions_Padding\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\nimport Definitions.Def_LatticePrepro_Conversions_Lattices_Ext\nimport Definitions.Def_LatticePrepro_Lattices_Distance\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Reduction_FixedSystem\nimport Definitions.Def_LatticePrepro_Tables_Digits\nimport Definitions.Def_LatticePrepro_Tables_FieldSetup\nimport Definitions.Def_LatticePrepro_Tables_Hankel\nimport Definitions.Def_LatticePrepro_Tables_Construction\nimport Definitions.Def_LatticePrepro_Tables_ElementTable\nimport Definitions.Def_LatticePrepro_Tables_TableSoundness\nimport Definitions.Def_LatticePrepro_Tables_Explicit\nimport Definitions.Def_LatticePrepro_Lattices_Mathlib\nimport Definitions.Def_LatticePrepro_Main\nimport Definitions.Def_LatticePrepro_Verifier_Gates\nimport Definitions.Def_LatticePrepro_Verifier_Circuit\nimport Definitions.Def_LatticePrepro_Verifier_Expr\nimport Definitions.Def_LatticePrepro_Verifier_ThreeSAT\nimport Definitions.Def_LatticePrepro_ThreeSAT\nimport Definitions.Def_LatticePrepro_ThreeSAT_Ext\nimport Definitions.Def_LatticePrepro_Explicit\n\nopen LatticePrepro\nopen LatticePrepro.QuadraticVerifier\nvariable {p : ℕ} [hp : Fact p.Prime]\nopen LatticePrepro.QuadraticVerifier.Tables\nvariable {V : QuadraticVerifier p} {δ : ℝ}",
+   "formal_statement": "theorem LatticePrepro.QuadraticVerifier.Tables.nonempty (V : QuadraticVerifier p) (hS : 2 ≤ V.S) {δ : ℝ} (hδ1 : δ < 1) :\n    Nonempty (V.Tables δ) := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_Codes_Ext",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_ConstructionA_Ext",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Hadamard_Ext",
+    "LatticePrepro_Conversions_Padding",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Conversions_Lattices_Ext",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Hankel",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable",
+    "LatticePrepro_Tables_TableSoundness",
+    "LatticePrepro_Tables_Explicit",
+    "LatticePrepro_Lattices_Mathlib",
+    "LatticePrepro_Main",
+    "LatticePrepro_Verifier_Gates",
+    "LatticePrepro_Verifier_Circuit",
+    "LatticePrepro_Verifier_Expr",
+    "LatticePrepro_Verifier_ThreeSAT",
+    "LatticePrepro_ThreeSAT",
+    "LatticePrepro_ThreeSAT_Ext",
+    "LatticePrepro_Explicit"
+   ],
+   "node_deps": [
+    "LatticePrepro.exists_base",
+    "LatticePrepro.exists_explicit_momentRepresentation"
+   ],
+   "inlined": [
+    "LatticePrepro.momentAxes_spec"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 92
+  },
+  {
+   "theorem_name": "LatticePrepro.QuadraticVerifier.Tables.system_spec",
+   "slug": "LatticePrepro_QuadraticVerifier_Tables_system_spec",
+   "module": "LatticePrepro.Explicit",
+   "source_lines": [
+    230,
+    277
+   ],
+   "proof_lines": 38,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_Codes_Ext\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA_Ext\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard_Ext\nimport Definitions.Def_LatticePrepro_Conversions_Padding\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\nimport Definitions.Def_LatticePrepro_Conversions_Lattices_Ext\nimport Definitions.Def_LatticePrepro_Lattices_Distance\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Reduction_FixedSystem\nimport Definitions.Def_LatticePrepro_Tables_Digits\nimport Definitions.Def_LatticePrepro_Tables_FieldSetup\nimport Definitions.Def_LatticePrepro_Tables_Hankel\nimport Definitions.Def_LatticePrepro_Tables_Construction\nimport Definitions.Def_LatticePrepro_Tables_ElementTable\nimport Definitions.Def_LatticePrepro_Tables_TableSoundness\nimport Definitions.Def_LatticePrepro_Tables_Explicit\nimport Definitions.Def_LatticePrepro_Lattices_Mathlib\nimport Definitions.Def_LatticePrepro_Main\nimport Definitions.Def_LatticePrepro_Verifier_Gates\nimport Definitions.Def_LatticePrepro_Verifier_Circuit\nimport Definitions.Def_LatticePrepro_Verifier_Expr\nimport Definitions.Def_LatticePrepro_Verifier_ThreeSAT\nimport Definitions.Def_LatticePrepro_ThreeSAT\nimport Definitions.Def_LatticePrepro_ThreeSAT_Ext\nimport Definitions.Def_LatticePrepro_Explicit\n\nopen LatticePrepro\nopen LatticePrepro.QuadraticVerifier\nvariable {p : ℕ} [hp : Fact p.Prime]\nopen LatticePrepro.QuadraticVerifier.Tables\nvariable {V : QuadraticVerifier p} {δ : ℝ}",
+   "formal_statement": "theorem LatticePrepro.QuadraticVerifier.Tables.system_spec (T : V.Tables δ) (hδ1 : δ < 1) :\n    T.system.IsGapReduction V.Language ((V.S + 1) ^ gapExp p δ) ∧\n      (V.S + 1) ^ gapExp p δ < T.system.blockSize ∧ 0 < T.system.numBlocks ∧\n      Fintype.card T.system.ι ^ momentAxes δ ≤\n        (8 * p ^ 4 * momentAxes δ * (V.S + 1)) ^ ((momentAxes δ + 7) * momentAxes δ) *\n          ((V.S + 1) ^ gapExp p δ) ^ (momentAxes δ + 1) := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_Codes_Ext",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_ConstructionA_Ext",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Hadamard_Ext",
+    "LatticePrepro_Conversions_Padding",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Conversions_Lattices_Ext",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Hankel",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable",
+    "LatticePrepro_Tables_TableSoundness",
+    "LatticePrepro_Tables_Explicit",
+    "LatticePrepro_Lattices_Mathlib",
+    "LatticePrepro_Main",
+    "LatticePrepro_Verifier_Gates",
+    "LatticePrepro_Verifier_Circuit",
+    "LatticePrepro_Verifier_Expr",
+    "LatticePrepro_Verifier_ThreeSAT",
+    "LatticePrepro_ThreeSAT",
+    "LatticePrepro_ThreeSAT_Ext",
+    "LatticePrepro_Explicit"
+   ],
+   "node_deps": [
+    "LatticePrepro.FixedSystem.isGapReduction",
+    "LatticePrepro.QuadraticVerifier.card_tblIdx_le"
+   ],
+   "inlined": [
+    "LatticePrepro.FixedSystem.numBlocks_eq",
+    "LatticePrepro.MomentRepresentation.card_ι",
+    "LatticePrepro.MomentRepresentation.elemTable",
+    "LatticePrepro.MomentRepresentation.momentMap_elemTable",
+    "LatticePrepro.MomentRepresentation.numBlocks_pos",
+    "LatticePrepro.MomentRepresentation.ord",
+    "LatticePrepro.MomentRepresentation.ord_val",
+    "LatticePrepro.momentAxes_spec",
+    "LatticePrepro.size_bound_aux"
+   ],
+   "inlined_defs": 2,
+   "solution_lines": 236
+  },
+  {
+   "theorem_name": "LatticePrepro.QuadraticVerifier.Tables.codeFamily_hasGap",
+   "slug": "LatticePrepro_QuadraticVerifier_Tables_codeFamily_hasGap",
+   "module": "LatticePrepro.Explicit",
+   "source_lines": [
+    279,
+    318
+   ],
+   "proof_lines": 31,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_Codes_Ext\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA_Ext\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard_Ext\nimport Definitions.Def_LatticePrepro_Conversions_Padding\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\nimport Definitions.Def_LatticePrepro_Conversions_Lattices_Ext\nimport Definitions.Def_LatticePrepro_Lattices_Distance\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Reduction_FixedSystem\nimport Definitions.Def_LatticePrepro_Tables_Digits\nimport Definitions.Def_LatticePrepro_Tables_FieldSetup\nimport Definitions.Def_LatticePrepro_Tables_Hankel\nimport Definitions.Def_LatticePrepro_Tables_Construction\nimport Definitions.Def_LatticePrepro_Tables_ElementTable\nimport Definitions.Def_LatticePrepro_Tables_TableSoundness\nimport Definitions.Def_LatticePrepro_Tables_Explicit\nimport Definitions.Def_LatticePrepro_Lattices_Mathlib\nimport Definitions.Def_LatticePrepro_Main\nimport Definitions.Def_LatticePrepro_Verifier_Gates\nimport Definitions.Def_LatticePrepro_Verifier_Circuit\nimport Definitions.Def_LatticePrepro_Verifier_Expr\nimport Definitions.Def_LatticePrepro_Verifier_ThreeSAT\nimport Definitions.Def_LatticePrepro_ThreeSAT\nimport Definitions.Def_LatticePrepro_ThreeSAT_Ext\nimport Definitions.Def_LatticePrepro_Explicit\n\nopen LatticePrepro\nopen LatticePrepro.QuadraticVerifier\nvariable {p : ℕ} [hp : Fact p.Prime]\nopen LatticePrepro.QuadraticVerifier.Tables\nvariable {V : QuadraticVerifier p} {δ : ℝ}",
+   "formal_statement": "theorem LatticePrepro.QuadraticVerifier.Tables.codeFamily_hasGap (F : Type) [Field F] [DecidableEq F] [Algebra (ZMod p) F] {ε : ℝ}\n    (hε : 0 < ε) (hε1 : ε < 1) (T : V.Tables (1 - ε)) :\n    (T.codeFamily F).HasGap T.system.numBlocks ε V.Language (V.S + 1) (sizeExp p (1 - ε)) := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_Codes_Ext",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_ConstructionA_Ext",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Hadamard_Ext",
+    "LatticePrepro_Conversions_Padding",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Conversions_Lattices_Ext",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Hankel",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable",
+    "LatticePrepro_Tables_TableSoundness",
+    "LatticePrepro_Tables_Explicit",
+    "LatticePrepro_Lattices_Mathlib",
+    "LatticePrepro_Main",
+    "LatticePrepro_Verifier_Gates",
+    "LatticePrepro_Verifier_Circuit",
+    "LatticePrepro_Verifier_Expr",
+    "LatticePrepro_Verifier_ThreeSAT",
+    "LatticePrepro_ThreeSAT",
+    "LatticePrepro_ThreeSAT_Ext",
+    "LatticePrepro_Explicit"
+   ],
+   "node_deps": [
+    "LatticePrepro.CodeFamily.codeDist_extend",
+    "LatticePrepro.LinearSystemFamily.code_no",
+    "LatticePrepro.LinearSystemFamily.code_yes",
+    "LatticePrepro.QuadraticVerifier.Tables.system_spec",
+    "LatticePrepro.params_spec"
+   ],
+   "inlined": [
+    "LatticePrepro.CodeFamily.codeDist_le",
+    "LatticePrepro.CodeFamily.exists_codeDist_eq",
+    "LatticePrepro.CodeFamily.lt_codeDist_of_forall",
+    "LatticePrepro.LinearSystemFamily.card_codeFamily",
+    "LatticePrepro.LinearSystemFamily.card_ι",
+    "LatticePrepro.LinearSystemFamily.codeDist_codeFamily",
+    "LatticePrepro.LinearSystemFamily.codeDist_le_of_yes",
+    "LatticePrepro.LinearSystemFamily.lt_codeDist_of_no",
+    "LatticePrepro.rpow_le_of_le_four_mul"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 210
+  },
+  {
+   "theorem_name": "LatticePrepro.QuadraticVerifier.Tables.latticeFamily_hasGap_of_eq",
+   "slug": "LatticePrepro_QuadraticVerifier_Tables_latticeFamily_hasGap_of_eq",
+   "module": "LatticePrepro.Explicit",
+   "source_lines": [
+    320,
+    376
+   ],
+   "proof_lines": 52,
+   "is_target": false,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_Codes_Ext\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA_Ext\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard_Ext\nimport Definitions.Def_LatticePrepro_Conversions_Padding\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\nimport Definitions.Def_LatticePrepro_Conversions_Lattices_Ext\nimport Definitions.Def_LatticePrepro_Lattices_Distance\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Reduction_FixedSystem\nimport Definitions.Def_LatticePrepro_Tables_Digits\nimport Definitions.Def_LatticePrepro_Tables_FieldSetup\nimport Definitions.Def_LatticePrepro_Tables_Hankel\nimport Definitions.Def_LatticePrepro_Tables_Construction\nimport Definitions.Def_LatticePrepro_Tables_ElementTable\nimport Definitions.Def_LatticePrepro_Tables_TableSoundness\nimport Definitions.Def_LatticePrepro_Tables_Explicit\nimport Definitions.Def_LatticePrepro_Lattices_Mathlib\nimport Definitions.Def_LatticePrepro_Main\nimport Definitions.Def_LatticePrepro_Verifier_Gates\nimport Definitions.Def_LatticePrepro_Verifier_Circuit\nimport Definitions.Def_LatticePrepro_Verifier_Expr\nimport Definitions.Def_LatticePrepro_Verifier_ThreeSAT\nimport Definitions.Def_LatticePrepro_ThreeSAT\nimport Definitions.Def_LatticePrepro_ThreeSAT_Ext\nimport Definitions.Def_LatticePrepro_Explicit\n\nopen LatticePrepro\nopen LatticePrepro.QuadraticVerifier\nvariable {p : ℕ} [hp : Fact p.Prime]\nopen LatticePrepro.QuadraticVerifier.Tables\nvariable {V : QuadraticVerifier p} {δ : ℝ}",
+   "formal_statement": "theorem LatticePrepro.QuadraticVerifier.Tables.latticeFamily_hasGap_of_eq (pn : PNorm) {ε δ : ℝ} (hδ : δ = 1 - pn.s * ε) (hε : 0 < ε)\n    (hε1 : ε < 1 / pn.s) {V : QuadraticVerifier 2} (T : V.Tables δ) :\n    (T.latticeFamily pn).HasGap pn (T.latticeRadius pn) ε V.Language (V.S + 1) (sizeExp 2 δ) := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_Codes_Ext",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_ConstructionA_Ext",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Hadamard_Ext",
+    "LatticePrepro_Conversions_Padding",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Conversions_Lattices_Ext",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Hankel",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable",
+    "LatticePrepro_Tables_TableSoundness",
+    "LatticePrepro_Tables_Explicit",
+    "LatticePrepro_Lattices_Mathlib",
+    "LatticePrepro_Main",
+    "LatticePrepro_Verifier_Gates",
+    "LatticePrepro_Verifier_Circuit",
+    "LatticePrepro_Verifier_Expr",
+    "LatticePrepro_Verifier_ThreeSAT",
+    "LatticePrepro_ThreeSAT",
+    "LatticePrepro_ThreeSAT_Ext",
+    "LatticePrepro_Explicit"
+   ],
+   "node_deps": [
+    "LatticePrepro.LinearSystemFamily.exists_latticeReduction_eq",
+    "LatticePrepro.QuadraticVerifier.Tables.system_spec",
+    "LatticePrepro.params_spec"
+   ],
+   "inlined": [
+    "LatticePrepro.LatticeFamily.bddBelow_range_dist",
+    "LatticePrepro.LatticeFamily.dist_nonneg",
+    "LatticePrepro.LatticeFamily.exists_dist_eq_latticeDist",
+    "LatticePrepro.LatticeFamily.finite_dist_le",
+    "LatticePrepro.LatticeFamily.latticeDist_le",
+    "LatticePrepro.LatticeFamily.latticeDist_le_of_exists",
+    "LatticePrepro.LatticeFamily.le_latticeDist",
+    "LatticePrepro.LatticeFamily.lt_latticeDist_of_forall",
+    "LatticePrepro.LinearSystemFamily.card_ι",
+    "LatticePrepro.PNorm.abs_apply_le_norm",
+    "LatticePrepro.PNorm.norm_nonneg",
+    "LatticePrepro.PNorm.one_le_s",
+    "LatticePrepro.PNorm.s_le_two",
+    "LatticePrepro.rpow_le_of_le_four_mul"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 272
+  },
+  {
+   "theorem_name": "LatticePrepro.QuadraticVerifier.Tables.latticeFamily_hasGap",
+   "slug": "LatticePrepro_QuadraticVerifier_Tables_latticeFamily_hasGap",
+   "module": "LatticePrepro.Explicit",
+   "source_lines": [
+    378,
+    388
+   ],
+   "proof_lines": 1,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_Codes_Ext\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA_Ext\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard_Ext\nimport Definitions.Def_LatticePrepro_Conversions_Padding\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\nimport Definitions.Def_LatticePrepro_Conversions_Lattices_Ext\nimport Definitions.Def_LatticePrepro_Lattices_Distance\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Reduction_FixedSystem\nimport Definitions.Def_LatticePrepro_Tables_Digits\nimport Definitions.Def_LatticePrepro_Tables_FieldSetup\nimport Definitions.Def_LatticePrepro_Tables_Hankel\nimport Definitions.Def_LatticePrepro_Tables_Construction\nimport Definitions.Def_LatticePrepro_Tables_ElementTable\nimport Definitions.Def_LatticePrepro_Tables_TableSoundness\nimport Definitions.Def_LatticePrepro_Tables_Explicit\nimport Definitions.Def_LatticePrepro_Lattices_Mathlib\nimport Definitions.Def_LatticePrepro_Main\nimport Definitions.Def_LatticePrepro_Verifier_Gates\nimport Definitions.Def_LatticePrepro_Verifier_Circuit\nimport Definitions.Def_LatticePrepro_Verifier_Expr\nimport Definitions.Def_LatticePrepro_Verifier_ThreeSAT\nimport Definitions.Def_LatticePrepro_ThreeSAT\nimport Definitions.Def_LatticePrepro_ThreeSAT_Ext\nimport Definitions.Def_LatticePrepro_Explicit\n\nopen LatticePrepro\nopen LatticePrepro.QuadraticVerifier\nvariable {p : ℕ} [hp : Fact p.Prime]\nopen LatticePrepro.QuadraticVerifier.Tables\nvariable {V : QuadraticVerifier p} {δ : ℝ}",
+   "formal_statement": "theorem LatticePrepro.QuadraticVerifier.Tables.latticeFamily_hasGap (pn : PNorm) {ε : ℝ} (hε : 0 < ε) (hε1 : ε < 1 / pn.s)\n    {V : QuadraticVerifier 2} (T : V.Tables (1 - pn.s * ε)) :\n    (T.latticeFamily pn).HasGap pn (T.latticeRadius pn) ε V.Language (V.S + 1)\n      (sizeExp 2 (1 - pn.s * ε)) := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_Codes_Ext",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_ConstructionA_Ext",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Hadamard_Ext",
+    "LatticePrepro_Conversions_Padding",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Conversions_Lattices_Ext",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Hankel",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable",
+    "LatticePrepro_Tables_TableSoundness",
+    "LatticePrepro_Tables_Explicit",
+    "LatticePrepro_Lattices_Mathlib",
+    "LatticePrepro_Main",
+    "LatticePrepro_Verifier_Gates",
+    "LatticePrepro_Verifier_Circuit",
+    "LatticePrepro_Verifier_Expr",
+    "LatticePrepro_Verifier_ThreeSAT",
+    "LatticePrepro_ThreeSAT",
+    "LatticePrepro_ThreeSAT_Ext",
+    "LatticePrepro_Explicit"
+   ],
+   "node_deps": [
+    "LatticePrepro.QuadraticVerifier.Tables.latticeFamily_hasGap_of_eq"
+   ],
+   "inlined": [],
+   "inlined_defs": 0,
+   "solution_lines": 77
+  },
+  {
+   "theorem_name": "LatticePrepro.ThreeSAT.explicit_code_gap",
+   "slug": "LatticePrepro_ThreeSAT_explicit_code_gap",
+   "module": "LatticePrepro.Explicit",
+   "source_lines": [
+    408,
+    424
+   ],
+   "proof_lines": 7,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_Codes_Ext\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA_Ext\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard_Ext\nimport Definitions.Def_LatticePrepro_Conversions_Padding\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\nimport Definitions.Def_LatticePrepro_Conversions_Lattices_Ext\nimport Definitions.Def_LatticePrepro_Lattices_Distance\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Reduction_FixedSystem\nimport Definitions.Def_LatticePrepro_Tables_Digits\nimport Definitions.Def_LatticePrepro_Tables_FieldSetup\nimport Definitions.Def_LatticePrepro_Tables_Hankel\nimport Definitions.Def_LatticePrepro_Tables_Construction\nimport Definitions.Def_LatticePrepro_Tables_ElementTable\nimport Definitions.Def_LatticePrepro_Tables_TableSoundness\nimport Definitions.Def_LatticePrepro_Tables_Explicit\nimport Definitions.Def_LatticePrepro_Lattices_Mathlib\nimport Definitions.Def_LatticePrepro_Main\nimport Definitions.Def_LatticePrepro_Verifier_Gates\nimport Definitions.Def_LatticePrepro_Verifier_Circuit\nimport Definitions.Def_LatticePrepro_Verifier_Expr\nimport Definitions.Def_LatticePrepro_Verifier_ThreeSAT\nimport Definitions.Def_LatticePrepro_ThreeSAT\nimport Definitions.Def_LatticePrepro_ThreeSAT_Ext\nimport Definitions.Def_LatticePrepro_Explicit\n\nopen LatticePrepro\nopen LatticePrepro.ThreeSAT\nopen QuadraticVerifier",
+   "formal_statement": "theorem LatticePrepro.ThreeSAT.explicit_code_gap (p : ℕ) [Fact p.Prime] (F : Type) [Field F] [Fintype F]\n    [DecidableEq F] [Algebra (ZMod p) F] (ε : ℝ) (hε : 0 < ε) (hε1 : ε < 1) :\n    ∃ C : ℕ, ∀ v : ℕ, 1 ≤ v → ∃ T : (verifier p v).Tables (1 - ε),\n      ((T.codeFamily F).comap encode).HasGap T.system.numBlocks ε (SAT v) (len v) C := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_Codes_Ext",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_ConstructionA_Ext",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Hadamard_Ext",
+    "LatticePrepro_Conversions_Padding",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Conversions_Lattices_Ext",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Hankel",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable",
+    "LatticePrepro_Tables_TableSoundness",
+    "LatticePrepro_Tables_Explicit",
+    "LatticePrepro_Lattices_Mathlib",
+    "LatticePrepro_Main",
+    "LatticePrepro_Verifier_Gates",
+    "LatticePrepro_Verifier_Circuit",
+    "LatticePrepro_Verifier_Expr",
+    "LatticePrepro_Verifier_ThreeSAT",
+    "LatticePrepro_ThreeSAT",
+    "LatticePrepro_ThreeSAT_Ext",
+    "LatticePrepro_Explicit"
+   ],
+   "node_deps": [
+    "LatticePrepro.BoolCircuit.language_toGateVerifier",
+    "LatticePrepro.GateVerifier.language_toQuadratic",
+    "LatticePrepro.QuadraticVerifier.Tables.codeFamily_hasGap",
+    "LatticePrepro.QuadraticVerifier.Tables.nonempty",
+    "LatticePrepro.ThreeSAT.mem_language_iff"
+   ],
+   "inlined": [
+    "LatticePrepro.BExpr.toCircuit_S",
+    "LatticePrepro.BExpr.toCircuit_g",
+    "LatticePrepro.CodeFamily.HasGap.comap",
+    "LatticePrepro.ThreeSAT.S_circuit_eq",
+    "LatticePrepro.ThreeSAT.S_circuit_le",
+    "LatticePrepro.ThreeSAT.S_succ_le_len_pow",
+    "LatticePrepro.ThreeSAT.S_verifier_succ_le",
+    "LatticePrepro.ThreeSAT.eight_le_len",
+    "LatticePrepro.ThreeSAT.le_len",
+    "LatticePrepro.ThreeSAT.mem_language_verifier_iff",
+    "LatticePrepro.ThreeSAT.two_le_S_verifier"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 181
+  },
+  {
+   "theorem_name": "LatticePrepro.ThreeSAT.explicit_lattice_gap",
+   "slug": "LatticePrepro_ThreeSAT_explicit_lattice_gap",
+   "module": "LatticePrepro.Explicit",
+   "source_lines": [
+    426,
+    441
+   ],
+   "proof_lines": 7,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_Codes_Ext\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA_Ext\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard_Ext\nimport Definitions.Def_LatticePrepro_Conversions_Padding\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\nimport Definitions.Def_LatticePrepro_Conversions_Lattices_Ext\nimport Definitions.Def_LatticePrepro_Lattices_Distance\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Reduction_FixedSystem\nimport Definitions.Def_LatticePrepro_Tables_Digits\nimport Definitions.Def_LatticePrepro_Tables_FieldSetup\nimport Definitions.Def_LatticePrepro_Tables_Hankel\nimport Definitions.Def_LatticePrepro_Tables_Construction\nimport Definitions.Def_LatticePrepro_Tables_ElementTable\nimport Definitions.Def_LatticePrepro_Tables_TableSoundness\nimport Definitions.Def_LatticePrepro_Tables_Explicit\nimport Definitions.Def_LatticePrepro_Lattices_Mathlib\nimport Definitions.Def_LatticePrepro_Main\nimport Definitions.Def_LatticePrepro_Verifier_Gates\nimport Definitions.Def_LatticePrepro_Verifier_Circuit\nimport Definitions.Def_LatticePrepro_Verifier_Expr\nimport Definitions.Def_LatticePrepro_Verifier_ThreeSAT\nimport Definitions.Def_LatticePrepro_ThreeSAT\nimport Definitions.Def_LatticePrepro_ThreeSAT_Ext\nimport Definitions.Def_LatticePrepro_Explicit\n\nopen LatticePrepro\nopen LatticePrepro.ThreeSAT\nopen QuadraticVerifier",
+   "formal_statement": "theorem LatticePrepro.ThreeSAT.explicit_lattice_gap (pn : PNorm) (ε : ℝ) (hε : 0 < ε) (hε1 : ε < 1 / pn.s) :\n    ∃ C : ℕ, ∀ v : ℕ, 1 ≤ v → ∃ T : (verifier 2 v).Tables (1 - pn.s * ε),\n      ((T.latticeFamily pn).comap encode).HasGap pn (T.latticeRadius pn) ε (SAT v) (len v) C := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_Codes_Ext",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_ConstructionA_Ext",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Hadamard_Ext",
+    "LatticePrepro_Conversions_Padding",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Conversions_Lattices_Ext",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Hankel",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable",
+    "LatticePrepro_Tables_TableSoundness",
+    "LatticePrepro_Tables_Explicit",
+    "LatticePrepro_Lattices_Mathlib",
+    "LatticePrepro_Main",
+    "LatticePrepro_Verifier_Gates",
+    "LatticePrepro_Verifier_Circuit",
+    "LatticePrepro_Verifier_Expr",
+    "LatticePrepro_Verifier_ThreeSAT",
+    "LatticePrepro_ThreeSAT",
+    "LatticePrepro_ThreeSAT_Ext",
+    "LatticePrepro_Explicit"
+   ],
+   "node_deps": [
+    "LatticePrepro.BoolCircuit.language_toGateVerifier",
+    "LatticePrepro.GateVerifier.language_toQuadratic",
+    "LatticePrepro.QuadraticVerifier.Tables.latticeFamily_hasGap",
+    "LatticePrepro.QuadraticVerifier.Tables.nonempty",
+    "LatticePrepro.ThreeSAT.mem_language_iff"
+   ],
+   "inlined": [
+    "LatticePrepro.BExpr.toCircuit_S",
+    "LatticePrepro.BExpr.toCircuit_g",
+    "LatticePrepro.LatticeFamily.HasGap.comap",
+    "LatticePrepro.PNorm.one_le_s",
+    "LatticePrepro.ThreeSAT.S_circuit_eq",
+    "LatticePrepro.ThreeSAT.S_circuit_le",
+    "LatticePrepro.ThreeSAT.S_succ_le_len_pow",
+    "LatticePrepro.ThreeSAT.S_verifier_succ_le",
+    "LatticePrepro.ThreeSAT.eight_le_len",
+    "LatticePrepro.ThreeSAT.le_len",
+    "LatticePrepro.ThreeSAT.mem_language_verifier_iff",
+    "LatticePrepro.ThreeSAT.two_le_S_verifier"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 192
+  },
+  {
+   "theorem_name": "LatticePrepro.ThreeSAT.explicit_code_and_lattice_gaps",
+   "slug": "LatticePrepro_ThreeSAT_explicit_code_and_lattice_gaps",
+   "module": "LatticePrepro.Explicit",
+   "source_lines": [
+    443,
+    463
+   ],
+   "proof_lines": 1,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_Conversions_Codes_Ext\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA\nimport Definitions.Def_LatticePrepro_Conversions_ConstructionA_Ext\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard\nimport Definitions.Def_LatticePrepro_Conversions_Hadamard_Ext\nimport Definitions.Def_LatticePrepro_Conversions_Padding\nimport Definitions.Def_LatticePrepro_Conversions_Lattices\nimport Definitions.Def_LatticePrepro_Conversions_Lattices_Ext\nimport Definitions.Def_LatticePrepro_Lattices_Distance\nimport Definitions.Def_LatticePrepro_Moments_Basic\nimport Definitions.Def_LatticePrepro_Moments_Representation\nimport Definitions.Def_LatticePrepro_Verifier_Quadratic\nimport Definitions.Def_LatticePrepro_Reduction_FixedSystem\nimport Definitions.Def_LatticePrepro_Tables_Digits\nimport Definitions.Def_LatticePrepro_Tables_FieldSetup\nimport Definitions.Def_LatticePrepro_Tables_Hankel\nimport Definitions.Def_LatticePrepro_Tables_Construction\nimport Definitions.Def_LatticePrepro_Tables_ElementTable\nimport Definitions.Def_LatticePrepro_Tables_TableSoundness\nimport Definitions.Def_LatticePrepro_Tables_Explicit\nimport Definitions.Def_LatticePrepro_Lattices_Mathlib\nimport Definitions.Def_LatticePrepro_Main\nimport Definitions.Def_LatticePrepro_Verifier_Gates\nimport Definitions.Def_LatticePrepro_Verifier_Circuit\nimport Definitions.Def_LatticePrepro_Verifier_Expr\nimport Definitions.Def_LatticePrepro_Verifier_ThreeSAT\nimport Definitions.Def_LatticePrepro_ThreeSAT\nimport Definitions.Def_LatticePrepro_ThreeSAT_Ext\nimport Definitions.Def_LatticePrepro_Explicit\n\nopen LatticePrepro\nopen LatticePrepro.ThreeSAT\nopen QuadraticVerifier",
+   "formal_statement": "theorem LatticePrepro.ThreeSAT.explicit_code_and_lattice_gaps :\n    (∀ (p : ℕ) [Fact p.Prime] (F : Type) [Field F] [Fintype F] [DecidableEq F]\n        [Algebra (ZMod p) F] (ε : ℝ), 0 < ε → ε < 1 →\n        ∃ C : ℕ, ∀ v : ℕ, 1 ≤ v → ∃ T : (verifier p v).Tables (1 - ε),\n          ((T.codeFamily F).comap encode).HasGap T.system.numBlocks ε (SAT v) (len v) C) ∧\n      (∀ (pn : PNorm) (ε : ℝ), 0 < ε → ε < 1 / pn.s →\n        ∃ C : ℕ, ∀ v : ℕ, 1 ≤ v → ∃ T : (verifier 2 v).Tables (1 - pn.s * ε),\n          ((T.latticeFamily pn).comap encode).HasGap pn (T.latticeRadius pn) ε (SAT v) (len v)\n            C) := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_Conversions_Codes_Ext",
+    "LatticePrepro_Conversions_ConstructionA",
+    "LatticePrepro_Conversions_ConstructionA_Ext",
+    "LatticePrepro_Conversions_Hadamard",
+    "LatticePrepro_Conversions_Hadamard_Ext",
+    "LatticePrepro_Conversions_Padding",
+    "LatticePrepro_Conversions_Lattices",
+    "LatticePrepro_Conversions_Lattices_Ext",
+    "LatticePrepro_Lattices_Distance",
+    "LatticePrepro_Moments_Basic",
+    "LatticePrepro_Moments_Representation",
+    "LatticePrepro_Verifier_Quadratic",
+    "LatticePrepro_Reduction_FixedSystem",
+    "LatticePrepro_Tables_Digits",
+    "LatticePrepro_Tables_FieldSetup",
+    "LatticePrepro_Tables_Hankel",
+    "LatticePrepro_Tables_Construction",
+    "LatticePrepro_Tables_ElementTable",
+    "LatticePrepro_Tables_TableSoundness",
+    "LatticePrepro_Tables_Explicit",
+    "LatticePrepro_Lattices_Mathlib",
+    "LatticePrepro_Main",
+    "LatticePrepro_Verifier_Gates",
+    "LatticePrepro_Verifier_Circuit",
+    "LatticePrepro_Verifier_Expr",
+    "LatticePrepro_Verifier_ThreeSAT",
+    "LatticePrepro_ThreeSAT",
+    "LatticePrepro_ThreeSAT_Ext",
+    "LatticePrepro_Explicit"
+   ],
+   "node_deps": [
+    "LatticePrepro.ThreeSAT.explicit_code_gap",
+    "LatticePrepro.ThreeSAT.explicit_lattice_gap"
+   ],
+   "inlined": [],
+   "inlined_defs": 0,
+   "solution_lines": 85
+  },
+  {
+   "theorem_name": "LatticePrepro.ObliviousPCP.card_views_le",
+   "slug": "LatticePrepro_ObliviousPCP_card_views_le",
+   "module": "LatticePrepro.PCP.Verifier",
+   "source_lines": [
+    116,
+    130
+   ],
+   "proof_lines": 11,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_PCP_Verifier\n\nopen LatticePrepro\nopen LatticePrepro.ObliviousPCP\nvariable {X : Type} (P : ObliviousPCP X)",
+   "formal_statement": "theorem LatticePrepro.ObliviousPCP.card_views_le {K : ℕ} (hK : ∀ r, Fintype.card (P.Pred r) ≤ K) :\n    Fintype.card P.Views ≤ 2 ^ P.ρ * K * Fintype.card P.Alphabet ^ P.q := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_PCP_Verifier"
+   ],
+   "node_deps": [],
+   "inlined": [
+    "LatticePrepro.ObliviousPCP.card_rand"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 45
+  },
+  {
+   "theorem_name": "LatticePrepro.ObliviousPCP.card_coord",
+   "slug": "LatticePrepro_ObliviousPCP_card_coord",
+   "module": "LatticePrepro.PCP.Code",
+   "source_lines": [
+    147,
+    154
+   ],
+   "proof_lines": 4,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_PCP_Verifier\nimport Definitions.Def_LatticePrepro_PCP_Code\n\nopen LatticePrepro\nopen LatticePrepro.ObliviousPCP\nvariable {X : Type} (P : ObliviousPCP X) (F : Type) [Field F]\nvariable {F} {B : ℕ}",
+   "formal_statement": "theorem LatticePrepro.ObliviousPCP.card_coord (B g : ℕ) :\n    Fintype.card (P.Coord B ⊕ Fin (g * P.radius B + 1)) =\n      (Fintype.card P.Alphabet + g) * P.radius B + 1 := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_PCP_Verifier",
+    "LatticePrepro_PCP_Code"
+   ],
+   "node_deps": [],
+   "inlined": [
+    "LatticePrepro.ObliviousPCP.card_rand"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 53
+  },
+  {
+   "theorem_name": "LatticePrepro.mul_le_sum_of_sum_prod_inv_le",
+   "slug": "LatticePrepro_mul_le_sum_of_sum_prod_inv_le",
+   "module": "LatticePrepro.PCP.Inequality",
+   "source_lines": [
+    35,
+    54
+   ],
+   "proof_lines": 14,
+   "is_target": true,
+   "preamble": "import Mathlib\n\nopen Finset",
+   "formal_statement": "theorem LatticePrepro.mul_le_sum_of_sum_prod_inv_le {R : Type*} [Fintype R] {q : ℕ} (lam : R → Fin q → ℝ)\n    (hlam : ∀ r j, 0 < lam r j) {t : ℝ} (ht : 0 < t)\n    (h : (∑ r, ∏ j, (lam r j)⁻¹) * t ^ q ≤ Fintype.card R) :\n    (Fintype.card R : ℝ) * q * t ≤ ∑ r, ∑ j, lam r j := by sorry",
+   "definition_imports": [],
+   "node_deps": [],
+   "inlined": [
+    "LatticePrepro.add_one_le_sum_add_prod_inv"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 51
+  },
+  {
+   "theorem_name": "LatticePrepro.ObliviousPCP.codeDist_le_of_mem",
+   "slug": "LatticePrepro_ObliviousPCP_codeDist_le_of_mem",
+   "module": "LatticePrepro.PCP.Reduction",
+   "source_lines": [
+    127,
+    145
+   ],
+   "proof_lines": 14,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_PCP_Verifier\nimport Definitions.Def_LatticePrepro_PCP_Code\n\nopen LatticePrepro\nopen LatticePrepro.ObliviousPCP\nvariable {X : Type} (P : ObliviousPCP X) {F : Type} [Field F] [DecidableEq F] {B : ℕ}",
+   "formal_statement": "theorem LatticePrepro.ObliviousPCP.codeDist_le_of_mem {Lang : Set X} (hc : P.PerfectlyComplete Lang)\n    (E : (P.Views → F) →ₗ[F] (Fin B → F)) (g : ℕ) {x : X} (hx : x ∈ Lang) :\n    CodeFamily.codeDist (P.target E g x) (P.code E g) ≤ P.radius B := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_PCP_Verifier",
+    "LatticePrepro_PCP_Code"
+   ],
+   "node_deps": [],
+   "inlined": [
+    "LatticePrepro.CodeFamily.codeDist_le",
+    "LatticePrepro.ObliviousPCP.card_rand",
+    "LatticePrepro.ObliviousPCP.constraintMap_apply",
+    "LatticePrepro.ObliviousPCP.constraintMap_honest",
+    "LatticePrepro.ObliviousPCP.constraintRhs_apply",
+    "LatticePrepro.ObliviousPCP.hammingDist_pad",
+    "LatticePrepro.ObliviousPCP.hammingNorm_stackMap",
+    "LatticePrepro.ObliviousPCP.hammingNorm_stackMap_honest_le",
+    "LatticePrepro.ObliviousPCP.honest",
+    "LatticePrepro.ObliviousPCP.honestView",
+    "LatticePrepro.ObliviousPCP.mem_code_iff",
+    "LatticePrepro.ObliviousPCP.restrict_apply",
+    "LatticePrepro.ObliviousPCP.restrict_honest_eq_zero",
+    "LatticePrepro.ObliviousPCP.target_of_exists",
+    "LatticePrepro.hammingDist_sum_elim",
+    "LatticePrepro.hammingNorm_prod",
+    "LatticePrepro.hammingNorm_sub_eq_hammingDist"
+   ],
+   "inlined_defs": 2,
+   "solution_lines": 219
+  },
+  {
+   "theorem_name": "LatticePrepro.ObliviousPCP.lt_hammingNorm_stackMap_of_solution",
+   "slug": "LatticePrepro_ObliviousPCP_lt_hammingNorm_stackMap_of_solution",
+   "module": "LatticePrepro.PCP.Reduction",
+   "source_lines": [
+    147,
+    340
+   ],
+   "proof_lines": 185,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_PCP_Verifier\nimport Definitions.Def_LatticePrepro_PCP_Code\n\nopen LatticePrepro\nopen LatticePrepro.ObliviousPCP\nvariable {X : Type} (P : ObliviousPCP X) {F : Type} [Field F] [DecidableEq F] {B : ℕ}",
+   "formal_statement": "theorem LatticePrepro.ObliviousPCP.lt_hammingNorm_stackMap_of_solution {Lang : Set X} {ε δ : ℝ}\n    (hs : P.SoundnessError Lang ε) (hε : 0 < ε) {E : (P.Views → F) →ₗ[F] (Fin B → F)}\n    (hE : Function.Injective E)\n    (hδ : ∀ c ∈ LinearMap.range E, c ≠ 0 → δ * B ≤ hammingNorm c) {g : ℕ}\n    (hg : (g : ℝ) < δ * ε ^ (-(1 : ℝ) / P.q)) {x : X} (hx : x ∉ Lang) {v : P.Views → F}\n    (hv : P.constraintMap F v = P.constraintRhs F x) :\n    g * P.radius B < hammingNorm (P.stackMap E v) := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_PCP_Verifier",
+    "LatticePrepro_PCP_Code"
+   ],
+   "node_deps": [
+    "LatticePrepro.mul_le_sum_of_sum_prod_inv_le"
+   ],
+   "inlined": [
+    "LatticePrepro.ObliviousPCP.View.ans_eq",
+    "LatticePrepro.ObliviousPCP.View.eval_eq",
+    "LatticePrepro.ObliviousPCP.card_rand",
+    "LatticePrepro.ObliviousPCP.constraintMap_apply",
+    "LatticePrepro.ObliviousPCP.constraintRhs_apply",
+    "LatticePrepro.ObliviousPCP.hammingNorm_stackMap",
+    "LatticePrepro.ObliviousPCP.restrict_apply",
+    "LatticePrepro.hammingNorm_prod"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 286
+  },
+  {
+   "theorem_name": "LatticePrepro.ObliviousPCP.lt_codeDist_of_not_mem",
+   "slug": "LatticePrepro_ObliviousPCP_lt_codeDist_of_not_mem",
+   "module": "LatticePrepro.PCP.Reduction",
+   "source_lines": [
+    342,
+    359
+   ],
+   "proof_lines": 11,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_PCP_Verifier\nimport Definitions.Def_LatticePrepro_PCP_Code\n\nopen LatticePrepro\nopen LatticePrepro.ObliviousPCP\nvariable {X : Type} (P : ObliviousPCP X) {F : Type} [Field F] [DecidableEq F] {B : ℕ}",
+   "formal_statement": "theorem LatticePrepro.ObliviousPCP.lt_codeDist_of_not_mem {Lang : Set X} {ε δ : ℝ} (hs : P.SoundnessError Lang ε)\n    (hε : 0 < ε) {E : (P.Views → F) →ₗ[F] (Fin B → F)} (hE : Function.Injective E)\n    (hδ : ∀ c ∈ LinearMap.range E, c ≠ 0 → δ * B ≤ hammingNorm c) {g : ℕ}\n    (hg : (g : ℝ) < δ * ε ^ (-(1 : ℝ) / P.q)) {x : X} (hx : x ∉ Lang) :\n    g * P.radius B < CodeFamily.codeDist (P.target E g x) (P.code E g) := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_PCP_Verifier",
+    "LatticePrepro_PCP_Code"
+   ],
+   "node_deps": [
+    "LatticePrepro.ObliviousPCP.lt_hammingNorm_stackMap_of_solution"
+   ],
+   "inlined": [
+    "LatticePrepro.CodeFamily.exists_codeDist_eq",
+    "LatticePrepro.CodeFamily.lt_codeDist_of_forall",
+    "LatticePrepro.ObliviousPCP.hammingDist_pad",
+    "LatticePrepro.ObliviousPCP.mem_code_iff",
+    "LatticePrepro.ObliviousPCP.target_of_exists",
+    "LatticePrepro.ObliviousPCP.target_of_not_exists",
+    "LatticePrepro.hammingDist_sum_elim",
+    "LatticePrepro.hammingNorm_sub_eq_hammingDist"
+   ],
+   "inlined_defs": 0,
+   "solution_lines": 124
+  },
+  {
+   "theorem_name": "LatticePrepro.ObliviousPCP.pcp_reduction",
+   "slug": "LatticePrepro_ObliviousPCP_pcp_reduction",
+   "module": "LatticePrepro.PCP.Reduction",
+   "source_lines": [
+    361,
+    382
+   ],
+   "proof_lines": 2,
+   "is_target": true,
+   "preamble": "import Mathlib\nimport Definitions.Def_LatticePrepro_Basic_Blocks\nimport Definitions.Def_LatticePrepro_Reduction_LinearSystem\nimport Definitions.Def_LatticePrepro_Conversions_Codes\nimport Definitions.Def_LatticePrepro_PCP_Verifier\nimport Definitions.Def_LatticePrepro_PCP_Code\n\nopen LatticePrepro\nopen LatticePrepro.ObliviousPCP\nvariable {X : Type} (P : ObliviousPCP X) {F : Type} [Field F] [DecidableEq F] {B : ℕ}",
+   "formal_statement": "theorem LatticePrepro.ObliviousPCP.pcp_reduction {Lang : Set X} {ε δ : ℝ} (hc : P.PerfectlyComplete Lang)\n    (hs : P.SoundnessError Lang ε) (hε : 0 < ε) {E : (P.Views → F) →ₗ[F] (Fin B → F)}\n    (hE : Function.Injective E)\n    (hδ : ∀ c ∈ LinearMap.range E, c ≠ 0 → δ * B ≤ hammingNorm c) {g : ℕ}\n    (hg : (g : ℝ) < δ * ε ^ (-(1 : ℝ) / P.q)) :\n    (∀ x ∈ Lang, CodeFamily.codeDist (P.target E g x) (P.code E g) ≤ P.radius B) ∧\n    (∀ x, x ∉ Lang → g * P.radius B < CodeFamily.codeDist (P.target E g x) (P.code E g)) ∧\n    Fintype.card (P.Coord B ⊕ Fin (g * P.radius B + 1)) =\n      (Fintype.card P.Alphabet + g) * P.radius B + 1 := by sorry",
+   "definition_imports": [
+    "LatticePrepro_Basic_Blocks",
+    "LatticePrepro_Reduction_LinearSystem",
+    "LatticePrepro_Conversions_Codes",
+    "LatticePrepro_PCP_Verifier",
+    "LatticePrepro_PCP_Code"
+   ],
+   "node_deps": [
+    "LatticePrepro.ObliviousPCP.card_coord",
+    "LatticePrepro.ObliviousPCP.codeDist_le_of_mem",
+    "LatticePrepro.ObliviousPCP.lt_codeDist_of_not_mem"
+   ],
+   "inlined": [],
+   "inlined_defs": 0,
+   "solution_lines": 59
+  }
+ ]
+}

@@ -11,7 +11,7 @@ The main facts proved here are:
 * `moment` is `F`-linear (`momentₗ`);
 * the Vandermonde identification lemma (Lemma 4.3): a function supported on at most `t` points
   whose first `t` moments vanish is zero;
-* the binomial identity for the moments of a translation difference (equation (4.4)).
+* the binomial identity for the moments of a translation difference (equation (20)).
 -/
 
 namespace LatticePrepro
@@ -132,7 +132,8 @@ noncomputable def translate (c : Ω) (f : Ω →₀ F) : Ω →₀ F :=
 
 lemma translate_apply (c : Ω) (f : Ω →₀ F) (α : Ω) : translate c f α = f (α - c) := by
   unfold translate
-  have := Finsupp.mapDomain_apply_of_injective (add_left_injective c) f (α - c)
+  have := Finsupp.mapDomain_apply' Set.univ f (Set.subset_univ _)
+    (add_left_injective c).injOn (Set.mem_univ (α - c))
   simpa only [sub_add_cancel] using this
 
 lemma support_translate (c : Ω) (f : Ω →₀ F) :
@@ -163,7 +164,7 @@ lemma translate_smul (c : Ω) (a : F) (f : Ω →₀ F) : translate c (a • f) 
 
 variable [Algebra F Ω]
 
-/-- The binomial identity (4.4): the moments of a translation are linear combinations of the
+/-- The binomial identity (20): the moments of a translation are linear combinations of the
 lower-order moments. -/
 lemma moment_translate (c : Ω) (f : Ω →₀ F) (k : ℕ) :
     moment (translate c f) k = ∑ j ∈ Finset.range (k + 1), (k.choose j : Ω) * c ^ (k - j) * moment f j := by

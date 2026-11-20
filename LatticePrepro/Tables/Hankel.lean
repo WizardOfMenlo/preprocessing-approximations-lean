@@ -2,7 +2,7 @@ import LatticePrepro.Basic.FiniteField
 import LatticePrepro.Moments.Basic
 
 /-!
-# Moment reconstruction from a Hankel matrix (Theorem A.6)
+# Moment reconstruction from a Hankel matrix (Theorem A.7)
 
 Let `Ω` be an algebraically closed field of characteristic `p`, `r ≥ 2`, and
 `ℓ = p · (r - 1) + 1`. Suppose `y_0, …, y_{2ℓ-2} ∈ Ω` satisfy the Frobenius identities
@@ -229,7 +229,7 @@ end Hankel
 
 open Hankel
 
-/-- **Theorem A.6** (moment reconstruction). -/
+/-- **Theorem A.7** (moment reconstruction). -/
 theorem hankel_reconstruction {p : ℕ} [hp : Fact p.Prime] {Ω : Type} [Field Ω]
     [Algebra (ZMod p) Ω] [IsAlgClosed Ω] {r : ℕ} (hr : 2 ≤ r) (y : ℕ → Ω)
     (hfrob : ∀ k, p * k ≤ 2 * hankelLen p r - 2 → y (p * k) = y k ^ p)

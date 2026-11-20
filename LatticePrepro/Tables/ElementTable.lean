@@ -1,7 +1,7 @@
 import LatticePrepro.Tables.Construction
 
 /-!
-# Evaluation tables of field elements (Construction A.4, step 6; completeness in Theorem A.7)
+# Evaluation tables of field elements (Construction A.4, step 6; completeness in Theorem A.8)
 
 For `α ∈ K` and `h < m`, let `ℓ_h ∈ 𝕊[X]` be the polynomial of degree `< δ` with
 `ℓ_h(γ) = α^{B^h}`. The *element table* `ê_α` has a single `1` in every column `s`, at the label

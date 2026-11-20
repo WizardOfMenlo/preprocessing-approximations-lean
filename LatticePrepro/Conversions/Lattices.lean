@@ -5,13 +5,13 @@ import LatticePrepro.Conversions.ConstructionA
 import LatticePrepro.Conversions.Padding
 
 /-!
-# From codes to lattices (Lemma 3.8, Appendix B.2–B.3)
+# From codes to lattices (Lemma 3.12, Appendix B.2–B.3)
 
 * `ℓ_p` norms on `M → ℝ` for `1 ≤ p < ∞` and `p = ∞` (`PNorm`).
-* Construction A: `Λ_𝒞 = {v ∈ ℤ^M : v mod p ∈ 𝒞}` (Lemma B.2).
-* The block Hadamard map (Lemma B.3): for `2 ≤ p ≤ ∞`, multiply lattice and target by a
+* Construction A: `Λ_𝒞 = {v ∈ ℤ^M : v mod p ∈ 𝒞}` (Lemma B.1).
+* The block Hadamard map (Lemma B.2): for `2 ≤ p ≤ ∞`, multiply lattice and target by a
   block-diagonal matrix of Sylvester–Hadamard matrices.
-* The lattice reduction (Lemma 3.8, `LatticeReduction`, `exists_latticeReduction`): a fixed
+* The lattice reduction (Lemma 3.12, `LatticeReduction`, `exists_latticeReduction`): a fixed
   lattice `Λ`, an integer radius `R`, targets `t_x` and a residual weight such that YES instances
   have a lattice vector within distance `R` and NO instances have every lattice vector at distance
   more than `(g / 16)^{1/s} · R`, where `s = min {p, 2}`.
@@ -186,7 +186,7 @@ noncomputable def padCode : Submodule (ZMod p) (L.PadM → ZMod p) :=
 /-- The padded target. -/
 noncomputable def padTarget (x : X) : L.PadM → ZMod p := padMap L.padEmb (L.codeTarget x)
 
-/-- (B.1) for the padded code, YES instances. -/
+/-- (38) for the padded code, YES instances. -/
 theorem pad_yes {x : X} (hx : L.IsYes x) :
     ∃ e : L.PadM → ZMod p, IsBinary e ∧ AtMostOnePerBlock Prod.fst e ∧
       hammingNorm e ≤ L.numBlocks ∧ L.padTarget x - e ∈ L.padCode := by
@@ -197,7 +197,7 @@ theorem pad_yes {x : X} (hx : L.IsYes x) :
   rw [padTarget, ← map_sub]
   exact Submodule.mem_map_of_mem hmem
 
-/-- (B.1) for the padded code, NO instances. -/
+/-- (38) for the padded code, NO instances. -/
 theorem pad_no {g : ℕ} (hg : g < L.blockSize) (hD : 0 < L.numBlocks) {x : X}
     (hx : L.IsNo g x) :
     ∀ c ∈ L.padCode, g * L.numBlocks < hammingDist (L.padTarget x) c := by
@@ -392,7 +392,7 @@ end RealBounds
 
 /-! ### The lattice reduction: statement -/
 
-/-- The output of Lemma 3.8 for a linear system family `L`, a gap `g` and a norm exponent `pn`:
+/-- The output of Lemma 3.12 for a linear system family `L`, a gap `g` and a norm exponent `pn`:
 a fixed lattice `Λ ⊆ ℤ^M` with `2 n ≤ M < 4 n` (`n = |ι|`), containing `N · ℤ^M` for some
 `N > 0` (full rank), an integer radius `1 ≤ R ≤ M`, and a *residual weight* `w = weight x v`
 computable from a lattice vector `v`, such that
@@ -681,7 +681,7 @@ end LinearSystemFamily
 
 end Cases
 
-/-- **Lemma 3.8** (the lattice reduction). Given a linear system family over `𝔽_p` with gap
+/-- **Lemma 3.12** (the lattice reduction). Given a linear system family over `𝔽_p` with gap
 `g < b` and at least one block, there is a `LatticeReduction`: a fixed full-rank lattice
 `Λ ⊆ ℤ^M` with `2 n ≤ M < 4 n` (`n = |ι|`), an integer radius `1 ≤ R ≤ M`, targets, and a
 residual weight such that

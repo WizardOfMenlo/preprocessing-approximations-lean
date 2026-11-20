@@ -3,7 +3,7 @@ import LatticePrepro.Conversions.Lattices
 /-!
 # Distance from a target to a lattice
 
-The paper (Definition 2.1) measures the distance from a target `t` to a lattice `Λ` as
+The paper (Definition 3.1) measures the distance from a target `t` to a lattice `Λ` as
 `dist_p(t, Λ) = min_{v ∈ Λ} ‖t − v‖_p`. For a `LatticeFamily`, we define
 `latticeDist pn x = ⨅ v ∈ Λ, ‖t_x − v‖_p` and show that the infimum is attained
 (`exists_dist_eq_latticeDist`): the lattice vectors within any given distance of `t_x` form a
@@ -44,7 +44,7 @@ namespace LatticeFamily
 variable {X : Type} (Λ : LatticeFamily X) (pn : PNorm) (x : X)
 
 /-- The distance `dist_p(t_x, Λ) = inf_{v ∈ Λ} ‖t_x − v‖_p` from the target to the lattice
-(Definition 2.1). The infimum is attained (`exists_dist_eq_latticeDist`). -/
+(Definition 3.1). The infimum is attained (`exists_dist_eq_latticeDist`). -/
 noncomputable def latticeDist : ℝ := ⨅ v : Λ.lattice, Λ.dist pn x v
 
 lemma dist_nonneg (v : Λ.M → ℤ) : 0 ≤ Λ.dist pn x v := pn.norm_nonneg _

@@ -2,7 +2,7 @@ import LatticePrepro.Tables.Construction
 import LatticePrepro.Tables.PolyMatrixRank
 
 /-!
-# Soundness of the explicit tables: the polynomial matrix (Definition A.5, Lemma A.5)
+# Soundness of the explicit tables: the polynomial matrix (Definition A.5, Lemma A.6)
 
 For a table `y` satisfying the constraints, the *polynomial matrix* `Hmat y` has entries
 `P^y_{digits(h) + digits(h')} ∈ 𝕊[X]` (`0 ≤ h, h' < ℓ`, `ℓ = p (B^m - 1) + 1`). We show:

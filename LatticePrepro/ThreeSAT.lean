@@ -5,7 +5,7 @@ import LatticePrepro.Verifier.ThreeSAT
 # Theorem 5.1 for 3SAT
 
 The main theorems of `Main.lean` are stated for an arbitrary quadratic verifier. Instantiating
-them with the verifier circuit of `Verifier/ThreeSAT.lean` (Claim 3.11 and Definition 3.10 turn
+them with the verifier circuit of `Verifier/ThreeSAT.lean` (Claim 3.15 and Definition 3.14 turn
 it into a quadratic verifier with the same language) gives the paper's Theorem 5.1 for 3SAT:
 fixed codes and lattices of dimension `M ≤ n^C`, where `n = (2v)^3` is the instance length of
 3SAT on `v` variables, with targets `t_x` such that satisfiable instances have
@@ -57,6 +57,18 @@ theorem exists_lattice_gap (pn : PNorm) (ε : ℝ) (hε : 0 < ε) (hε1 : ε < 1
   refine ⟨G.comap encode (fun x => mem_language_verifier_iff 2 x) ?_⟩
   rw [pow_mul]
   exact Nat.pow_le_pow_left (S_verifier_succ_le 2 hv) _
+
+/-- **Theorem 5.1** (fixed code and lattice gaps) for 3SAT, both parts together: for every finite
+field `F` and every `0 < ε < 1` there are fixed codes with gap `M^{1 - ε}`, and for every norm
+exponent `1 ≤ p ≤ ∞` and every `0 < ε < 1/s`, `s = min {p, 2}`, there are fixed full-rank
+lattices with gap `M^{1/s - ε}`; in both cases `M ≤ n^C` in the instance length `n`. -/
+theorem fixed_code_and_lattice_gaps :
+    (∀ (p : ℕ) [Fact p.Prime] (F : Type) [Field F] [Fintype F] [DecidableEq F]
+        [Algebra (ZMod p) F] (ε : ℝ), 0 < ε → ε < 1 →
+        ∃ C : ℕ, ∀ v : ℕ, 1 ≤ v → Nonempty (CodeGap F ε (SAT v) (len v) C)) ∧
+      (∀ (pn : PNorm) (ε : ℝ), 0 < ε → ε < 1 / pn.s →
+        ∃ C : ℕ, ∀ v : ℕ, 1 ≤ v → Nonempty (LatticeGap pn ε (SAT v) (len v) C)) :=
+  ⟨fun p _ F _ _ _ _ ε hε hε1 => exists_code_gap p F ε hε hε1, exists_lattice_gap⟩
 
 end ThreeSAT
 

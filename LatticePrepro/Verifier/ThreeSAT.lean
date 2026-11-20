@@ -4,11 +4,11 @@ import LatticePrepro.Verifier.Expr
 # A verifier circuit family for 3SAT (Theorem 5.1: "we take `V = V_n`, a verifier for 3SAT")
 
 Instances of 3SAT on `v` variables are encoded as strings of a common length polynomial in `v`,
-listing which of the `(2v)^3` possible clauses are present (as in the proof of Theorem 5.3 of
+listing which of the `(2v)^3` possible clauses are present (as in the proof of Theorem 5.4 of
 the paper): a clause is a triple of literals, a literal is a variable together with a sign, and
 an instance is one bit per possible clause.
 
-`ThreeSAT.circuit v` is a Boolean circuit (Definition 3.9) with `len v = (2v)^3` input wires and
+`ThreeSAT.circuit v` is a Boolean circuit (Definition 3.13) with `len v = (2v)^3` input wires and
 `v + 1` witness wires (an assignment to the variables, plus one dummy wire used to produce
 constants) that checks that every present clause contains a literal satisfied by the
 assignment. It accepts exactly the encodings of satisfiable instances

@@ -4,7 +4,7 @@ import LatticePrepro.Verifier.Circuit
 # Boolean expressions and their circuits
 
 A `BExpr L` is a Boolean formula over `L` leaves (wires `Fin L`) built from gates of fan-in
-two. We compile such expressions into Boolean circuits (Definition 3.9): `BExpr.toCircuit n w e`
+two. We compile such expressions into Boolean circuits (Definition 3.13): `BExpr.toCircuit n w e`
 is a `BoolCircuit` with `n` input wires, `w` witness wires and `e.size` gates, whose output on
 `(x, wit)` is the value of `e` on the leaf assignment `Fin.append x wit`
 (`BExpr.mem_language_toCircuit`). This is the tool used to build the 3SAT verifier circuits of
@@ -400,7 +400,8 @@ lemma evalAux_toCircuit (x : Fin n → Bool) (wit : Fin w → Bool) (i : ℕ) :
       have h2' : ¬ i < (toCircuit n w e he).n + (toCircuit n w e he).w := h2
       have h3' : ¬ i < (toCircuit n w e he).n + (toCircuit n w e he).w +
           (toCircuit n w e he).g := h3
-      rw [BoolCircuit.evalAux, dite_eq_right h1', dite_eq_right h2', dite_eq_right h3']
+      rw [BoolCircuit.evalAux]
+      simp only [h1', h2', h3', ↓reduceDIte]
 
 /-- **The language of the circuit of an expression**: the instances `x` for which some witness
 makes the expression true. -/

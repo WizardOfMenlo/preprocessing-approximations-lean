@@ -4,7 +4,7 @@ import Mathlib
 # Quadratic verifiers and encodings
 
 The moment reduction only uses a verifier through a system of homogeneous quadratic equations
-over `𝔽_p` in the coordinates `(z_0, z_1, …, z_S)` with `z_0 = 1` (Claim 3.11 of the paper
+over `𝔽_p` in the coordinates `(z_0, z_1, …, z_S)` with `z_0 = 1` (Claim 3.15 of the paper
 produces such a system from a Boolean circuit with fan-in-two gates).
 
 We therefore abstract a verifier as a `QuadraticVerifier`: it has `S` assignment coordinates
@@ -13,7 +13,7 @@ We therefore abstract a verifier as a `QuadraticVerifier`: it has `S` assignment
 
 An assignment is *valid* if all gate equations vanish, and *accepting on `x`* if it is valid,
 Boolean, and has prefix `(x, 1)`. The language of the verifier is the set of instances with
-an accepting assignment (Definitions 3.9 and 3.10).
+an accepting assignment (Definitions 3.13 and 3.14).
 
 We also define *encoding tuples* `E = (E_1, …, E_S)` of `𝔽_p`-linearly independent elements of
 a field `K`, the encoding `enc z = ∑ E_i z_i` of an assignment, and the instance encoding
@@ -22,7 +22,7 @@ a field `K`, the encoding `enc z = ∑ E_i z_i` of an assignment, and the instan
 
 namespace LatticePrepro
 
-/-- A quadratic verifier over `ZMod p` (cf. Definitions 3.9, 3.10 and Claim 3.11). -/
+/-- A quadratic verifier over `ZMod p` (cf. Definitions 3.13, 3.14 and Claim 3.15). -/
 structure QuadraticVerifier (p : ℕ) where
   /-- Instance length. -/
   n : ℕ
@@ -66,7 +66,7 @@ abbrev AuxIdx : Type := {i : Fin (V.S + 1) // V.n + 1 < i.val}
 def HasPrefix (x : Fin V.n → Bool) (z : Fin (V.S + 1) → ZMod p) : Prop :=
   (∀ i, z (V.inputIdx i) = if x i then 1 else 0) ∧ z V.outputIdx = 1
 
-/-- Accepting computation on `x` (Definition 3.10). -/
+/-- Accepting computation on `x` (Definition 3.14). -/
 def IsAccepting (x : Fin V.n → Bool) (z : Fin (V.S + 1) → ZMod p) : Prop :=
   V.IsBooleanAssignment z ∧ V.IsValid z ∧ V.HasPrefix x z
 

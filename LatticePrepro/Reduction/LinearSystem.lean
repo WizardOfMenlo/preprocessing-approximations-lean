@@ -3,12 +3,12 @@ import LatticePrepro.Basic.Blocks
 /-!
 # Linear systems with a fixed matrix
 
-A *linear system family* with a fixed matrix (cf. Section 2 of the paper) is a linear map
+A *linear system family* with a fixed matrix (cf. Section 3 of the paper) is a linear map
 `A : (ι → F) →ₗ[F] W` together with a right-hand side `rhs x : W` for every instance `x`.
 The columns `ι` are partitioned into blocks by `blk : ι → β`. The matrix `A` does not depend
 on `x`; only `rhs x` does.
 
-The *block-sparse linear-system problem with preprocessing* (Definition 3.6) asks to distinguish
+The *block-sparse linear-system problem with preprocessing* (Definition 3.10) asks to distinguish
 
 * YES: `A v = rhs x` has a binary solution with at most one nonzero coordinate per block, from
 * NO: every solution `v` of `A v = rhs x` has Hamming weight `> g · D`,

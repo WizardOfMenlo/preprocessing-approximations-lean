@@ -29,3 +29,8 @@ import LatticePrepro.Lattices.Distance
 import LatticePrepro.Lattices.Mathlib
 import LatticePrepro.Main
 import LatticePrepro.ThreeSAT
+import LatticePrepro.Explicit
+import LatticePrepro.PCP.Verifier
+import LatticePrepro.PCP.Code
+import LatticePrepro.PCP.Inequality
+import LatticePrepro.PCP.Reduction

@@ -2,7 +2,7 @@ import LatticePrepro.Basic.Blocks
 import LatticePrepro.Basic.Hamming
 
 /-!
-# Construction A (Lemma B.2)
+# Construction A (Lemma B.1)
 
 For a prime `p` and a code `𝒞 ⊆ 𝔽_p^M`, the lattice `Λ_𝒞 = {v ∈ ℤ^M : v mod p ∈ 𝒞}`.
 We also define the lift `liftZMod y ∈ {0, …, p-1}^M` of a word `y ∈ 𝔽_p^M`, and prove the

@@ -5,7 +5,7 @@ import LatticePrepro.Basic.Blocks
 
 Extension by zero along an injection `f : ι ↪ M` of coordinates, as a linear map
 `padMap f : (ι → F) →ₗ[F] (M → F)`. It preserves Hamming weights and distances, binary vectors,
-and block sparsity (when `f` respects blocks). This is the padding of the proof of Lemma 3.8,
+and block sparsity (when `f` respects blocks). This is the padding of the proof of Lemma 3.12,
 which makes every block of a code have size a power of two.
 -/
 

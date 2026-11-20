@@ -1,0 +1,27 @@
+[
+ {
+  "theorem_name": "LatticePrepro.ObliviousPCP.card_views_le",
+  "milestone_title": "Theorem 6.4 (size) — number of accepting views",
+  "milestone_description": "In the proof of Theorem 6.4 (size and time): since $\\mathcal V_r\\subseteq\\mathcal D_r\\times\\Sigma^{\\mathsf q}$, the number of accepting views satisfies $\\mathsf m\\le2^{\\mathsf R}\\cdot\\mathsf k\\cdot|\\Sigma|^{\\mathsf q}$, where $\\mathsf k=\\max_r|\\mathcal D_r|$ is the maximum number of predicates per random string. The milestone allows any upper bound $\\mathsf k$ on the sizes $|\\mathcal D_r|$."
+ },
+ {
+  "theorem_name": "LatticePrepro.mul_le_sum_of_sum_prod_inv_le",
+  "milestone_title": "Theorem 6.4, inequality (31) — the average list size",
+  "milestone_description": "In the soundness proof of Theorem 6.4, soundness of the PCP gives $\\mathsf s\\ge2^{-\\mathsf R}\\sum_r\\prod_{j=1}^{\\mathsf q}|\\Lambda_{u_{r,j}}|^{-1}$, and two applications of Jensen's inequality give $\\mathsf s\\ge\\overline\\Lambda^{-\\mathsf q}$ for the average list size $\\overline\\Lambda$ (31). The milestone is the passage from the first bound to the last, for arbitrary positive reals $\\lambda_{r,j}$ in place of the list sizes: if $(\\sum_r\\prod_j\\lambda_{r,j}^{-1})\\cdot t^{q}\\le|R|$ for some $t>0$, then $|R|\\cdot q\\cdot t\\le\\sum_r\\sum_j\\lambda_{r,j}$."
+ },
+ {
+  "theorem_name": "LatticePrepro.ObliviousPCP.codeDist_le_of_mem",
+  "milestone_title": "Theorem 6.4 (completeness) — instances in the language",
+  "milestone_description": "For Construction 6.2, if the PCP has perfect completeness, then for every $x\\in\\mathsf L(\\mathcal R)\\cap\\{0,1\\}^{n}$ the target satisfies $\\Delta(y_x,C)\\le Y$, where $Y=B\\cdot2^{\\mathsf R}\\cdot\\mathsf q$. The milestone is stated for an arbitrary language and instance set, and needs no hypothesis on the encoding map or on $\\Gamma$."
+ },
+ {
+  "theorem_name": "LatticePrepro.ObliviousPCP.lt_codeDist_of_not_mem",
+  "milestone_title": "Theorem 6.4 (soundness) — instances outside the language",
+  "milestone_description": "For Construction 6.2, suppose that the PCP has soundness error $0<\\mathsf s<1$, that $\\iota$ is injective and the code $\\iota(F^{\\mathsf m})$ has relative distance $\\delta$, and that $\\Gamma<\\delta\\cdot\\mathsf s^{-1/\\mathsf q}$ (28). Then for every $x\\in\\{0,1\\}^{n}\\setminus\\mathsf L(\\mathcal R)$ the target satisfies $\\Delta(y_x,C)>\\Gamma\\cdot Y$. The milestone assumes only $\\mathsf s>0$ and that every nonzero codeword of $\\iota(F^{\\mathsf m})$ has weight at least $\\delta\\cdot B$."
+ },
+ {
+  "theorem_name": "LatticePrepro.ObliviousPCP.pcp_reduction",
+  "milestone_title": "Theorem 6.4 — the reduction from query-oblivious PCPs",
+  "milestone_description": "For Construction 6.2, suppose that the PCP has instance-independent query locations and predicate families enumerable as in Definition 6.1, perfect completeness and soundness error $0<\\mathsf s<1$, that $\\iota$ is injective and the code $\\iota(F^{\\mathsf m})$ has relative distance $\\delta$, and that $\\Gamma<\\delta\\cdot\\mathsf s^{-1/\\mathsf q}$. Then $\\Delta(y_x,C)\\le Y$ for every $x\\in\\mathsf L(\\mathcal R)\\cap\\{0,1\\}^{n}$, $\\Delta(y_x,C)>\\Gamma\\cdot Y$ for every $x\\in\\{0,1\\}^{n}\\setminus\\mathsf L(\\mathcal R)$, and the code has block length $M=(|\\Sigma|+\\Gamma)\\cdot Y+1$ and depends only on the PCP, the encoding map and $\\Gamma$. The milestone states these three items; the running-time claims of the theorem are not formalized."
+ }
+]

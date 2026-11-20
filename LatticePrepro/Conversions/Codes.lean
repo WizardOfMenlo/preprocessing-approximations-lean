@@ -2,7 +2,7 @@ import LatticePrepro.Basic.Hamming
 import LatticePrepro.Reduction.LinearSystem
 
 /-!
-# From linear systems to codes (Lemma 3.7, Appendix B.1)
+# From linear systems to codes (Lemma 3.11, Appendix B.1)
 
 Given a linear system family `A · v = b_x` over `𝔽_p` with columns `ι`, we build a fixed code
 `𝒞 = ker A × {0} ⊆ 𝔽_p^{ι ⊕ ι}` and targets `y_x`: a solution `(v_0, 0)` of the system when one
@@ -60,20 +60,20 @@ section OfSystem
 
 variable {p : ℕ} [Fact p.Prime] {X : Type} (L : LinearSystemFamily (ZMod p) X)
 
-/-- The code `ker A × {0}` of Lemma 3.7. -/
+/-- The code `ker A × {0}` of Lemma 3.11. -/
 def LinearSystemFamily.code : Submodule (ZMod p) (L.ι ⊕ L.ι → ZMod p) :=
   LinearMap.ker ((L.A.comp (LinearMap.funLeft (ZMod p) (ZMod p) Sum.inl)).prod
     (LinearMap.funLeft (ZMod p) (ZMod p) Sum.inr))
 
 open Classical in
-/-- The target `y_x` of Lemma 3.7. -/
+/-- The target `y_x` of Lemma 3.11. -/
 noncomputable def LinearSystemFamily.codeTarget (x : X) : L.ι ⊕ L.ι → ZMod p :=
   if h : ∃ v, L.IsSolution x v then Sum.elim h.choose 0 else Sum.elim 0 1
 
 /-- The block of a code coordinate. -/
 def LinearSystemFamily.codeBlk : L.ι ⊕ L.ι → L.β ⊕ L.β := Sum.map L.blk L.blk
 
-/-- The code family of Lemma 3.7 over the prime field. -/
+/-- The code family of Lemma 3.11 over the prime field. -/
 noncomputable def LinearSystemFamily.toCodeFamily : CodeFamily (ZMod p) X where
   M := L.ι ⊕ L.ι
   code := L.code
@@ -117,7 +117,7 @@ lemma LinearSystemFamily.card_codeBlk_fiber (s : L.β ⊕ L.β) :
     simp only [LinearSystemFamily.codeBlk, Sum.map_inl, Sum.map_inr, Sum.inr.injEq, reduceCtorEq,
       ite_false, Finset.sum_const_zero, zero_add]
 
-/-- YES instances (equation (B.1)): a binary block-sparse error vector of weight `≤ D`. -/
+/-- YES instances (equation (38)): a binary block-sparse error vector of weight `≤ D`. -/
 theorem LinearSystemFamily.code_yes {x : X} (hx : L.IsYes x) :
     ∃ e : L.ι ⊕ L.ι → ZMod p, IsBinary e ∧ AtMostOnePerBlock L.codeBlk e ∧
       hammingNorm e ≤ L.numBlocks ∧ L.codeTarget x - e ∈ L.code := by
@@ -141,7 +141,7 @@ theorem LinearSystemFamily.code_yes {x : X} (hx : L.IsYes x) :
       funext i; simp
     rw [this, map_sub, h0, hv, sub_self]
 
-/-- NO instances (equation (B.1)): every codeword is far from the target. -/
+/-- NO instances (equation (38)): every codeword is far from the target. -/
 theorem LinearSystemFamily.code_no {g : ℕ} (hg : g < L.blockSize) (hD : 0 < L.numBlocks) {x : X}
     (hx : L.IsNo g x) :
     ∀ c ∈ L.code, g * L.numBlocks < hammingDist (L.codeTarget x) c := by
@@ -234,7 +234,7 @@ lemma CodeFamily.exists_retract_mem (C : CodeFamily (ZMod p) X) (ρ : F →ₗ[Z
   ring
 
 /-- Extending scalars preserves the distance from a target over `𝔽_p` to the code
-(proof of Lemma 3.7). -/
+(proof of Lemma 3.11). -/
 theorem CodeFamily.codeDist_extend [DecidableEq F] (C : CodeFamily (ZMod p) X) (x : X) :
     CodeFamily.codeDist ((C.extend F).target x) (C.extend F).code =
       CodeFamily.codeDist (C.target x) C.code := by

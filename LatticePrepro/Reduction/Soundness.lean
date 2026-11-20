@@ -7,7 +7,7 @@ For a solution `v` of weight below the threshold `r · D / 2`, every table repre
 coefficient function on `Ω`, and these functions have fewer than `r` support points in total.
 The encoding, gate and translation identities then hold pointwise (by the Vandermonde
 identification lemma), the main function is supported on encodings of valid assignments
-(Lemma 4.8), and summing the translation identity over the coset of assignments with prefix
+(Lemma 4.7), and summing the translation identity over the coset of assignments with prefix
 `(x, 1)` exhibits an accepting computation on `x`.
 
 The final results `mem_language_of_solves`, `sound` and `isGapReduction` live at the end of this
@@ -52,7 +52,7 @@ lemma algebraMap_smul_eq (c : ZMod p) (y : K) :
     algebraMap K Ω (c • y) = c • algebraMap K Ω y := by
   rw [Algebra.smul_def, Algebra.smul_def, map_mul, ← IsScalarTower.algebraMap_apply]
 
-/-! ### Lemma 4.8: recovering an assignment at a support point -/
+/-! ### Lemma 4.7: recovering an assignment at a support point -/
 
 /-- A vanishing `𝔽_p`-combination of the images of the `E_i` in `Ω` has zero coefficients
 (except possibly at the constant index `0`). -/
@@ -64,7 +64,7 @@ lemma coeff_eq_zero_of_sum_smul_algebraMap {c : Fin (V.S + 1) → ZMod p}
     exact Finset.sum_congr rfl fun i _ => algebraMap_smul_eq _ _
   exact ε.eq_zero_of_sum_smul_eq_zero h' i hi
 
-/-- **Lemma 4.8** (pointwise form). Values `Fv i j ∈ 𝔽_p` at a point `α` that are symmetric,
+/-- **Lemma 4.7** (pointwise form). Values `Fv i j ∈ 𝔽_p` at a point `α` that are symmetric,
 satisfy `Fv i i = Fv i 0`, the encoding identities and the gate identities, with `Fv 0 0 ≠ 0`,
 come from a Boolean valid assignment `z` with `enc z = α`. -/
 theorem recover {Fv : Fin (V.S + 1) → Fin (V.S + 1) → ZMod p}

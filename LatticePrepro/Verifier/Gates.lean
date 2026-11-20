@@ -1,7 +1,7 @@
 import LatticePrepro.Verifier.Quadratic
 
 /-!
-# Gate verifiers and quadratic gate equations (Definitions 3.9–3.10, Claim 3.11)
+# Gate verifiers and quadratic gate equations (Definitions 3.13–3.14, Claim 3.15)
 
 A *gate verifier* is a system of Boolean constraints `z_o = f(z_l, z_{l'})` with fan-in two on
 wires `Fin S`: wires `0, …, n-1` carry the instance, wire `n` is the output wire, and the remaining
@@ -9,7 +9,7 @@ wires carry the witness and the gate outputs. An assignment is *valid* if every 
 holds, and the language consists of the instances `x` with a valid assignment with prefix
 `(x, true)`.
 
-Following Claim 3.11, each gate function `f : Bool → Bool → Bool` is interpolated by the
+Following Claim 3.15, each gate function `f : Bool → Bool → Bool` is interpolated by the
 multilinear polynomial `a + b u + c v + d u v` with integer coefficients, and the gate constraint
 becomes the homogeneous quadratic equation
 `z_0 z_o - a z_0 z_0 - b z_0 z_l - c z_0 z_{l'} - d z_l z_{l'} = 0`
@@ -49,7 +49,7 @@ lemma quadForm_deltaTensor (i₀ j₀ : Fin m) (c : R) (z : Fin m → R) :
 
 end QuadForm
 
-/-- A verifier given by Boolean gates of fan-in two on wires `Fin S` (Definition 3.9):
+/-- A verifier given by Boolean gates of fan-in two on wires `Fin S` (Definition 3.13):
 wires `0, …, n - 1` are the inputs, wire `n` is the output, and each gate
 `(o, l, l', f)` imposes `z o = f (z l) (z l')`. -/
 structure GateVerifier where
@@ -91,7 +91,7 @@ def outputWire : Fin W.S := ⟨W.n, by have := W.n_succ_le; omega⟩
 def HasPrefix (x : Fin W.n → Bool) (z : Fin W.S → Bool) : Prop :=
   (∀ i, z (W.inputWire i) = x i) ∧ z W.outputWire = true
 
-/-- The language of the gate verifier (Definition 3.9). -/
+/-- The language of the gate verifier (Definition 3.13). -/
 def Language : Set (Fin W.n → Bool) := {x | ∃ z, W.IsValid z ∧ W.HasPrefix x z}
 
 /-! ### Multilinear interpolation of a gate function -/
@@ -116,7 +116,7 @@ lemma toNat_eq_interp (f : Bool → Bool → Bool) (u v : Bool) :
 
 /-! ### The quadratic verifier of a gate verifier -/
 
-/-- The quadratic verifier of Claim 3.11: the gate `(o, l, l', f)` becomes the equation
+/-- The quadratic verifier of Claim 3.15: the gate `(o, l, l', f)` becomes the equation
 `z_0 z_o - a z_0 z_0 - b z_0 z_l - c z_0 z_{l'} - d z_l z_{l'} = 0`. -/
 abbrev toQuadratic (p : ℕ) : QuadraticVerifier p where
   n := W.n
@@ -220,7 +220,7 @@ lemma eq_lift_toBits {z' : Fin (W.S + 1) → ZMod p}
       simp [this]
     · rw [h]; simp
 
-/-- **Claim 3.11**: the quadratic verifier accepts the same language. -/
+/-- **Claim 3.15**: the quadratic verifier accepts the same language. -/
 theorem language_toQuadratic : (W.toQuadratic p).Language = W.Language := by
   ext x
   simp only [QuadraticVerifier.Language, Language, Set.mem_ofPred_eq, QuadraticVerifier.IsAccepting]

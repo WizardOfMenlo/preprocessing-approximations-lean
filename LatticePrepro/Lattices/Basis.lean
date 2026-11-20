@@ -5,7 +5,7 @@ import Mathlib
 
 A `ℤ`-submodule `Λ ⊆ ℤ^M` containing `N · ℤ^M` for some `N > 0` is a full-rank lattice:
 it has a `ℤ`-basis indexed by `Fin |M|`. This is the "integer basis" form in which the paper's
-lattices are given (Lemma B.2, equation (B.2)); we only prove existence.
+lattices are given (Lemma B.1, equation (40)); we only prove existence.
 -/
 
 namespace LatticePrepro

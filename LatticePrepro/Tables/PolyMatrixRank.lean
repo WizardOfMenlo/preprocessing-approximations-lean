@@ -1,7 +1,7 @@
 import LatticePrepro.Basic.Matrix
 
 /-!
-# Rank of a polynomial matrix versus its evaluations (Lemma A.5, first part)
+# Rank of a polynomial matrix versus its evaluations (Lemma A.6, first part)
 
 Let `H` be a square matrix over `𝕊[X]`, `𝕊` a finite field with `q` elements, whose entries have
 degree at most `Δ`, and let `γ` be an element of an extension field `K` of `𝕊`. Then
@@ -19,7 +19,7 @@ namespace LatticePrepro
 
 open Polynomial Matrix
 
-/-- **Lemma A.5 (rank bound)**, stated without natural-number subtraction:
+/-- **Lemma A.6 (rank bound)**, stated without natural-number subtraction:
 `q · rank H(γ) ≤ ∑_s rank H(s) + Δ · rank H(γ)`. -/
 theorem card_mul_rank_eval_le {𝕊 : Type*} [Field 𝕊] [Fintype 𝕊] [DecidableEq 𝕊]
     {K : Type*} [Field K] [Algebra 𝕊 K] (γ : K) {ℓ Δ : ℕ}

@@ -5,7 +5,7 @@ import LatticePrepro.Lattices.Distance
 /-!
 # Testing search outputs (Lemma 5.2)
 
-For the code instances of Lemma 3.7 and the lattice instances of Lemma 3.8, a returned vector can
+For the code instances of Lemma 3.11 and the lattice instances of Lemma 3.12, a returned vector can
 be tested: it is *accepted* if it lies in the code or lattice and its residual weight `w` is at
 most `g · D`, where `w = dist(t_x, v)` for codes and `w` is the residual weight of the
 `LatticeReduction` for lattices. Then

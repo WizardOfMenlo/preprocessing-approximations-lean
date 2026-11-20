@@ -64,6 +64,11 @@ info: 'LatticePrepro.ThreeSAT.exists_lattice_gap' depends on axioms: [propext, C
 #guard_msgs in #print axioms LatticePrepro.ThreeSAT.exists_lattice_gap
 
 /--
+info: 'LatticePrepro.ThreeSAT.fixed_code_and_lattice_gaps' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in #print axioms LatticePrepro.ThreeSAT.fixed_code_and_lattice_gaps
+
+/--
 info: 'LatticePrepro.LatticeReduction.accepts_of_isApprox' depends on axioms: [propext, Classical.choice, Quot.sound]
 -/
 #guard_msgs in #print axioms LatticePrepro.LatticeReduction.accepts_of_isApprox
@@ -87,3 +92,33 @@ info: 'LatticePrepro.GateVerifier.language_toQuadratic' depends on axioms: [prop
 info: 'LatticePrepro.BoolCircuit.language_toGateVerifier' depends on axioms: [propext, Classical.choice, Quot.sound]
 -/
 #guard_msgs in #print axioms LatticePrepro.BoolCircuit.language_toGateVerifier
+
+/--
+info: 'LatticePrepro.ObliviousPCP.pcp_reduction' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in #print axioms LatticePrepro.ObliviousPCP.pcp_reduction
+
+/--
+info: 'LatticePrepro.ObliviousPCP.card_views_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in #print axioms LatticePrepro.ObliviousPCP.card_views_le
+
+/--
+info: 'LatticePrepro.QuadraticVerifier.Tables.codeFamily_hasGap' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in #print axioms LatticePrepro.QuadraticVerifier.Tables.codeFamily_hasGap
+
+/--
+info: 'LatticePrepro.QuadraticVerifier.Tables.latticeFamily_hasGap' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in #print axioms LatticePrepro.QuadraticVerifier.Tables.latticeFamily_hasGap
+
+/--
+info: 'LatticePrepro.QuadraticVerifier.Tables.nonempty' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in #print axioms LatticePrepro.QuadraticVerifier.Tables.nonempty
+
+/--
+info: 'LatticePrepro.ThreeSAT.explicit_code_and_lattice_gaps' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in #print axioms LatticePrepro.ThreeSAT.explicit_code_and_lattice_gaps

@@ -3,24 +3,27 @@ import LatticePrepro.Reduction.Soundness
 import LatticePrepro.Tables.Explicit
 import LatticePrepro.Conversions.Codes
 import LatticePrepro.Conversions.Lattices
-import LatticePrepro.Conversions.SearchTest
 import LatticePrepro.Lattices.Distance
 import LatticePrepro.Lattices.Mathlib
 
 /-!
 # Main results
 
-* **Theorem 4.7** (`GapReduction`, `exists_gapReduction`): for every prime `p`, quadratic
+* **Theorem 4.8** (`GapReduction`, `exists_gapReduction`): for every prime `p`, quadratic
   verifier `V` with `S` coordinates, gap `g ≥ 1` and `m ≥ 1`, there is a linear system family
   over `𝔽_p` that is a gap reduction from the language of `V` with gap `g`, with `g < b` and
   `n^m ≤ (8 p^4 m (S+1))^{(m+7) m} · g^{m+1}` columns.
 * **Theorem 5.1** (`CodeGap`, `LatticeGap`, `code_gap`, `lattice_gap`, `exists_code_gap`,
   `exists_lattice_gap`): fixed codes over any finite field, and fixed lattices in any `ℓ_p`
   norm, with polynomial dimension `M ≤ (S + 1)^C` and approximation gap `M^{1/s - ε}` measured
-  by `dist(t_x, 𝒞)` and `dist_p(t_x, Λ)`, together with the search test of Lemma 5.2. The
-  exponent `C = sizeExp p δ` is explicit (`δ = 1 - s ε`).
+  by `dist(t_x, 𝒞)` and `dist_p(t_x, Λ)`. The exponent `C = sizeExp p δ` is explicit
+  (`δ = 1 - s ε`).
 
-The polynomial-time computability claims of the paper are not formalized.
+The polynomial-time computability claims of the paper are not formalized. In particular the
+search test of Lemma 5.2 is stated for the concrete tests `CodeFamily.Accepts` and
+`LatticeReduction.Accepts` (`Conversions/SearchTest.lean`) rather than as a field of `CodeGap` and
+`LatticeGap`: without its running-time bound, an abstract "test" field would be satisfiable by
+the membership predicate of `Lang` itself.
 -/
 
 namespace LatticePrepro
@@ -39,9 +42,9 @@ def EncodingTuple.castLE {p : ℕ} [Fact p.Prime] {K : Type} [Field K] [Algebra 
     simp only [Function.comp]
     rfl
 
-/-! ### Theorem 4.7 -/
+/-! ### Theorem 4.8 -/
 
-/-- Exponent bookkeeping for the size bound of Theorem 4.7. -/
+/-- Exponent bookkeeping for the size bound of Theorem 4.8. -/
 lemma size_bound_aux {p m S N q B g : ℕ} (hp : 2 ≤ p) (hm : 1 ≤ m) (hS : 1 ≤ S)
     (hN : N ≤ (S + 1) ^ 2) (hq : q ≤ 8 * p ^ 3 * m * (S + 1) * B)
     (hB : B ^ m ≤ p ^ m * (8 * N * g)) :
@@ -80,7 +83,7 @@ lemma size_bound_aux {p m S N q B g : ℕ} (hp : 2 ≤ p) (hm : 1 ≤ m) (hS : 1
     _ = (8 * p ^ 4 * m * (S + 1)) ^ ((m + 7) * m) * g ^ (m + 1) := by
         rw [hpX]; ring_nf
 
-/-- The output of Theorem 4.7 for a verifier `V`, a gap `g` and `m ≥ 1`: a linear system family
+/-- The output of Theorem 4.8 for a verifier `V`, a gap `g` and `m ≥ 1`: a linear system family
 `L` over `𝔽_p` that is a gap reduction from `L(V)` with gap `g < b` (`b` a power of `p`), with at
 least one block and `n^m ≤ (8 p^4 m (S + 1))^{(m+7) m} · g^{m+1}` columns. -/
 structure GapReduction (p : ℕ) [Fact p.Prime] (V : QuadraticVerifier p) (g m : ℕ) where
@@ -92,7 +95,7 @@ structure GapReduction (p : ℕ) [Fact p.Prime] (V : QuadraticVerifier p) (g m :
   numBlocks_pos : 0 < L.numBlocks
   card_pow_le : (Fintype.card L.ι) ^ m ≤ (8 * p ^ 4 * m * (V.S + 1)) ^ ((m + 7) * m) * g ^ (m + 1)
 
-/-- **Theorem 4.7** (size and gap), existence form. -/
+/-- **Theorem 4.8** (size and gap), existence form. -/
 theorem exists_gapReduction (p : ℕ) [hp : Fact p.Prime] (V : QuadraticVerifier p) (g m : ℕ)
     (hg : 1 ≤ g) (hm : 1 ≤ m) : Nonempty (GapReduction p V g m) := by
   have hp2 : 2 ≤ p := hp.out.two_le
@@ -144,7 +147,7 @@ theorem exists_gapReduction (p : ℕ) [hp : Fact p.Prime] (V : QuadraticVerifier
 
 For a gap exponent `0 ≤ δ < 1` we choose `m` with `δ (1 + 1/m) < 1`, then the gap `g = (S+1)^k`
 with `k` large enough that `64 · n^δ ≤ g`, and the size exponent `C` with `4 n ≤ (S+1)^C`, where
-`n^m ≤ (8 p^4 m (S+1))^{(m+7) m} g^{m+1}` is the column bound of Theorem 4.7. All three
+`n^m ≤ (8 p^4 m (S+1))^{(m+7) m} g^{m+1}` is the column bound of Theorem 4.8. All three
 constants are explicit functions of `p` and `δ`. -/
 
 /-- The number of moment axes `m = ⌈δ / (1 - δ)⌉ + 1`, so that `δ (m + 1) < m`. -/
@@ -272,11 +275,9 @@ lemma rpow_le_of_le_four_mul {M n : ℕ} {g δ : ℝ} (hδ0 : 0 ≤ δ) (hδ1 : 
 /-! ### Theorem 5.1 for codes -/
 
 /-- A fixed code with gap `M^{1 - ε}` for a language `Lang ⊆ X` with size parameter `n` and
-exponent `C` (the conclusion of Theorem 5.1 for codes, together with the search test of
-Lemma 5.2): a code `𝒞 ⊆ F^M` with `1 ≤ M ≤ n^C`, targets `t_x` and an integer radius `R ≥ 1`
-such that `x ∈ Lang` implies `dist(t_x, 𝒞) ≤ R` and `x ∉ Lang` implies
-`dist(t_x, 𝒞) > M^{1 - ε} · R`; and a test accepting every `M^{1-ε}`-approximate solution on
-`x ∈ Lang` and rejecting every vector on `x ∉ Lang`. -/
+exponent `C` (the conclusion of Theorem 5.1 for codes): a code `𝒞 ⊆ F^M` with `1 ≤ M ≤ n^C`,
+targets `t_x` and an integer radius `R ≥ 1` such that `x ∈ Lang` implies `dist(t_x, 𝒞) ≤ R` and
+`x ∉ Lang` implies `dist(t_x, 𝒞) > M^{1 - ε} · R`. -/
 structure CodeGap (F : Type) [Field F] [DecidableEq F] (ε : ℝ) {X : Type} (Lang : Set X)
     (n C : ℕ) where
   /-- The fixed code and the targets. -/
@@ -289,11 +290,6 @@ structure CodeGap (F : Type) [Field F] [DecidableEq F] (ε : ℝ) {X : Type} (La
   yes : ∀ x ∈ Lang, CodeFamily.codeDist (𝒞.target x) 𝒞.code ≤ R
   no : ∀ x ∉ Lang,
     (Fintype.card 𝒞.M : ℝ) ^ (1 - ε) * R < CodeFamily.codeDist (𝒞.target x) 𝒞.code
-  /-- The test of Lemma 5.2. -/
-  accepts : X → (𝒞.M → F) → Prop
-  accepts_of_isApprox : ∀ x ∈ Lang, ∀ c,
-    𝒞.IsApprox ((Fintype.card 𝒞.M : ℝ) ^ (1 - ε)) x c → accepts x c
-  not_accepts : ∀ x ∉ Lang, ∀ c, ¬ accepts x c
 
 /-- Transport a fixed code gap along a map of instances that respects the languages. -/
 def CodeGap.comap {F : Type} [Field F] [DecidableEq F] {ε : ℝ} {X Y : Type} {Lang : Set X}
@@ -307,9 +303,6 @@ def CodeGap.comap {F : Type} [Field F] [DecidableEq F] {ε : ℝ} {X Y : Type} {
   card_le := G.card_le.trans hn
   yes := fun y hy => G.yes (f y) ((hf y).mpr hy)
   no := fun y hy => G.no (f y) (fun h => hy ((hf y).mp h))
-  accepts := fun y c => G.accepts (f y) c
-  accepts_of_isApprox := fun y hy c hc => G.accepts_of_isApprox (f y) ((hf y).mpr hy) c hc
-  not_accepts := fun y hy c => G.not_accepts (f y) (fun h => hy ((hf y).mp h)) c
 
 /-- **Theorem 5.1 for codes**, with the explicit exponent `C = sizeExp p (1 - ε)`: for every
 finite field `F` of characteristic `p`, every `0 < ε < 1` and every quadratic verifier `V` over
@@ -353,20 +346,9 @@ theorem code_gap (p : ℕ) [hp : Fact p.Prime] (F : Type) [Field F] [Fintype F]
           gcongr
           linarith [Real.rpow_nonneg (Nat.cast_nonneg (Fintype.card 𝒞.M)) (1 - ε)]
       _ < CodeFamily.codeDist (L.codeTarget x) L.code := by exact_mod_cast hlt
-  refine ⟨⟨𝒞, L.numBlocks, hDpos, ?_, ?_, hyes, hno, 𝒞.Accepts g L.numBlocks, ?_, ?_⟩⟩
+  refine ⟨⟨𝒞, L.numBlocks, hDpos, ?_, ?_, hyes, hno⟩⟩
   · rw [hM, Fintype.card_sum]; omega
   · rw [hM, Fintype.card_sum]; omega
-  · intro x hx c hc
-    refine 𝒞.accepts_of_isApprox (hyes x hx) ?_ hc
-    have := Real.rpow_nonneg (Nat.cast_nonneg (Fintype.card 𝒞.M)) (1 - ε)
-    linarith
-  · intro x hx c
-    refine 𝒞.not_accepts_of_lt ?_ c
-    have h1 := hno x hx
-    have h2 : (g : ℝ) * L.numBlocks < CodeFamily.codeDist (𝒞.target x) 𝒞.code := by
-      rw [hdist]
-      exact_mod_cast L.lt_codeDist_of_no hgb hDpos (hL.2 x hx)
-    exact_mod_cast h2
 
 /-- **Theorem 5.1 for codes**, paper form: for every finite field `F` of characteristic `p` and
 every `0 < ε < 1`, there is a constant `C` such that every quadratic verifier `V` over `𝔽_p`
@@ -381,12 +363,10 @@ theorem exists_code_gap (p : ℕ) [Fact p.Prime] (F : Type) [Field F] [Fintype F
 /-! ### Theorem 5.1 for lattices -/
 
 /-- A fixed lattice with gap `M^{1/s - ε}` in `ℓ_p` for a language `Lang ⊆ X` with size
-parameter `n` and exponent `C` (the conclusion of Theorem 5.1 for lattices, together with the
-search test of Lemma 5.2): a full-rank lattice `Λ ⊆ ℤ^M` (containing `N · ℤ^M`) with
-`1 ≤ M ≤ n^C`, integer targets `t_x` and an integer radius `R ≥ 1` such that `x ∈ Lang` implies
-`dist_p(t_x, Λ) ≤ R` and `x ∉ Lang` implies `dist_p(t_x, Λ) > M^{1/s - ε} · R`; and a test
-accepting every `M^{1/s-ε}`-approximate solution on `x ∈ Lang` and rejecting every vector on
-`x ∉ Lang`. -/
+parameter `n` and exponent `C` (the conclusion of Theorem 5.1 for lattices): a full-rank lattice
+`Λ ⊆ ℤ^M` (containing `N · ℤ^M`) with `1 ≤ M ≤ n^C`, integer targets `t_x` and an integer radius
+`R ≥ 1` such that `x ∈ Lang` implies `dist_p(t_x, Λ) ≤ R` and `x ∉ Lang` implies
+`dist_p(t_x, Λ) > M^{1/s - ε} · R`. -/
 structure LatticeGap (pn : PNorm) (ε : ℝ) {X : Type} (Lang : Set X) (n C : ℕ) where
   /-- The fixed lattice and the targets. -/
   Λ : LatticeFamily X
@@ -401,11 +381,6 @@ structure LatticeGap (pn : PNorm) (ε : ℝ) {X : Type} (Lang : Set X) (n C : �
   smul_mem : ∀ v : Λ.M → ℤ, (N : ℤ) • v ∈ Λ.lattice
   yes : ∀ x ∈ Lang, Λ.latticeDist pn x ≤ R
   no : ∀ x ∉ Lang, (Fintype.card Λ.M : ℝ) ^ (1 / pn.s - ε) * R < Λ.latticeDist pn x
-  /-- The test of Lemma 5.2. -/
-  accepts : X → (Λ.M → ℤ) → Prop
-  accepts_of_isApprox : ∀ x ∈ Lang, ∀ v ∈ Λ.lattice,
-    Λ.dist pn x v ≤ (Fintype.card Λ.M : ℝ) ^ (1 / pn.s - ε) * Λ.latticeDist pn x → accepts x v
-  not_accepts : ∀ x ∉ Lang, ∀ v, ¬ accepts x v
 
 namespace LatticeGap
 
@@ -438,9 +413,6 @@ def comap {Y : Type} {Lang' : Set Y} (f : Y → X) (hf : ∀ y, f y ∈ Lang ↔
   smul_mem := G.smul_mem
   yes := fun y hy => G.yes (f y) ((hf y).mpr hy)
   no := fun y hy => G.no (f y) (fun h => hy ((hf y).mp h))
-  accepts := fun y v => G.accepts (f y) v
-  accepts_of_isApprox := fun y hy v hv h => G.accepts_of_isApprox (f y) ((hf y).mpr hy) v hv h
-  not_accepts := fun y hy v => G.not_accepts (f y) (fun h => hy ((hf y).mp h)) v
 
 end LatticeGap
 
@@ -476,10 +448,6 @@ theorem lattice_gap (pn : PNorm) (ε : ℝ) (hε : 0 < ε) (hε1 : ε < 1 / pn.s
   have h2n : 2 * n ≤ Fintype.card Λ.M := Red.two_mul_card_le
   have hMδ : 16 * (Fintype.card Λ.M : ℝ) ^ δ ≤ g := rpow_le_of_le_four_mul hδ0 hδ1.le hM4 h64
   have hexp : δ * (pn.s)⁻¹ = 1 / pn.s - ε := by rw [hδ]; field_simp
-  have hMpos : (0 : ℝ) ≤ Fintype.card Λ.M := by positivity
-  -- `M^{1/s - ε}` raised to the `s`-th power is `M^δ`
-  have hfs : ((Fintype.card Λ.M : ℝ) ^ (1 / pn.s - ε)) ^ pn.s = (Fintype.card Λ.M : ℝ) ^ δ := by
-    rw [← hexp, ← Real.rpow_mul hMpos, inv_mul_cancel_right₀ hs0.ne']
   have hRR : (0 : ℝ) < Red.R := by exact_mod_cast Red.one_le_R
   have hDR : (0 : ℝ) < L.numBlocks := by exact_mod_cast hDpos
   -- NO instances: every lattice vector is far from the target
@@ -506,11 +474,7 @@ theorem lattice_gap (pn : PNorm) (ε : ℝ) (hε : 0 < ε) (hε1 : ε < 1 / pn.s
     exact h3
   refine ⟨⟨Λ, Red.R, Red.one_le_R, by omega, by omega, Red.N, Red.N_pos, Red.smul_mem,
     fun x hx => Λ.latticeDist_le_of_exists pn x (Red.yes x (hL.1 x hx)),
-    fun x hx => Λ.lt_latticeDist_of_forall pn x (hno x hx), Red.Accepts, ?_, ?_⟩⟩
-  · intro x hx v hv happrox
-    exact Red.accepts_of_isApprox (by positivity) (by rw [hfs]; exact hMδ) (hL.1 x hx) ⟨hv, happrox⟩
-  · intro x hx v
-    exact Red.not_accepts_of_isNo (hL.2 x hx) v
+    fun x hx => Λ.lt_latticeDist_of_forall pn x (hno x hx)⟩⟩
 
 /-- **Theorem 5.1 for lattices**, paper form: for every norm exponent `1 ≤ p ≤ ∞` with
 `s = min {p, 2}` and every `0 < ε < 1/s`, there is a constant `C` such that every quadratic

@@ -1,7 +1,7 @@
 import Mathlib
 
 /-!
-# Walsh–Hadamard matrices and the block Hadamard map (Lemma B.3)
+# Walsh–Hadamard matrices and the block Hadamard map (Lemma B.2)
 
 The Walsh–Hadamard matrix of order `2^k` is indexed by `Idx k = Fin k → ZMod 2`, with entries
 `wh u w = (-1)^{⟨u, w⟩}`. It is symmetric with `H * H = 2^k • 1`. The block Hadamard map

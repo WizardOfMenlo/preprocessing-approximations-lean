@@ -10,7 +10,7 @@ import LatticePrepro.Tables.ElementTable
 import LatticePrepro.Tables.TableSoundness
 
 /-!
-# Explicit moment representations (Construction A.4, Theorem A.7)
+# Explicit moment representations (Construction A.4, Theorem A.8)
 
 For a prime `p` and integers `S ≥ 2`, `m ≥ 1`, `B ≥ 2`, we construct a finite field `K` of
 characteristic `p`, an encoding tuple `ε` of length `S` over `K`, and a moment representation
@@ -116,7 +116,7 @@ theorem rep_sound (hB : 2 ≤ B) (hm : 1 ≤ m)
 
 variable (FS m B)
 
-/-- The explicit moment representation (Theorem A.7, representation part). -/
+/-- The explicit moment representation (Theorem A.8, representation part). -/
 noncomputable def rep (hB : 2 ≤ B) (hm : 1 ≤ m)
     (hΔ : 4 * degBound p m B δ < Fintype.card FS.𝕊) :
     MomentRepresentation p FS.K (AlgebraicClosure FS.K) where
@@ -140,7 +140,7 @@ noncomputable def rep (hB : 2 ≤ B) (hm : 1 ≤ m)
 
 end ExplicitTables
 
-/-- The output of Theorem A.7: a field `K` of characteristic `p`, an encoding tuple of length `S`
+/-- The output of Theorem A.8: a field `K` of characteristic `p`, an encoding tuple of length `S`
 over `K`, and a moment representation over `K` with `r = B^m` and `q` blocks of size `q^m`, where
 `q` is a power of `p` with `B ≤ q < 8 p^3 m S B`. -/
 structure ExplicitMomentRepresentation (p : ℕ) [Fact p.Prime] (S m B : ℕ) where
@@ -164,7 +164,7 @@ structure ExplicitMomentRepresentation (p : ℕ) [Fact p.Prime] (S m B : ℕ) wh
 attribute [instance] ExplicitMomentRepresentation.fieldK ExplicitMomentRepresentation.algK
 
 open ExplicitTables in
-/-- **Theorem A.7** (explicit moment representations), existence form. -/
+/-- **Theorem A.8** (explicit moment representations), existence form. -/
 theorem exists_explicit_momentRepresentation (p : ℕ) [Fact p.Prime] (S m B : ℕ)
     (hS : 2 ≤ S) (hm : 1 ≤ m) (hB : 2 ≤ B) : Nonempty (ExplicitMomentRepresentation p S m B) := by
   have hp : 2 ≤ p := (Fact.out : p.Prime).two_le

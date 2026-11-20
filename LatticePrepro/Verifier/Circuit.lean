@@ -1,7 +1,7 @@
 import LatticePrepro.Verifier.Gates
 
 /-!
-# Boolean circuits (Definitions 3.9–3.10)
+# Boolean circuits (Definitions 3.13–3.14)
 
 A `BoolCircuit` has `n` input wires, `w` witness wires and `g` gates of fan-in two in topological
 order: gate `k` reads two of the first `n + w + k` wires and writes wire `n + w + k`. A designated
@@ -9,7 +9,7 @@ gate is the output. Evaluation (`evalAux`) is defined by well-founded recursion 
 and the accepted language consists of the instances `x` for which some witness makes the output
 wire `true`.
 
-Reordering the wires as in Definition 3.10 (inputs, then the output wire, then the remaining
+Reordering the wires as in Definition 3.14 (inputs, then the output wire, then the remaining
 wires in order) turns a circuit into a `GateVerifier` with the same language
 (`BoolCircuit.language_toGateVerifier`): the valid wire assignments of the gate verifier are
 exactly the evaluations of the circuit.
@@ -141,7 +141,7 @@ def inWire1 (k : Fin C.g) : Fin C.S :=
 def inWire2 (k : Fin C.g) : Fin C.S :=
   ⟨(C.gateIn k).2.val, by have := (C.gateIn k).2.isLt; have := k.isLt; show _ < C.n + C.w + C.g; omega⟩
 
-/-- The gate verifier of a circuit (Definition 3.10): the coordinates list the inputs, then the
+/-- The gate verifier of a circuit (Definition 3.14): the coordinates list the inputs, then the
 output wire, then the remaining wires in order. -/
 abbrev toGateVerifier : GateVerifier where
   n := C.n

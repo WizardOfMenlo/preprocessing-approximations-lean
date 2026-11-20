@@ -13,7 +13,7 @@ The lattice statements of the main theorems are phrased with our own `PNorm.norm
   (`LatticeFamily.latticeDist_eq_infDist`);
 * the real image `LatticeFamily.realLattice ⊆ ℝ^M` of the lattice is discrete, and it is an
   `IsZLattice` (a discrete subgroup spanning `ℝ^M`) whenever it contains `N · ℤ^M` for some `N > 0`
-  (`LatticeFamily.isZLattice_realLattice`), which is the full-rank condition of Lemma 3.8.
+  (`LatticeFamily.isZLattice_realLattice`), which is the full-rank condition of Lemma 3.12.
 -/
 
 namespace LatticePrepro
@@ -139,7 +139,7 @@ instance discreteTopology_realLattice : DiscreteTopology Λ.realLattice := by
     (continuous_subtype_val.subtype_mk _) (Submodule.inclusion_injective _)
 
 /-- A lattice containing `N · ℤ^M` for some `N > 0` is an `IsZLattice`: a discrete `ℤ`-submodule
-of `ℝ^M` spanning `ℝ^M` (the full-rank condition of Lemma 3.8). -/
+of `ℝ^M` spanning `ℝ^M` (the full-rank condition of Lemma 3.12). -/
 theorem isZLattice_realLattice {N : ℕ} (hN : 0 < N)
     (h : ∀ v : Λ.M → ℤ, (N : ℤ) • v ∈ Λ.lattice) : IsZLattice ℝ Λ.realLattice := by
   refine ⟨eq_top_iff.mpr ?_⟩
